@@ -1,0 +1,4780 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="theme-color"
+    content="#173f32"
+>
+
+<title>LDK — Contrôle Expédition</title>
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+
+<style>
+
+/* =========================================================
+   LDK — CONTRÔLE EXPÉDITION
+   V2 — DESKTOP + MOBILE FIRST
+========================================================= */
+
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html{
+    scroll-behavior:smooth;
+    width:100%;
+    overflow-x:hidden;
+}
+
+body{
+    margin:0;
+    width:100%;
+    min-height:100vh;
+
+    background:#f6f7f4;
+
+    color:#111512;
+
+    font-family:
+        Inter,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    -webkit-font-smoothing:antialiased;
+    text-rendering:geometricPrecision;
+
+    overflow-x:hidden;
+}
+
+button,
+input,
+textarea{
+    font:inherit;
+}
+
+button{
+    -webkit-appearance:none;
+}
+
+:root{
+
+    --green:#173f32;
+    --green-2:#235646;
+    --green-3:#dfe9e4;
+
+    --green-light:#edf4f0;
+
+    --black:#111512;
+
+    --grey:#68716c;
+    --grey-2:#9aa29d;
+
+    --white:#ffffff;
+    --off:#f6f7f4;
+    --paper:#fbfcfa;
+
+    --border:#dfe4df;
+
+    --red:#a83d35;
+    --red-bg:#faecea;
+
+    --yellow:#a87518;
+    --yellow-bg:#fbf3df;
+
+    --shadow:
+        0 24px 70px rgba(17,21,18,.09);
+
+    --shadow-small:
+        0 10px 30px rgba(17,21,18,.07);
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+#intro{
+
+    position:fixed;
+    inset:0;
+
+    z-index:9999;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:25px;
+
+    background:#f7f8f5;
+
+    transition:
+        opacity .7s ease,
+        visibility .7s ease;
+}
+
+#intro.hide{
+
+    opacity:0;
+    visibility:hidden;
+}
+
+.intro-inner{
+
+    width:min(850px,100%);
+
+    text-align:center;
+
+    animation:introIn .8s ease both;
+}
+
+@keyframes introIn{
+
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+
+/* =========================================================
+   INTRO LOGO
+========================================================= */
+
+.intro-logo{
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    gap:28px;
+
+    margin-bottom:55px;
+}
+
+.intro-logo img{
+
+    width:110px;
+    height:110px;
+
+    object-fit:contain;
+
+    border-radius:20px;
+}
+
+.intro-logo-text{
+    text-align:left;
+}
+
+.intro-logo-text strong{
+
+    display:block;
+
+    font-size:58px;
+    line-height:.85;
+
+    letter-spacing:-.07em;
+
+    font-weight:900;
+
+    color:var(--green);
+}
+
+.intro-logo-text span{
+
+    display:block;
+
+    margin-top:12px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    letter-spacing:.16em;
+
+    text-transform:uppercase;
+
+    color:var(--grey);
+}
+
+.intro-overline{
+
+    font-size:13px;
+
+    font-weight:800;
+
+    letter-spacing:.2em;
+
+    text-transform:uppercase;
+
+    color:var(--green);
+
+    margin-bottom:20px;
+}
+
+.intro-title{
+
+    margin:0;
+
+    font-size:
+        clamp(60px,9vw,110px);
+
+    line-height:.88;
+
+    letter-spacing:-.075em;
+
+    font-weight:900;
+}
+
+.intro-title span{
+    color:var(--green);
+}
+
+.intro-line{
+
+    width:100px;
+    height:4px;
+
+    margin:35px auto;
+
+    background:var(--green);
+
+    border-radius:20px;
+}
+
+.intro-status{
+
+    font-size:13px;
+
+    font-weight:600;
+
+    color:var(--grey);
+}
+
+
+/* =========================================================
+   PORTAL
+========================================================= */
+
+#portal{
+
+    min-height:100vh;
+    min-height:100dvh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:
+        60px 25px;
+
+    position:relative;
+
+    opacity:0;
+
+    transform:translateY(15px);
+
+    pointer-events:none;
+
+    transition:.7s ease;
+
+    overflow:hidden;
+}
+
+#portal.show{
+
+    opacity:1;
+
+    transform:none;
+
+    pointer-events:auto;
+}
+
+.portal-bg{
+
+    position:absolute;
+    inset:0;
+
+    overflow:hidden;
+
+    pointer-events:none;
+}
+
+.portal-bg::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:700px;
+    height:700px;
+
+    top:-300px;
+    right:-200px;
+
+    border-radius:50%;
+
+    background:#e1ebe6;
+}
+
+.portal-bg::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:550px;
+    height:550px;
+
+    bottom:-300px;
+    left:-200px;
+
+    border-radius:50%;
+
+    background:#e8ece8;
+}
+
+.portal-content{
+
+    width:min(1050px,100%);
+
+    position:relative;
+
+    z-index:2;
+}
+
+.portal-top{
+
+    text-align:center;
+
+    margin-bottom:55px;
+}
+
+.portal-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:10px;
+
+    padding:11px 17px;
+
+    border:1px solid var(--border);
+
+    background:#fff;
+
+    border-radius:999px;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    letter-spacing:.08em;
+
+    text-transform:uppercase;
+
+    color:var(--green);
+}
+
+.portal-badge i{
+
+    width:9px;
+    height:9px;
+
+    flex:0 0 9px;
+
+    border-radius:50%;
+
+    background:#36a36f;
+}
+
+.portal-title{
+
+    margin:28px 0 0;
+
+    font-size:
+        clamp(55px,7vw,88px);
+
+    line-height:.9;
+
+    font-weight:900;
+
+    letter-spacing:-.075em;
+}
+
+.portal-title span{
+    color:var(--green);
+}
+
+.portal-description{
+
+    max-width:650px;
+
+    margin:25px auto 0;
+
+    font-size:17px;
+
+    line-height:1.65;
+
+    color:var(--grey);
+}
+
+
+/* =========================================================
+   PROFILE CARDS
+========================================================= */
+
+.profiles{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:24px;
+}
+
+.profile{
+
+    position:relative;
+
+    min-height:330px;
+
+    padding:38px;
+
+    border:1px solid var(--border);
+
+    border-radius:28px;
+
+    background:#fff;
+
+    text-align:left;
+
+    cursor:pointer;
+
+    overflow:hidden;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease;
+
+    font-family:inherit;
+}
+
+.profile:hover{
+
+    transform:translateY(-8px);
+
+    border-color:#b9c9c1;
+
+    box-shadow:
+        0 30px 70px rgba(23,63,50,.14);
+}
+
+.profile:active{
+
+    transform:scale(.985);
+}
+
+.profile::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:250px;
+    height:250px;
+
+    right:-120px;
+    bottom:-130px;
+
+    border-radius:50%;
+
+    background:var(--green-3);
+
+    transition:.5s ease;
+}
+
+.profile:hover::before{
+    transform:scale(1.25);
+}
+
+.profile-number{
+
+    position:relative;
+
+    z-index:2;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    color:var(--grey-2);
+
+    letter-spacing:.1em;
+}
+
+.profile-avatar{
+
+    position:relative;
+
+    z-index:2;
+
+    width:68px;
+    height:68px;
+
+    margin:35px 0 30px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:20px;
+
+    background:var(--green);
+
+    color:#fff;
+
+    font-size:25px;
+
+    font-weight:900;
+}
+
+.profile-name{
+
+    position:relative;
+
+    z-index:2;
+
+    font-size:28px;
+
+    line-height:1;
+
+    font-weight:900;
+
+    letter-spacing:-.05em;
+}
+
+.profile-role{
+
+    position:relative;
+
+    z-index:2;
+
+    margin-top:10px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    color:var(--grey);
+}
+
+.profile-arrow{
+
+    position:absolute;
+
+    z-index:3;
+
+    right:30px;
+    bottom:28px;
+
+    width:50px;
+    height:50px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    color:#fff;
+
+    font-size:22px;
+
+    transition:.3s;
+}
+
+.profile:hover .profile-arrow{
+
+    transform:translateX(5px);
+
+    background:var(--green-2);
+}
+
+
+/* =========================================================
+   APP
+========================================================= */
+
+#app{
+
+    display:none;
+
+    min-height:100vh;
+
+    background:var(--off);
+}
+
+#app.active{
+
+    display:block;
+
+    animation:appIn .6s ease both;
+}
+
+@keyframes appIn{
+
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
+
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+
+/* =========================================================
+   HEADER DESKTOP
+========================================================= */
+
+.header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
+    min-height:88px;
+
+    padding:0 55px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    background:rgba(255,255,255,.94);
+
+    border-bottom:1px solid var(--border);
+
+    backdrop-filter:blur(18px);
+
+    -webkit-backdrop-filter:blur(18px);
+}
+
+.header-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:17px;
+}
+
+.header-logo{
+
+    width:54px;
+    height:54px;
+
+    object-fit:contain;
+
+    border-radius:12px;
+}
+
+.header-brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+}
+
+.header-brand-name{
+
+    font-size:25px;
+
+    font-weight:900;
+
+    letter-spacing:-.06em;
+
+    color:var(--green);
+}
+
+.header-divider{
+
+    width:1px;
+    height:32px;
+
+    background:var(--border);
+}
+
+.header-title{
+
+    font-size:15px;
+
+    font-weight:850;
+}
+
+.header-subtitle{
+
+    margin-top:4px;
+
+    font-size:11px;
+
+    font-weight:600;
+
+    color:var(--grey);
+}
+
+.header-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+}
+
+.network-status{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    padding:11px 15px;
+
+    border:1px solid var(--border);
+
+    border-radius:999px;
+
+    background:#fff;
+
+    font-size:11px;
+
+    font-weight:750;
+
+    color:var(--grey);
+}
+
+.status-dot{
+
+    width:9px;
+    height:9px;
+
+    border-radius:50%;
+
+    background:#3aa36f;
+}
+
+.current-profile{
+
+    padding:12px 17px;
+
+    border-radius:999px;
+
+    background:var(--green);
+
+    color:#fff;
+
+    font-size:11px;
+
+    font-weight:800;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main{
+
+    width:min(
+        1180px,
+        calc(100% - 50px)
+    );
+
+    margin:70px auto 100px;
+}
+
+
+/* =========================================================
+   PAGE HEADING
+========================================================= */
+
+.page-heading{
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:space-between;
+
+    gap:70px;
+
+    margin-bottom:45px;
+}
+
+.page-kicker{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    font-size:12px;
+
+    font-weight:850;
+
+    color:var(--green);
+
+    letter-spacing:.12em;
+
+    text-transform:uppercase;
+}
+
+.page-kicker::before{
+
+    content:"";
+
+    width:35px;
+    height:3px;
+
+    background:var(--green);
+
+    border-radius:10px;
+}
+
+.page-title{
+
+    margin-top:17px;
+
+    font-size:
+        clamp(58px,7vw,92px);
+
+    line-height:.85;
+
+    letter-spacing:-.08em;
+
+    font-weight:900;
+}
+
+.page-title span{
+    color:var(--green);
+}
+
+.page-description{
+
+    max-width:380px;
+
+    padding-bottom:5px;
+
+    font-size:15px;
+
+    line-height:1.7;
+
+    color:var(--grey);
+}
+
+.page-meta{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+    margin-top:22px;
+}
+
+.page-meta span{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:9px 12px;
+
+    border-radius:999px;
+
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    font-size:10px;
+
+    font-weight:800;
+
+    color:var(--grey);
+}
+
+.page-meta i{
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:var(--green);
+}
+
+
+/* =========================================================
+   CONTROL CARD
+========================================================= */
+
+.control-card{
+
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    box-shadow:var(--shadow);
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.card-section{
+
+    padding:40px 45px;
+
+    border-bottom:1px solid var(--border);
+}
+
+.section-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    margin-bottom:25px;
+
+    font-size:15px;
+
+    font-weight:900;
+
+    letter-spacing:.02em;
+}
+
+.section-number{
+
+    width:36px;
+    height:36px;
+
+    flex:0 0 36px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:11px;
+
+    background:var(--green);
+
+    color:#fff;
+
+    font-size:11px;
+
+    font-weight:900;
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.client-input{
+
+    width:100%;
+
+    height:66px;
+
+    padding:0 20px;
+
+    border:2px solid var(--border);
+
+    border-radius:16px;
+
+    background:var(--paper);
+
+    outline:none;
+
+    font-family:inherit;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    color:var(--black);
+
+    transition:.2s;
+}
+
+.client-input::placeholder,
+textarea::placeholder{
+    color:#9ca39e;
+}
+
+.client-input:focus{
+
+    border-color:var(--green);
+
+    background:#fff;
+
+    box-shadow:
+        0 0 0 4px rgba(23,63,50,.08);
+}
+
+.field-error{
+
+    border-color:var(--red)!important;
+
+    background:var(--red-bg)!important;
+}
+
+
+/* =========================================================
+   CHOICES
+========================================================= */
+
+.choice-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:16px;
+}
+
+.choice{
+
+    position:relative;
+
+    min-height:125px;
+
+    padding:25px;
+
+    border:2px solid var(--border);
+
+    border-radius:18px;
+
+    background:var(--paper);
+
+    cursor:pointer;
+
+    text-align:left;
+
+    font-family:inherit;
+
+    transition:.25s;
+}
+
+.choice:hover{
+
+    transform:translateY(-3px);
+
+    border-color:#aebeb6;
+
+    box-shadow:var(--shadow-small);
+}
+
+.choice:active{
+    transform:scale(.985);
+}
+
+.choice.selected{
+
+    border-color:var(--green);
+
+    background:#f0f5f2;
+
+    box-shadow:
+        inset 0 0 0 1px var(--green);
+}
+
+.choice-name{
+
+    font-size:20px;
+
+    font-weight:900;
+
+    letter-spacing:-.03em;
+
+    padding-right:30px;
+}
+
+.choice-desc{
+
+    margin-top:8px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    color:var(--grey);
+}
+
+.choice-check{
+
+    position:absolute;
+
+    top:18px;
+    right:18px;
+
+    width:28px;
+    height:28px;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    color:#fff;
+
+    font-size:15px;
+
+    font-weight:900;
+}
+
+.choice.selected .choice-check{
+    display:flex;
+}
+
+
+/* =========================================================
+   TEMPERATURE
+========================================================= */
+
+.temperature-layout{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 320px;
+
+    gap:20px;
+}
+
+.temp-input-wrap{
+    position:relative;
+}
+
+.temp-input{
+
+    width:100%;
+
+    height:110px;
+
+    padding:
+        0 90px
+        0 28px;
+
+    border:2px solid var(--border);
+
+    border-radius:20px;
+
+    background:var(--paper);
+
+    outline:none;
+
+    font-family:inherit;
+
+    font-size:48px;
+
+    font-weight:900;
+
+    letter-spacing:-.06em;
+}
+
+.temp-input:focus{
+
+    border-color:var(--green);
+
+    box-shadow:
+        0 0 0 4px rgba(23,63,50,.08);
+}
+
+.temp-unit{
+
+    position:absolute;
+
+    right:28px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    font-size:20px;
+
+    font-weight:800;
+
+    color:var(--grey);
+}
+
+.temp-status{
+
+    min-height:110px;
+
+    padding:24px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    border:2px solid var(--border);
+
+    border-radius:20px;
+
+    background:#f4f5f2;
+}
+
+.temp-status strong{
+
+    font-size:16px;
+
+    font-weight:900;
+}
+
+.temp-status small{
+
+    margin-top:8px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    color:var(--grey);
+}
+
+.temp-status.ok{
+
+    background:#eaf4ee;
+
+    border-color:#b9d6c4;
+
+    color:var(--green);
+}
+
+.temp-status.bad{
+
+    background:var(--red-bg);
+
+    border-color:#e0b5b0;
+
+    color:var(--red);
+}
+
+
+/* =========================================================
+   CHECKS
+========================================================= */
+
+.check-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:14px;
+}
+
+.check{
+
+    min-height:80px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding:18px;
+
+    border:2px solid var(--border);
+
+    border-radius:16px;
+
+    background:var(--paper);
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.check:hover{
+
+    border-color:#aebeb6;
+}
+
+.check input{
+    display:none;
+}
+
+.check-box{
+
+    flex-shrink:0;
+
+    width:30px;
+    height:30px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border:2px solid #cdd4cf;
+
+    border-radius:9px;
+
+    color:transparent;
+
+    font-size:15px;
+
+    font-weight:900;
+}
+
+.check input:checked + .check-box{
+
+    background:var(--green);
+
+    border-color:var(--green);
+
+    color:#fff;
+}
+
+.check-label{
+
+    font-size:13px;
+
+    font-weight:800;
+
+    line-height:1.35;
+}
+
+
+/* =========================================================
+   TEXTAREA
+========================================================= */
+
+textarea{
+
+    width:100%;
+
+    min-height:150px;
+
+    resize:vertical;
+
+    padding:19px;
+
+    border:2px solid var(--border);
+
+    border-radius:16px;
+
+    background:var(--paper);
+
+    outline:none;
+
+    font-family:inherit;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:var(--black);
+}
+
+textarea:focus{
+
+    border-color:var(--green);
+
+    background:#fff;
+
+    box-shadow:
+        0 0 0 4px rgba(23,63,50,.08);
+}
+
+
+/* =========================================================
+   VALIDATION
+========================================================= */
+
+.validation{
+
+    padding:30px 45px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:25px;
+
+    background:#f3f5f2;
+}
+
+.validation-status{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+}
+
+.validation-icon{
+
+    width:56px;
+    height:56px;
+
+    flex:0 0 56px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:17px;
+
+    background:var(--green);
+
+    color:#fff;
+
+    font-size:20px;
+
+    font-weight:900;
+}
+
+.validation-text strong{
+
+    display:block;
+
+    font-size:15px;
+
+    font-weight:900;
+}
+
+.validation-text span{
+
+    display:block;
+
+    margin-top:6px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    color:var(--grey);
+}
+
+.submit{
+
+    min-height:58px;
+
+    padding:0 30px;
+
+    border:0;
+
+    border-radius:15px;
+
+    background:var(--green);
+
+    color:#fff;
+
+    cursor:pointer;
+
+    font-family:inherit;
+
+    font-size:12px;
+
+    font-weight:900;
+
+    letter-spacing:.08em;
+
+    text-transform:uppercase;
+
+    box-shadow:
+        0 12px 30px rgba(23,63,50,.2);
+
+    transition:.25s;
+}
+
+.submit:hover{
+
+    transform:translateY(-3px);
+
+    background:var(--green-2);
+
+    box-shadow:
+        0 18px 38px rgba(23,63,50,.25);
+}
+
+.submit:active{
+    transform:scale(.985);
+}
+
+
+/* =========================================================
+   HISTORY DESKTOP
+========================================================= */
+
+.history{
+
+    margin-top:60px;
+}
+
+.history-heading{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:20px;
+}
+
+.history-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    font-size:22px;
+
+    font-weight:900;
+
+    letter-spacing:-.04em;
+}
+
+.history-title::before{
+
+    content:"";
+
+    width:32px;
+    height:4px;
+
+    border-radius:10px;
+
+    background:var(--green);
+}
+
+.export{
+
+    min-height:46px;
+
+    padding:0 18px;
+
+    border:2px solid var(--border);
+
+    border-radius:13px;
+
+    background:#fff;
+
+    cursor:pointer;
+
+    color:var(--green);
+
+    font-family:inherit;
+
+    font-size:11px;
+
+    font-weight:900;
+
+    transition:.2s;
+}
+
+.export:hover{
+
+    background:var(--green);
+
+    border-color:var(--green);
+
+    color:#fff;
+}
+
+.history-table-wrap{
+
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:var(--shadow-small);
+}
+
+table{
+
+    width:100%;
+
+    min-width:950px;
+
+    border-collapse:collapse;
+}
+
+th{
+
+    padding:18px;
+
+    background:#f1f4f1;
+
+    color:#68716c;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    letter-spacing:.08em;
+
+    text-align:left;
+
+    text-transform:uppercase;
+}
+
+td{
+
+    padding:18px;
+
+    border-top:1px solid var(--border);
+
+    font-size:12px;
+
+    font-weight:600;
+}
+
+td strong{
+    font-weight:900;
+}
+
+.status{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    padding:8px 12px;
+
+    border-radius:999px;
+
+    font-size:10px;
+
+    font-weight:900;
+}
+
+.status.ok{
+
+    background:#e5f2e9;
+
+    color:var(--green);
+}
+
+.status.bad{
+
+    background:var(--red-bg);
+
+    color:var(--red);
+}
+
+.empty{
+
+    padding:50px;
+
+    text-align:center;
+
+    color:var(--grey);
+
+    font-size:13px;
+
+    font-weight:600;
+}
+
+
+/* =========================================================
+   MOBILE HISTORY CARDS
+========================================================= */
+
+.mobile-history{
+    display:none;
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+
+    position:fixed;
+
+    z-index:10000;
+
+    right:25px;
+    bottom:25px;
+
+    max-width:400px;
+
+    padding:17px 22px;
+
+    background:var(--green);
+
+    color:#fff;
+
+    border-radius:15px;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    box-shadow:
+        0 20px 50px rgba(17,21,18,.2);
+
+    transform:translateY(30px);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.35s;
+}
+
+.toast.show{
+
+    opacity:1;
+
+    transform:none;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media(max-width:900px){
+
+    .main{
+
+        width:
+            calc(100% - 32px);
+
+        margin-top:45px;
+    }
+
+    .page-heading{
+
+        gap:30px;
+    }
+
+    .temperature-layout{
+
+        grid-template-columns:1fr;
+    }
+
+    .check-grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:600px){
+
+    html,
+    body{
+        width:100%;
+        max-width:100%;
+        overflow-x:hidden;
+    }
+
+
+    /* =====================================================
+       INTRO MOBILE
+    ===================================================== */
+
+    #intro{
+
+        padding:
+            24px 20px;
+
+    }
+
+    .intro-inner{
+
+        width:100%;
+    }
+
+    .intro-logo{
+
+        flex-direction:column;
+
+        gap:16px;
+
+        margin-bottom:40px;
+    }
+
+    .intro-logo img{
+
+        width:86px;
+        height:86px;
+
+        border-radius:18px;
+    }
+
+    .intro-logo-text{
+
+        text-align:center;
+    }
+
+    .intro-logo-text strong{
+
+        font-size:48px;
+    }
+
+    .intro-logo-text span{
+
+        margin-top:9px;
+
+        font-size:8px;
+
+        letter-spacing:.13em;
+    }
+
+    .intro-overline{
+
+        font-size:9px;
+
+        line-height:1.5;
+
+        letter-spacing:.15em;
+
+        margin-bottom:17px;
+    }
+
+    .intro-title{
+
+        font-size:
+            clamp(50px,15vw,68px);
+
+        line-height:.88;
+    }
+
+    .intro-line{
+
+        width:70px;
+
+        height:3px;
+
+        margin:27px auto;
+    }
+
+    .intro-status{
+
+        font-size:11px;
+
+        line-height:1.5;
+    }
+
+
+    /* =====================================================
+       PORTAL MOBILE
+    ===================================================== */
+
+    #portal{
+
+        min-height:100vh;
+        min-height:100dvh;
+
+        align-items:flex-start;
+
+        padding:
+            28px 16px
+            calc(30px + env(safe-area-inset-bottom));
+
+        overflow-y:auto;
+    }
+
+    .portal-bg::before{
+
+        width:360px;
+        height:360px;
+
+        top:-180px;
+        right:-170px;
+    }
+
+    .portal-bg::after{
+
+        width:300px;
+        height:300px;
+
+        bottom:-180px;
+        left:-170px;
+    }
+
+    .portal-content{
+
+        width:100%;
+
+        padding-top:20px;
+    }
+
+    .portal-top{
+
+        margin-bottom:30px;
+    }
+
+    .portal-badge{
+
+        width:100%;
+
+        max-width:330px;
+
+        padding:10px 13px;
+
+        font-size:9px;
+
+        letter-spacing:.06em;
+    }
+
+    .portal-badge i{
+
+        width:7px;
+        height:7px;
+
+        flex-basis:7px;
+    }
+
+    .portal-title{
+
+        margin-top:24px;
+
+        font-size:
+            clamp(48px,14vw,64px);
+
+        line-height:.91;
+    }
+
+    .portal-description{
+
+        margin-top:18px;
+
+        font-size:13px;
+
+        line-height:1.55;
+
+        padding:0 8px;
+    }
+
+    .profiles{
+
+        grid-template-columns:1fr;
+
+        gap:13px;
+    }
+
+    .profile{
+
+        width:100%;
+
+        min-height:0;
+
+        height:190px;
+
+        padding:21px;
+
+        border-radius:22px;
+    }
+
+    .profile::before{
+
+        width:180px;
+        height:180px;
+
+        right:-100px;
+        bottom:-100px;
+    }
+
+    .profile-number{
+
+        font-size:9px;
+
+        letter-spacing:.09em;
+    }
+
+    .profile-avatar{
+
+        width:48px;
+        height:48px;
+
+        margin:20px 0 17px;
+
+        border-radius:14px;
+
+        font-size:19px;
+    }
+
+    .profile-name{
+
+        font-size:21px;
+
+        letter-spacing:-.045em;
+    }
+
+    .profile-role{
+
+        margin-top:7px;
+
+        font-size:11px;
+    }
+
+    .profile-arrow{
+
+        right:18px;
+        bottom:18px;
+
+        width:43px;
+        height:43px;
+
+        font-size:18px;
+    }
+
+
+    /* =====================================================
+       HEADER MOBILE
+    ===================================================== */
+
+    .header{
+
+        position:sticky;
+
+        min-height:
+            calc(68px + env(safe-area-inset-top));
+
+        padding:
+            env(safe-area-inset-top)
+            14px
+            0
+            14px;
+
+        background:
+            rgba(255,255,255,.97);
+
+        box-shadow:
+            0 8px 25px rgba(17,21,18,.05);
+    }
+
+    .header-left{
+
+        min-width:0;
+
+        gap:10px;
+    }
+
+    .header-logo{
+
+        width:42px;
+        height:42px;
+
+        flex:0 0 42px;
+
+        border-radius:10px;
+    }
+
+    .header-brand{
+
+        display:flex;
+
+        gap:0;
+
+        min-width:0;
+    }
+
+    .header-brand-name{
+
+        display:none;
+    }
+
+    .header-divider{
+
+        display:none;
+    }
+
+    .header-title{
+
+        font-size:12px;
+
+        line-height:1.1;
+
+        white-space:nowrap;
+    }
+
+    .header-subtitle{
+
+        margin-top:3px;
+
+        font-size:8px;
+
+        white-space:nowrap;
+    }
+
+    .header-right{
+
+        gap:7px;
+    }
+
+    .network-status{
+
+        display:none;
+    }
+
+    .current-profile{
+
+        max-width:120px;
+
+        overflow:hidden;
+
+        text-overflow:ellipsis;
+
+        white-space:nowrap;
+
+        padding:9px 11px;
+
+        font-size:8px;
+
+        border-radius:999px;
+    }
+
+
+    /* =====================================================
+       MAIN MOBILE
+    ===================================================== */
+
+    .main{
+
+        width:
+            calc(100% - 24px);
+
+        margin:
+            27px auto
+            calc(55px + env(safe-area-inset-bottom));
+    }
+
+
+    /* =====================================================
+       PAGE HEADING MOBILE
+    ===================================================== */
+
+    .page-heading{
+
+        display:block;
+
+        margin-bottom:25px;
+    }
+
+    .page-kicker{
+
+        gap:8px;
+
+        font-size:9px;
+
+        letter-spacing:.1em;
+    }
+
+    .page-kicker::before{
+
+        width:22px;
+
+        height:2px;
+    }
+
+    .page-title{
+
+        margin-top:13px;
+
+        font-size:
+            clamp(43px,13vw,58px);
+
+        line-height:.86;
+
+        letter-spacing:-.075em;
+    }
+
+    .page-description{
+
+        max-width:none;
+
+        margin-top:18px;
+
+        padding:0;
+
+        font-size:12px;
+
+        line-height:1.55;
+    }
+
+    .page-meta{
+
+        gap:7px;
+
+        margin-top:15px;
+    }
+
+    .page-meta span{
+
+        padding:7px 9px;
+
+        font-size:8px;
+
+        gap:6px;
+    }
+
+    .page-meta i{
+
+        width:5px;
+        height:5px;
+    }
+
+
+    /* =====================================================
+       CONTROL CARD MOBILE
+    ===================================================== */
+
+    .control-card{
+
+        border-radius:22px;
+
+        box-shadow:
+            0 16px 45px rgba(17,21,18,.08);
+    }
+
+    .card-section{
+
+        padding:
+            24px 17px;
+    }
+
+    .section-title{
+
+        gap:10px;
+
+        margin-bottom:17px;
+
+        font-size:13px;
+    }
+
+    .section-number{
+
+        width:32px;
+        height:32px;
+
+        flex-basis:32px;
+
+        border-radius:10px;
+
+        font-size:9px;
+    }
+
+
+    /* =====================================================
+       CLIENT MOBILE
+    ===================================================== */
+
+    .client-input{
+
+        height:57px;
+
+        padding:
+            0 15px;
+
+        border-radius:14px;
+
+        font-size:15px;
+    }
+
+
+    /* =====================================================
+       CHOICES MOBILE
+    ===================================================== */
+
+    .choice-grid{
+
+        grid-template-columns:1fr;
+
+        gap:10px;
+    }
+
+    .choice{
+
+        width:100%;
+
+        min-height:86px;
+
+        padding:
+            18px 17px;
+
+        border-radius:15px;
+    }
+
+    .choice:hover{
+
+        transform:none;
+
+        box-shadow:none;
+    }
+
+    .choice-name{
+
+        font-size:17px;
+
+        padding-right:38px;
+    }
+
+    .choice-desc{
+
+        margin-top:5px;
+
+        font-size:11px;
+    }
+
+    .choice-check{
+
+        top:16px;
+        right:15px;
+
+        width:27px;
+        height:27px;
+    }
+
+
+    /* =====================================================
+       TEMPERATURE MOBILE
+    ===================================================== */
+
+    .temperature-layout{
+
+        display:flex;
+
+        flex-direction:column;
+
+        gap:10px;
+    }
+
+    .temp-input{
+
+        height:88px;
+
+        padding:
+            0 70px
+            0 20px;
+
+        border-radius:17px;
+
+        font-size:39px;
+    }
+
+    .temp-unit{
+
+        right:20px;
+
+        font-size:17px;
+    }
+
+    .temp-status{
+
+        min-height:75px;
+
+        padding:15px 17px;
+
+        border-radius:15px;
+    }
+
+    .temp-status strong{
+
+        font-size:13px;
+    }
+
+    .temp-status small{
+
+        margin-top:5px;
+
+        font-size:10px;
+    }
+
+
+    /* =====================================================
+       CHECKS MOBILE
+    ===================================================== */
+
+    .check-grid{
+
+        grid-template-columns:1fr;
+
+        gap:8px;
+    }
+
+    .check{
+
+        width:100%;
+
+        min-height:62px;
+
+        padding:13px;
+
+        gap:11px;
+
+        border-radius:14px;
+    }
+
+    .check:hover{
+        border-color:var(--border);
+    }
+
+    .check-box{
+
+        width:29px;
+        height:29px;
+
+        border-radius:8px;
+
+        flex:0 0 29px;
+    }
+
+    .check-label{
+
+        font-size:11px;
+    }
+
+
+    /* =====================================================
+       TEXTAREA MOBILE
+    ===================================================== */
+
+    textarea{
+
+        min-height:125px;
+
+        padding:15px;
+
+        border-radius:14px;
+
+        font-size:13px;
+
+        line-height:1.5;
+    }
+
+
+    /* =====================================================
+       VALIDATION MOBILE
+    ===================================================== */
+
+    .validation{
+
+        padding:
+            19px 17px
+            calc(19px + env(safe-area-inset-bottom));
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+        gap:15px;
+    }
+
+    .validation-status{
+
+        gap:11px;
+
+        align-items:flex-start;
+    }
+
+    .validation-icon{
+
+        width:43px;
+        height:43px;
+
+        flex-basis:43px;
+
+        border-radius:13px;
+
+        font-size:16px;
+    }
+
+    .validation-text{
+
+        padding-top:2px;
+    }
+
+    .validation-text strong{
+
+        font-size:12px;
+
+        line-height:1.3;
+    }
+
+    .validation-text span{
+
+        margin-top:4px;
+
+        font-size:10px;
+
+        line-height:1.4;
+    }
+
+    .submit{
+
+        width:100%;
+
+        min-height:55px;
+
+        padding:
+            0 18px;
+
+        border-radius:14px;
+
+        font-size:10px;
+
+        letter-spacing:.09em;
+    }
+
+
+    /* =====================================================
+       HISTORY MOBILE
+    ===================================================== */
+
+    .history{
+
+        margin-top:35px;
+    }
+
+    .history-heading{
+
+        display:flex;
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+        gap:13px;
+
+        margin-bottom:15px;
+    }
+
+    .history-title{
+
+        font-size:19px;
+
+        gap:9px;
+    }
+
+    .history-title::before{
+
+        width:23px;
+
+        height:3px;
+    }
+
+    .export{
+
+        width:100%;
+
+        min-height:50px;
+
+        border-radius:14px;
+
+        font-size:10px;
+    }
+
+    /*
+       On mobile the desktop table disappears.
+       JS generates the same information as cards.
+    */
+
+    .history-table-wrap{
+
+        border-radius:18px;
+
+        box-shadow:none;
+
+        border:0;
+
+        background:transparent;
+
+        overflow:visible;
+    }
+
+    .history-table-wrap > table{
+
+        display:none;
+    }
+
+    .mobile-history{
+
+        display:flex;
+
+        flex-direction:column;
+
+        gap:10px;
+    }
+
+    .history-card{
+
+        background:#fff;
+
+        border:1px solid var(--border);
+
+        border-radius:17px;
+
+        padding:16px;
+
+        box-shadow:
+            0 8px 25px rgba(17,21,18,.05);
+    }
+
+    .history-card-top{
+
+        display:flex;
+
+        align-items:center;
+
+        justify-content:space-between;
+
+        gap:10px;
+
+        padding-bottom:12px;
+
+        border-bottom:1px solid var(--border);
+    }
+
+    .history-card-number{
+
+        font-size:11px;
+
+        font-weight:900;
+
+        color:var(--green);
+
+        letter-spacing:.03em;
+    }
+
+    .history-card-date{
+
+        margin-top:4px;
+
+        font-size:9px;
+
+        font-weight:600;
+
+        color:var(--grey);
+    }
+
+    .history-card-grid{
+
+        display:grid;
+
+        grid-template-columns:1fr 1fr;
+
+        gap:12px;
+
+        padding-top:13px;
+    }
+
+    .history-item{
+
+        min-width:0;
+    }
+
+    .history-item.full{
+
+        grid-column:
+            1 / -1;
+    }
+
+    .history-item-label{
+
+        margin-bottom:4px;
+
+        font-size:8px;
+
+        font-weight:900;
+
+        letter-spacing:.08em;
+
+        text-transform:uppercase;
+
+        color:var(--grey-2);
+    }
+
+    .history-item-value{
+
+        font-size:11px;
+
+        font-weight:800;
+
+        color:var(--black);
+
+        overflow-wrap:anywhere;
+    }
+
+    .history-card .status{
+
+        padding:6px 9px;
+
+        font-size:8px;
+    }
+
+    .empty{
+
+        padding:30px 15px;
+
+        background:#fff;
+
+        border:1px solid var(--border);
+
+        border-radius:17px;
+
+        font-size:11px;
+    }
+
+
+    /* =====================================================
+       TOAST MOBILE
+    ===================================================== */
+
+    .toast{
+
+        left:12px;
+        right:12px;
+
+        bottom:
+            calc(12px + env(safe-area-inset-bottom));
+
+        max-width:none;
+
+        padding:14px 16px;
+
+        border-radius:14px;
+
+        font-size:11px;
+
+        line-height:1.4;
+
+        text-align:center;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media(max-width:360px){
+
+    .main{
+
+        width:
+            calc(100% - 18px);
+    }
+
+    .portal-title{
+
+        font-size:46px;
+    }
+
+    .page-title{
+
+        font-size:41px;
+    }
+
+    .profile{
+
+        height:178px;
+
+        padding:18px;
+    }
+
+    .profile-name{
+
+        font-size:19px;
+    }
+
+    .profile-arrow{
+
+        width:39px;
+        height:39px;
+
+        right:15px;
+        bottom:15px;
+    }
+
+    .card-section{
+
+        padding:
+            21px 14px;
+    }
+
+}
+
+
+/* =========================================================
+   LANDSCAPE MOBILE
+========================================================= */
+
+@media(max-width:900px) and (orientation:landscape){
+
+    #portal{
+
+        align-items:flex-start;
+
+        padding-top:25px;
+    }
+
+    .portal-content{
+
+        max-width:700px;
+
+        margin:auto;
+    }
+
+    .portal-top{
+
+        margin-bottom:22px;
+    }
+
+    .profiles{
+
+        grid-template-columns:1fr 1fr;
+    }
+
+    .profile{
+
+        height:180px;
+
+        min-height:180px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+
+        scroll-behavior:auto!important;
+
+        animation-duration:.01ms!important;
+        animation-iteration-count:1!important;
+
+        transition-duration:.01ms!important;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     INTRO
+===================================================== -->
+
+<section id="intro">
+
+    <div class="intro-inner">
+
+        <div class="intro-logo">
+
+            <img
+                src="logoLDK.jpg"
+                alt="Laiterie de Kerguillet"
+            >
+
+            <div class="intro-logo-text">
+
+                <strong>LDK</strong>
+
+                <span>
+                    Laiterie de Kerguillet
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="intro-overline">
+            Réseau qualité · Contrôle & traçabilité
+        </div>
+
+        <h1 class="intro-title">
+            Portail <span>Qualité</span>
+        </h1>
+
+        <div class="intro-line"></div>
+
+        <div class="intro-status">
+            Initialisation du système · Accès sécurisé
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PORTAIL
+===================================================== -->
+
+<section id="portal">
+
+    <div class="portal-bg"></div>
+
+    <div class="portal-content">
+
+        <div class="portal-top">
+
+            <div class="portal-badge">
+
+                <i></i>
+
+                Réseau LDK · Accès sécurisé
+
+            </div>
+
+            <h1 class="portal-title">
+
+                Votre espace<br>
+
+                <span>qualité.</span>
+
+            </h1>
+
+            <p class="portal-description">
+
+                Sélectionnez votre profil pour accéder
+                au contrôle d'expédition et assurer
+                la traçabilité de chaque départ.
+
+            </p>
+
+        </div>
+
+
+        <div class="profiles">
+
+
+            <button
+                class="profile"
+                type="button"
+                onclick="selectProfile('Hafssa LAKHAL')"
+            >
+
+                <div class="profile-number">
+                    01 · SERVICE QUALITÉ
+                </div>
+
+                <div class="profile-avatar">
+                    H
+                </div>
+
+                <div class="profile-name">
+                    Hafssa LAKHAL
+                </div>
+
+                <div class="profile-role">
+                    Alternante · Service Qualité
+                </div>
+
+                <div class="profile-arrow">
+                    →
+                </div>
+
+            </button>
+
+
+            <button
+                class="profile"
+                type="button"
+                onclick="selectProfile('Gwendoline MAURICE')"
+            >
+
+                <div class="profile-number">
+                    02 · SERVICE QUALITÉ
+                </div>
+
+                <div class="profile-avatar">
+                    G
+                </div>
+
+                <div class="profile-name">
+                    Gwendoline MAURICE
+                </div>
+
+                <div class="profile-role">
+                    Responsable Qualité
+                </div>
+
+                <div class="profile-arrow">
+                    →
+                </div>
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     APPLICATION
+===================================================== -->
+
+<section id="app">
+
+
+<header class="header">
+
+    <div class="header-left">
+
+        <img
+            src="logoLDK.jpg"
+            class="header-logo"
+            alt="LDK"
+        >
+
+        <div class="header-brand">
+
+            <div class="header-brand-name">
+                LDK
+            </div>
+
+            <div class="header-divider"></div>
+
+            <div>
+
+                <div class="header-title">
+                    Contrôle Expédition
+                </div>
+
+                <div class="header-subtitle">
+                    Laiterie de Kerguillet
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-right">
+
+        <div class="network-status">
+
+            <span class="status-dot"></span>
+
+            Session sécurisée
+
+        </div>
+
+        <div class="current-profile">
+
+            <span id="profileDisplay">
+                Hafssa LAKHAL
+            </span>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="main">
+
+
+<div class="page-heading">
+
+    <div>
+
+        <div class="page-kicker">
+            Nouveau contrôle
+        </div>
+
+        <div class="page-title">
+
+            Contrôle<br>
+
+            <span>d'expédition.</span>
+
+        </div>
+
+        <div class="page-meta">
+
+            <span>
+
+                <i></i>
+
+                Traçabilité active
+
+            </span>
+
+            <span>
+
+                <i></i>
+
+                Contrôle qualité
+
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="page-description">
+
+        Vérifiez chaque élément avant le départ
+        du produit. Les données sont enregistrées
+        pour assurer une traçabilité complète
+        de l'expédition.
+
+    </div>
+
+</div>
+
+
+<div class="control-card">
+
+
+<!-- =====================================================
+     CLIENT
+===================================================== -->
+
+<section class="card-section">
+
+    <div class="section-title">
+
+        <div class="section-number">
+            01
+        </div>
+
+        Client
+
+    </div>
+
+    <input
+        id="client"
+        class="client-input"
+        type="text"
+        autocomplete="organization"
+        placeholder="Nom du client livré..."
+    >
+
+</section>
+
+
+<!-- =====================================================
+     PRODUIT
+===================================================== -->
+
+<section class="card-section">
+
+    <div class="section-title">
+
+        <div class="section-number">
+            02
+        </div>
+
+        Produit
+
+    </div>
+
+
+    <div class="choice-grid">
+
+
+        <button
+            type="button"
+            class="choice"
+            data-group="product"
+            data-value="Crème épaisse"
+            onclick="choose(this)"
+        >
+
+            <div class="choice-check">
+                ✓
+            </div>
+
+            <div class="choice-name">
+                Crème épaisse
+            </div>
+
+            <div class="choice-desc">
+                Produit laitier · Crème
+            </div>
+
+        </button>
+
+
+        <button
+            type="button"
+            class="choice"
+            data-group="product"
+            data-value="Crème liquide"
+            onclick="choose(this)"
+        >
+
+            <div class="choice-check">
+                ✓
+            </div>
+
+            <div class="choice-name">
+                Crème liquide
+            </div>
+
+            <div class="choice-desc">
+                Produit laitier · Crème
+            </div>
+
+        </button>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MG
+===================================================== -->
+
+<section class="card-section">
+
+    <div class="section-title">
+
+        <div class="section-number">
+            03
+        </div>
+
+        Taux de matière grasse
+
+    </div>
+
+
+    <div class="choice-grid">
+
+
+        <button
+            type="button"
+            class="choice"
+            data-group="mg"
+            data-value="30 %"
+            onclick="choose(this)"
+        >
+
+            <div class="choice-check">
+                ✓
+            </div>
+
+            <div class="choice-name">
+                30 %
+            </div>
+
+            <div class="choice-desc">
+                Matière grasse
+            </div>
+
+        </button>
+
+
+        <button
+            type="button"
+            class="choice"
+            data-group="mg"
+            data-value="40 %"
+            onclick="choose(this)"
+        >
+
+            <div class="choice-check">
+                ✓
+            </div>
+
+            <div class="choice-name">
+                40 %
+            </div>
+
+            <div class="choice-desc">
+                Matière grasse
+            </div>
+
+        </button>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TEMPERATURE
+===================================================== -->
+
+<section class="card-section">
+
+    <div class="section-title">
+
+        <div class="section-number">
+            04
+        </div>
+
+        Température à l'expédition
+
+    </div>
+
+
+    <div class="temperature-layout">
+
+
+        <div class="temp-input-wrap">
+
+            <input
+                id="temperature"
+                class="temp-input"
+                type="number"
+                inputmode="decimal"
+                step="0.1"
+                placeholder="0.0"
+                oninput="checkTemperature()"
+            >
+
+            <div class="temp-unit">
+                °C
+            </div>
+
+        </div>
+
+
+        <div
+            id="tempStatus"
+            class="temp-status"
+        >
+
+            <strong>
+                En attente
+            </strong>
+
+            <small>
+                Seuil maximum : 6 °C
+            </small>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CHECKS
+===================================================== -->
+
+<section class="card-section">
+
+    <div class="section-title">
+
+        <div class="section-number">
+            05
+        </div>
+
+        Vérifications
+
+    </div>
+
+
+    <div class="check-grid">
+
+
+        <label class="check">
+
+            <input
+                type="checkbox"
+                class="controlCheck"
+            >
+
+            <span class="check-box">
+                ✓
+            </span>
+
+            <span class="check-label">
+                Étiquetage conforme
+            </span>
+
+        </label>
+
+
+        <label class="check">
+
+            <input
+                type="checkbox"
+                class="controlCheck"
+            >
+
+            <span class="check-box">
+                ✓
+            </span>
+
+            <span class="check-label">
+                DLC conforme
+            </span>
+
+        </label>
+
+
+        <label class="check">
+
+            <input
+                type="checkbox"
+                class="controlCheck"
+            >
+
+            <span class="check-box">
+                ✓
+            </span>
+
+            <span class="check-label">
+                Conditionnement intact
+            </span>
+
+        </label>
+
+
+        <label class="check">
+
+            <input
+                type="checkbox"
+                class="controlCheck"
+            >
+
+            <span class="check-box">
+                ✓
+            </span>
+
+            <span class="check-label">
+                Emballage conforme
+            </span>
+
+        </label>
+
+
+        <label class="check">
+
+            <input
+                type="checkbox"
+                class="controlCheck"
+            >
+
+            <span class="check-box">
+                ✓
+            </span>
+
+            <span class="check-label">
+                Quantité conforme
+            </span>
+
+        </label>
+
+
+        <label class="check">
+
+            <input
+                type="checkbox"
+                class="controlCheck"
+            >
+
+            <span class="check-box">
+                ✓
+            </span>
+
+            <span class="check-label">
+                Aspect conforme
+            </span>
+
+        </label>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     OBSERVATIONS
+===================================================== -->
+
+<section class="card-section">
+
+    <div class="section-title">
+
+        <div class="section-number">
+            06
+        </div>
+
+        Observations
+
+    </div>
+
+
+    <textarea
+        id="comment"
+        placeholder="Ajouter une observation ou préciser une non-conformité..."
+    ></textarea>
+
+</section>
+
+
+<!-- =====================================================
+     VALIDATION
+===================================================== -->
+
+<div class="validation">
+
+
+    <div class="validation-status">
+
+        <div
+            id="validationIcon"
+            class="validation-icon"
+        >
+            ✓
+        </div>
+
+        <div class="validation-text">
+
+            <strong id="validationTitle">
+                Contrôle prêt à être validé
+            </strong>
+
+            <span id="validationText">
+                Complétez les informations obligatoires.
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="submit"
+        type="button"
+        onclick="validateControl()"
+    >
+        Valider le contrôle
+    </button>
+
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
+     HISTORIQUE
+===================================================== -->
+
+<section class="history">
+
+
+    <div class="history-heading">
+
+        <div class="history-title">
+            Historique des contrôles
+        </div>
+
+        <button
+            class="export"
+            type="button"
+            onclick="exportExcel()"
+        >
+            ↓ &nbsp; Exporter Excel
+        </button>
+
+    </div>
+
+
+    <div class="history-table-wrap">
+
+
+        <!-- DESKTOP -->
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>N°</th>
+
+                    <th>Date / heure</th>
+
+                    <th>Contrôleur</th>
+
+                    <th>Client</th>
+
+                    <th>Produit</th>
+
+                    <th>MG</th>
+
+                    <th>Température</th>
+
+                    <th>Résultat</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="historyBody"></tbody>
+
+        </table>
+
+
+        <!-- MOBILE -->
+
+        <div
+            id="mobileHistory"
+            class="mobile-history"
+        ></div>
+
+
+        <div
+            id="emptyHistory"
+            class="empty"
+        >
+            Aucun contrôle enregistré pour le moment.
+        </div>
+
+
+    </div>
+
+</section>
+
+
+</main>
+
+</section>
+
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
+
+<script>
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let currentProfile = "";
+
+let selectedProduct = "";
+
+let selectedMG = "";
+
+let controls =
+    JSON.parse(
+        localStorage.getItem(
+            "LDK_CONTROLS"
+        ) || "[]"
+    );
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+setTimeout(() => {
+
+    document
+        .getElementById("intro")
+        .classList.add("hide");
+
+
+    setTimeout(() => {
+
+        document
+            .getElementById("portal")
+            .classList.add("show");
+
+    },300);
+
+},2200);
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+function selectProfile(profile){
+
+    currentProfile = profile;
+
+
+    localStorage.setItem(
+        "LDK_PROFILE",
+        profile
+    );
+
+
+    const portal =
+        document.getElementById(
+            "portal"
+        );
+
+
+    portal.style.opacity = "0";
+
+    portal.style.transform =
+        "scale(.98) translateY(-10px)";
+
+
+    setTimeout(() => {
+
+        portal.style.display =
+            "none";
+
+
+        document
+            .getElementById("app")
+            .classList
+            .add("active");
+
+
+        document
+            .getElementById("profileDisplay")
+            .textContent =
+            profile;
+
+
+        renderHistory();
+
+
+        window.scrollTo({
+            top:0,
+            behavior:"instant"
+        });
+
+
+    },450);
+}
+
+
+/* =========================================================
+   CHOICES
+========================================================= */
+
+function choose(element){
+
+    const group =
+        element.dataset.group;
+
+
+    document
+        .querySelectorAll(
+            `.choice[data-group="${group}"]`
+        )
+        .forEach(item => {
+
+            item.classList.remove(
+                "selected"
+            );
+
+        });
+
+
+    element.classList.add(
+        "selected"
+    );
+
+
+    if(group === "product"){
+
+        selectedProduct =
+            element.dataset.value;
+    }
+
+
+    if(group === "mg"){
+
+        selectedMG =
+            element.dataset.value;
+    }
+}
+
+
+/* =========================================================
+   TEMPERATURE
+========================================================= */
+
+function checkTemperature(){
+
+    const input =
+        document.getElementById(
+            "temperature"
+        );
+
+
+    const status =
+        document.getElementById(
+            "tempStatus"
+        );
+
+
+    const value =
+        parseFloat(
+            input.value
+        );
+
+
+    if(
+        input.value === "" ||
+        Number.isNaN(value)
+    ){
+
+        status.className =
+            "temp-status";
+
+
+        status.innerHTML = `
+
+            <strong>
+                En attente
+            </strong>
+
+            <small>
+                Seuil maximum : 6 °C
+            </small>
+
+        `;
+
+        return;
+    }
+
+
+    if(value <= 6){
+
+        status.className =
+            "temp-status ok";
+
+
+        status.innerHTML = `
+
+            <strong>
+                ✓ Température conforme
+            </strong>
+
+            <small>
+                Seuil respecté · ≤ 6 °C
+            </small>
+
+        `;
+
+    }
+
+    else{
+
+        status.className =
+            "temp-status bad";
+
+
+        status.innerHTML = `
+
+            <strong>
+                ⚠ Température non conforme
+            </strong>
+
+            <small>
+                Le seuil de 6 °C est dépassé
+            </small>
+
+        `;
+    }
+}
+
+
+/* =========================================================
+   VALIDATION
+========================================================= */
+
+function validateControl(){
+
+    const client =
+        document.getElementById(
+            "client"
+        );
+
+
+    const temperature =
+        parseFloat(
+            document
+                .getElementById(
+                    "temperature"
+                )
+                .value
+        );
+
+
+    let valid = true;
+
+
+    if(!client.value.trim()){
+
+        client.classList.add(
+            "field-error"
+        );
+
+        valid = false;
+
+    }
+
+    else{
+
+        client.classList.remove(
+            "field-error"
+        );
+
+    }
+
+
+    if(!selectedProduct)
+        valid = false;
+
+
+    if(!selectedMG)
+        valid = false;
+
+
+    if(Number.isNaN(temperature))
+        valid = false;
+
+
+    const checks =
+        document.querySelectorAll(
+            ".controlCheck"
+        );
+
+
+    checks.forEach(check => {
+
+        if(!check.checked)
+            valid = false;
+
+    });
+
+
+    if(!valid){
+
+        showToast(
+            "⚠ Complétez tous les contrôles avant de valider."
+        );
+
+        return;
+    }
+
+
+    const result =
+        temperature <= 6
+            ? "CONFORME"
+            : "NON CONFORME";
+
+
+    const now =
+        new Date();
+
+
+    const control = {
+
+        numero:
+            "CTRL-" +
+            String(
+                controls.length + 1
+            ).padStart(4,"0"),
+
+
+        date:
+            now.toLocaleDateString(
+                "fr-FR"
+            ),
+
+
+        heure:
+            now.toLocaleTimeString(
+                "fr-FR",
+                {
+                    hour:"2-digit",
+                    minute:"2-digit"
+                }
+            ),
+
+
+        profil:
+            currentProfile,
+
+
+        client:
+            client.value.trim(),
+
+
+        produit:
+            selectedProduct,
+
+
+        mg:
+            selectedMG,
+
+
+        temperature:
+            temperature,
+
+
+        resultat:
+            result,
+
+
+        commentaire:
+            document
+                .getElementById(
+                    "comment"
+                )
+                .value.trim()
+
+    };
+
+
+    controls.push(
+        control
+    );
+
+
+    localStorage.setItem(
+        "LDK_CONTROLS",
+        JSON.stringify(
+            controls
+        )
+    );
+
+
+    renderHistory();
+
+
+    showToast(
+        "✓ " +
+        control.numero +
+        " · Contrôle enregistré."
+    );
+
+
+    resetForm();
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+function resetForm(){
+
+    document
+        .getElementById(
+            "client"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "temperature"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "comment"
+        )
+        .value = "";
+
+
+    document
+        .querySelectorAll(
+            ".choice"
+        )
+        .forEach(item =>
+            item.classList.remove(
+                "selected"
+            )
+        );
+
+
+    document
+        .querySelectorAll(
+            ".controlCheck"
+        )
+        .forEach(item =>
+            item.checked = false
+        );
+
+
+    selectedProduct = "";
+
+    selectedMG = "";
+
+
+    checkTemperature();
+}
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+function renderHistory(){
+
+    const body =
+        document.getElementById(
+            "historyBody"
+        );
+
+
+    const mobile =
+        document.getElementById(
+            "mobileHistory"
+        );
+
+
+    const empty =
+        document.getElementById(
+            "emptyHistory"
+        );
+
+
+    body.innerHTML = "";
+
+    mobile.innerHTML = "";
+
+
+    if(!controls.length){
+
+        empty.style.display =
+            "block";
+
+        return;
+    }
+
+
+    empty.style.display =
+        "none";
+
+
+    [...controls]
+        .reverse()
+        .forEach(control => {
+
+
+            /* =============================================
+               DESKTOP TABLE
+            ============================================= */
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            row.innerHTML = `
+
+                <td>
+
+                    <strong>
+                        ${escapeHTML(
+                            control.numero
+                        )}
+                    </strong>
+
+                </td>
+
+
+                <td>
+
+                    ${escapeHTML(
+                        control.date
+                    )}
+
+                    ·
+
+                    ${escapeHTML(
+                        control.heure
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    ${escapeHTML(
+                        control.profil
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    ${escapeHTML(
+                        control.client
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    ${escapeHTML(
+                        control.produit
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    ${escapeHTML(
+                        control.mg
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    ${escapeHTML(
+                        control.temperature
+                    )}
+
+                    °C
+
+                </td>
+
+
+                <td>
+
+                    <span
+                        class="status ${
+                            control.resultat ===
+                            "CONFORME"
+                                ? "ok"
+                                : "bad"
+                        }"
+                    >
+
+                        ${
+                            control.resultat ===
+                            "CONFORME"
+                                ? "✓ "
+                                : "⚠ "
+                        }
+
+                        ${escapeHTML(
+                            control.resultat
+                        )}
+
+                    </span>
+
+                </td>
+
+            `;
+
+
+            body.appendChild(
+                row
+            );
+
+
+            /* =============================================
+               MOBILE CARD
+            ============================================= */
+
+            const card =
+                document.createElement(
+                    "article"
+                );
+
+
+            card.className =
+                "history-card";
+
+
+            card.innerHTML = `
+
+                <div class="history-card-top">
+
+                    <div>
+
+                        <div
+                            class="history-card-number"
+                        >
+                            ${escapeHTML(
+                                control.numero
+                            )}
+                        </div>
+
+                        <div
+                            class="history-card-date"
+                        >
+                            ${escapeHTML(
+                                control.date
+                            )}
+                            ·
+                            ${escapeHTML(
+                                control.heure
+                            )}
+                        </div>
+
+                    </div>
+
+
+                    <span
+                        class="status ${
+                            control.resultat ===
+                            "CONFORME"
+                                ? "ok"
+                                : "bad"
+                        }"
+                    >
+
+                        ${
+                            control.resultat ===
+                            "CONFORME"
+                                ? "✓ "
+                                : "⚠ "
+                        }
+
+                        ${escapeHTML(
+                            control.resultat
+                        )}
+
+                    </span>
+
+                </div>
+
+
+                <div class="history-card-grid">
+
+
+                    <div class="history-item">
+
+                        <div
+                            class="history-item-label"
+                        >
+                            Contrôleur
+                        </div>
+
+                        <div
+                            class="history-item-value"
+                        >
+                            ${escapeHTML(
+                                control.profil
+                            )}
+                        </div>
+
+                    </div>
+
+
+                    <div class="history-item">
+
+                        <div
+                            class="history-item-label"
+                        >
+                            Client
+                        </div>
+
+                        <div
+                            class="history-item-value"
+                        >
+                            ${escapeHTML(
+                                control.client
+                            )}
+                        </div>
+
+                    </div>
+
+
+                    <div class="history-item">
+
+                        <div
+                            class="history-item-label"
+                        >
+                            Produit
+                        </div>
+
+                        <div
+                            class="history-item-value"
+                        >
+                            ${escapeHTML(
+                                control.produit
+                            )}
+                        </div>
+
+                    </div>
+
+
+                    <div class="history-item">
+
+                        <div
+                            class="history-item-label"
+                        >
+                            MG
+                        </div>
+
+                        <div
+                            class="history-item-value"
+                        >
+                            ${escapeHTML(
+                                control.mg
+                            )}
+                        </div>
+
+                    </div>
+
+
+                    <div class="history-item">
+
+                        <div
+                            class="history-item-label"
+                        >
+                            Température
+                        </div>
+
+                        <div
+                            class="history-item-value"
+                        >
+                            ${escapeHTML(
+                                control.temperature
+                            )}
+                            °C
+                        </div>
+
+                    </div>
+
+
+                    ${
+                        control.commentaire
+                            ? `
+
+                        <div
+                            class="history-item full"
+                        >
+
+                            <div
+                                class="history-item-label"
+                            >
+                                Observation
+                            </div>
+
+                            <div
+                                class="history-item-value"
+                            >
+                                ${escapeHTML(
+                                    control.commentaire
+                                )}
+                            </div>
+
+                        </div>
+
+                    `
+                    : ""
+
+                    }
+
+
+                </div>
+
+            `;
+
+
+            mobile.appendChild(
+                card
+            );
+
+        });
+}
+
+
+/* =========================================================
+   EXPORT EXCEL
+========================================================= */
+
+function exportExcel(){
+
+    if(!controls.length){
+
+        showToast(
+            "Aucun contrôle à exporter."
+        );
+
+        return;
+    }
+
+
+    const rows =
+        controls.map(
+            control => ({
+
+                "N° contrôle":
+                    control.numero,
+
+                "Date":
+                    control.date,
+
+                "Heure":
+                    control.heure,
+
+                "Contrôleur":
+                    control.profil,
+
+                "Client":
+                    control.client,
+
+                "Produit":
+                    control.produit,
+
+                "Taux MG":
+                    control.mg,
+
+                "Température °C":
+                    control.temperature,
+
+                "Résultat":
+                    control.resultat,
+
+                "Observations":
+                    control.commentaire
+
+            })
+        );
+
+
+    const worksheet =
+        XLSX.utils.json_to_sheet(
+            rows
+        );
+
+
+    worksheet["!cols"] = [
+
+        {wch:15},
+        {wch:13},
+        {wch:10},
+        {wch:25},
+        {wch:25},
+        {wch:20},
+        {wch:14},
+        {wch:18},
+        {wch:18},
+        {wch:45}
+
+    ];
+
+
+    const workbook =
+        XLSX.utils.book_new();
+
+
+    XLSX.utils.book_append_sheet(
+        workbook,
+        worksheet,
+        "Contrôles"
+    );
+
+
+    XLSX.writeFile(
+        workbook,
+        "LDK_Controle_Expedition.xlsx"
+    );
+
+
+    showToast(
+        "✓ Export Excel généré."
+    );
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    setTimeout(() => {
+
+        toast.classList.remove(
+            "show"
+        );
+
+    },3200);
+}
+
+
+/* =========================================================
+   SECURITY
+========================================================= */
+
+function escapeHTML(value){
+
+    return String(
+        value ?? ""
+    )
+
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
+}
+
+
+/* =========================================================
+   SAVED PROFILE
+========================================================= */
+
+const savedProfile =
+    localStorage.getItem(
+        "LDK_PROFILE"
+    );
+
+
+if(savedProfile){
+
+    currentProfile =
+        savedProfile;
+}
+
+
+</script>
+
+
+</body>
+
+</html>

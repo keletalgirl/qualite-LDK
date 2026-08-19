@@ -42,20 +42,15 @@ body{
     margin:0;
     width:100%;
     min-height:100vh;
-
     background:#f6f7f4;
-
     color:#111512;
-
     font-family:
         Inter,
         "Segoe UI",
         Arial,
         sans-serif;
-
     -webkit-font-smoothing:antialiased;
     text-rendering:geometricPrecision;
-
     overflow-x:hidden;
 }
 
@@ -153,11 +148,6 @@ button{
         transform:none;
     }
 }
-
-
-/* =========================================================
-   INTRO LOGO
-========================================================= */
 
 .intro-logo{
 
@@ -662,7 +652,7 @@ button{
 
 
 /* =========================================================
-   HEADER DESKTOP
+   HEADER
 ========================================================= */
 
 .header{
@@ -829,11 +819,6 @@ button{
     margin:70px auto 100px;
 }
 
-
-/* =========================================================
-   PAGE HEADING
-========================================================= */
-
 .page-heading{
 
     display:flex;
@@ -970,11 +955,6 @@ button{
 
     box-shadow:var(--shadow);
 }
-
-
-/* =========================================================
-   SECTION
-========================================================= */
 
 .card-section{
 
@@ -1565,9 +1545,18 @@ textarea:focus{
     transform:scale(.985);
 }
 
+.submit:disabled{
+
+    opacity:.6;
+
+    cursor:not-allowed;
+
+    transform:none;
+}
+
 
 /* =========================================================
-   HISTORY DESKTOP
+   HISTORY
 ========================================================= */
 
 .history{
@@ -1745,11 +1734,6 @@ td strong{
     font-weight:600;
 }
 
-
-/* =========================================================
-   MOBILE HISTORY CARDS
-========================================================= */
-
 .mobile-history{
     display:none;
 }
@@ -1848,20 +1832,11 @@ td strong{
         overflow-x:hidden;
     }
 
-
-    /* =====================================================
-       INTRO MOBILE
-    ===================================================== */
-
     #intro{
-
-        padding:
-            24px 20px;
-
+        padding:24px 20px;
     }
 
     .intro-inner{
-
         width:100%;
     }
 
@@ -1883,12 +1858,10 @@ td strong{
     }
 
     .intro-logo-text{
-
         text-align:center;
     }
 
     .intro-logo-text strong{
-
         font-size:48px;
     }
 
@@ -1935,11 +1908,6 @@ td strong{
 
         line-height:1.5;
     }
-
-
-    /* =====================================================
-       PORTAL MOBILE
-    ===================================================== */
 
     #portal{
 
@@ -1996,14 +1964,6 @@ td strong{
         font-size:9px;
 
         letter-spacing:.06em;
-    }
-
-    .portal-badge i{
-
-        width:7px;
-        height:7px;
-
-        flex-basis:7px;
     }
 
     .portal-title{
@@ -2100,11 +2060,6 @@ td strong{
         font-size:18px;
     }
 
-
-    /* =====================================================
-       HEADER MOBILE
-    ===================================================== */
-
     .header{
 
         position:sticky;
@@ -2151,13 +2106,9 @@ td strong{
         min-width:0;
     }
 
-    .header-brand-name{
-
-        display:none;
-    }
-
-    .header-divider{
-
+    .header-brand-name,
+    .header-divider,
+    .network-status{
         display:none;
     }
 
@@ -2180,13 +2131,7 @@ td strong{
     }
 
     .header-right{
-
         gap:7px;
-    }
-
-    .network-status{
-
-        display:none;
     }
 
     .current-profile{
@@ -2206,11 +2151,6 @@ td strong{
         border-radius:999px;
     }
 
-
-    /* =====================================================
-       MAIN MOBILE
-    ===================================================== */
-
     .main{
 
         width:
@@ -2220,11 +2160,6 @@ td strong{
             27px auto
             calc(55px + env(safe-area-inset-bottom));
     }
-
-
-    /* =====================================================
-       PAGE HEADING MOBILE
-    ===================================================== */
 
     .page-heading{
 
@@ -2290,17 +2225,6 @@ td strong{
         gap:6px;
     }
 
-    .page-meta i{
-
-        width:5px;
-        height:5px;
-    }
-
-
-    /* =====================================================
-       CONTROL CARD MOBILE
-    ===================================================== */
-
     .control-card{
 
         border-radius:22px;
@@ -2336,11 +2260,6 @@ td strong{
         font-size:9px;
     }
 
-
-    /* =====================================================
-       CLIENT MOBILE
-    ===================================================== */
-
     .client-input{
 
         height:57px;
@@ -2352,11 +2271,6 @@ td strong{
 
         font-size:15px;
     }
-
-
-    /* =====================================================
-       CHOICES MOBILE
-    ===================================================== */
 
     .choice-grid{
 
@@ -2407,11 +2321,6 @@ td strong{
         height:27px;
     }
 
-
-    /* =====================================================
-       TEMPERATURE MOBILE
-    ===================================================== */
-
     .temperature-layout{
 
         display:flex;
@@ -2451,7 +2360,6 @@ td strong{
     }
 
     .temp-status strong{
-
         font-size:13px;
     }
 
@@ -2461,11 +2369,6 @@ td strong{
 
         font-size:10px;
     }
-
-
-    /* =====================================================
-       CHECKS MOBILE
-    ===================================================== */
 
     .check-grid{
 
@@ -2487,10 +2390,6 @@ td strong{
         border-radius:14px;
     }
 
-    .check:hover{
-        border-color:var(--border);
-    }
-
     .check-box{
 
         width:29px;
@@ -2502,14 +2401,8 @@ td strong{
     }
 
     .check-label{
-
         font-size:11px;
     }
-
-
-    /* =====================================================
-       TEXTAREA MOBILE
-    ===================================================== */
 
     textarea{
 
@@ -2523,11 +2416,6 @@ td strong{
 
         line-height:1.5;
     }
-
-
-    /* =====================================================
-       VALIDATION MOBILE
-    ===================================================== */
 
     .validation{
 
@@ -2562,7 +2450,6 @@ td strong{
     }
 
     .validation-text{
-
         padding-top:2px;
     }
 
@@ -2597,11 +2484,6 @@ td strong{
 
         letter-spacing:.09em;
     }
-
-
-    /* =====================================================
-       HISTORY MOBILE
-    ===================================================== */
 
     .history{
 
@@ -2646,11 +2528,6 @@ td strong{
         font-size:10px;
     }
 
-    /*
-       On mobile the desktop table disappears.
-       JS generates the same information as cards.
-    */
-
     .history-table-wrap{
 
         border-radius:18px;
@@ -2665,7 +2542,6 @@ td strong{
     }
 
     .history-table-wrap > table{
-
         display:none;
     }
 
@@ -2741,14 +2617,11 @@ td strong{
     }
 
     .history-item{
-
         min-width:0;
     }
 
     .history-item.full{
-
-        grid-column:
-            1 / -1;
+        grid-column:1 / -1;
     }
 
     .history-item-label{
@@ -2797,11 +2670,6 @@ td strong{
         font-size:11px;
     }
 
-
-    /* =====================================================
-       TOAST MOBILE
-    ===================================================== */
-
     .toast{
 
         left:12px;
@@ -2833,18 +2701,14 @@ td strong{
 @media(max-width:360px){
 
     .main{
-
-        width:
-            calc(100% - 18px);
+        width:calc(100% - 18px);
     }
 
     .portal-title{
-
         font-size:46px;
     }
 
     .page-title{
-
         font-size:41px;
     }
 
@@ -2856,7 +2720,6 @@ td strong{
     }
 
     .profile-name{
-
         font-size:19px;
     }
 
@@ -2870,9 +2733,7 @@ td strong{
     }
 
     .card-section{
-
-        padding:
-            21px 14px;
+        padding:21px 14px;
     }
 
 }
@@ -2899,12 +2760,10 @@ td strong{
     }
 
     .portal-top{
-
         margin-bottom:22px;
     }
 
     .profiles{
-
         grid-template-columns:1fr 1fr;
     }
 
@@ -2937,7 +2796,39 @@ td strong{
     }
 
 }
+/* =========================================================
+   INTRO — LOADING BAR
+========================================================= */
 
+.intro-loader{
+
+    width:min(280px, 75vw);
+
+    height:3px;
+
+    margin:18px auto 0;
+
+    overflow:hidden;
+
+    border-radius:999px;
+
+    background:#dfe4df;
+}
+
+.intro-progress{
+
+    width:0%;
+
+    height:100%;
+
+    border-radius:999px;
+
+    background:var(--green);
+
+    transition:
+        width .18s ease;
+
+}
 </style>
 
 </head>
@@ -2984,8 +2875,17 @@ td strong{
         <div class="intro-line"></div>
 
         <div class="intro-status">
-            Initialisation du système · Accès sécurisé
-        </div>
+    <span id="introStatusText">
+        Initialisation du système · Accès sécurisé
+    </span>
+
+    <div class="intro-loader">
+        <div
+            id="introProgress"
+            class="intro-progress"
+        ></div>
+    </div>
+</div>
 
     </div>
 
@@ -3031,68 +2931,11 @@ td strong{
         </div>
 
 
-        <div class="profiles">
-
-
-            <button
-                class="profile"
-                type="button"
-                onclick="selectProfile('Hafssa LAKHAL')"
-            >
-
-                <div class="profile-number">
-                    01 · SERVICE QUALITÉ
-                </div>
-
-                <div class="profile-avatar">
-                    H
-                </div>
-
-                <div class="profile-name">
-                    Hafssa LAKHAL
-                </div>
-
-                <div class="profile-role">
-                    Alternante · Service Qualité
-                </div>
-
-                <div class="profile-arrow">
-                    →
-                </div>
-
-            </button>
-
-
-            <button
-                class="profile"
-                type="button"
-                onclick="selectProfile('Gwendoline MAURICE')"
-            >
-
-                <div class="profile-number">
-                    02 · SERVICE QUALITÉ
-                </div>
-
-                <div class="profile-avatar">
-                    G
-                </div>
-
-                <div class="profile-name">
-                    Gwendoline MAURICE
-                </div>
-
-                <div class="profile-role">
-                    Responsable Qualité
-                </div>
-
-                <div class="profile-arrow">
-                    →
-                </div>
-
-            </button>
-
-
-        </div>
+<div
+    id="profilesContainer"
+    class="profiles"
+>
+</div>
 
     </div>
 
@@ -3438,10 +3281,9 @@ td strong{
                 En attente
             </strong>
 
-            <small>
-                Seuil maximum : 6 °C
-            </small>
-
+            <small id="temperatureThreshold">
+    Seuil maximum : chargement...
+</small>
         </div>
 
 
@@ -3640,6 +3482,7 @@ td strong{
 
 
     <button
+        id="submitButton"
         class="submit"
         type="button"
         onclick="validateControl()"
@@ -3681,8 +3524,6 @@ td strong{
     <div class="history-table-wrap">
 
 
-        <!-- DESKTOP -->
-
         <table>
 
             <thead>
@@ -3714,8 +3555,6 @@ td strong{
         </table>
 
 
-        <!-- MOBILE -->
-
         <div
             id="mobileHistory"
             class="mobile-history"
@@ -3745,8 +3584,30 @@ td strong{
     class="toast"
 ></div>
 
-
 <script>
+
+/* =========================================================
+   LDK — FRONTEND
+   ---------------------------------------------------------
+   INDEX HTML EXTERNE
+   ↓
+   GOOGLE APPS SCRIPT API
+   ↓
+   GOOGLE SHEETS
+
+   DONNÉES CENTRALISÉES :
+   - PROFILS
+   - CONFIG
+   - CONTROLES
+========================================================= */
+
+
+/* =========================================================
+   CONFIGURATION
+========================================================= */
+
+const APPS_SCRIPT_URL =
+    "https://script.google.com/macros/s/AKfycby0X5i-BQeHe39WLafrGjrwY-6Bg0DaYVvGHCR9cktc3LRePqe_m5PfciE8GFisQXjZ3g/exec";
 
 
 /* =========================================================
@@ -3759,43 +3620,725 @@ let selectedProduct = "";
 
 let selectedMG = "";
 
-let controls =
-    JSON.parse(
-        localStorage.getItem(
-            "LDK_CONTROLS"
-        ) || "[]"
-    );
+let controls = [];
+
+let profiles = [];
+
+let appConfig = {
+
+    tempMax: 6
+
+};
+
+let isLoading = false;
+
+
+/* =========================================================
+   INITIALISATION
+========================================================= */
+
+/* =========================================================
+   INITIALISATION LDK
+   ---------------------------------------------------------
+   Loading purement esthétique pendant le lancement
+========================================================= */
+
+async function initializeLDK(){
+
+    const progress =
+        document.getElementById(
+            "introProgress"
+        );
+
+    const statusText =
+        document.getElementById(
+            "introStatusText"
+        );
+
+
+    /* =============================================
+       ANIMATION ESTHÉTIQUE
+    ============================================= */
+
+    let progressValue = 0;
+
+
+    const progressTimer =
+        setInterval(() => {
+
+            /*
+             * On accélère au début,
+             * puis on ralentit légèrement
+             * avant la fin.
+             */
+
+            if(progressValue < 70){
+
+                progressValue +=
+                    Math.random() * 8 + 3;
+
+            }
+
+            else if(progressValue < 90){
+
+                progressValue +=
+                    Math.random() * 3 + 1;
+
+            }
+
+
+            progressValue =
+                Math.min(
+                    progressValue,
+                    94
+                );
+
+
+            if(progress){
+
+                progress.style.width =
+                    progressValue + "%";
+
+            }
+
+        },160);
+
+
+    try{
+
+        /* =========================================
+           CHARGEMENT REEL DES DONNEES
+        ========================================= */
+
+        if(statusText){
+
+            statusText.textContent =
+                "Connexion à la base qualité · Sécurisation...";
+
+        }
+
+
+        await loadAppData();
+
+
+        /* =========================================
+           DONNEES CHARGEES
+        ========================================= */
+
+        if(statusText){
+
+            statusText.textContent =
+                "Base qualité synchronisée · Accès sécurisé";
+
+        }
+
+
+        clearInterval(
+            progressTimer
+        );
+
+
+        if(progress){
+
+            progress.style.width =
+                "100%";
+
+        }
+
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Erreur initialisation LDK :",
+            error
+        );
+
+
+        clearInterval(
+            progressTimer
+        );
+
+
+        if(progress){
+
+            progress.style.width =
+                "100%";
+
+        }
+
+
+        if(statusText){
+
+            statusText.textContent =
+                "Initialisation du portail · Accès sécurisé";
+
+        }
+
+    }
+
+
+    /* =============================================
+       DISPARITION DE L'INTRO
+    ============================================= */
+
+    setTimeout(() => {
+
+        const intro =
+            document.getElementById(
+                "intro"
+            );
+
+
+        const portal =
+            document.getElementById(
+                "portal"
+            );
+
+
+        if(intro){
+
+            intro.classList.add(
+                "hide"
+            );
+
+        }
+
+
+        setTimeout(() => {
+
+            if(portal){
+
+                portal.classList.add(
+                    "show"
+                );
+
+            }
+
+        },300);
+
+    },400);
+
+}
 
 
 /* =========================================================
    INTRO
 ========================================================= */
 
-setTimeout(() => {
-
-    document
-        .getElementById("intro")
-        .classList.add("hide");
+initializeLDK();
 
 
-    setTimeout(() => {
+/* =========================================================
+   API GET
+========================================================= */
 
-        document
-            .getElementById("portal")
-            .classList.add("show");
+async function apiGet(action){
 
-    },300);
+    if(
+        !APPS_SCRIPT_URL ||
+        APPS_SCRIPT_URL.includes(
+            "TON_URL_APPS_SCRIPT"
+        )
+    ){
 
-},2200);
+        throw new Error(
+            "URL Apps Script non configurée."
+        );
+
+    }
+
+
+    const url =
+        APPS_SCRIPT_URL +
+        "?action=" +
+        encodeURIComponent(
+            action
+        ) +
+        "&t=" +
+        Date.now();
+
+
+    const response =
+        await fetch(
+            url,
+            {
+
+                method:"GET",
+
+                cache:"no-store",
+
+                redirect:"follow"
+
+            }
+        );
+
+
+    if(!response.ok){
+
+        throw new Error(
+            "Erreur HTTP " +
+            response.status
+        );
+
+    }
+
+
+    const text =
+        await response.text();
+
+
+    let data;
+
+
+    try{
+
+        data =
+            JSON.parse(
+                text
+            );
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Réponse serveur non JSON :",
+            text
+        );
+
+
+        throw new Error(
+            "Le serveur Apps Script ne renvoie pas du JSON."
+        );
+
+    }
+
+
+    if(!data.success){
+
+        throw new Error(
+            data.message ||
+            "Erreur API."
+        );
+
+    }
+
+
+    return data;
+
+}
+
+
+/* =========================================================
+   API POST
+========================================================= */
+
+async function apiPost(
+    payload
+){
+
+    if(
+        !APPS_SCRIPT_URL ||
+        APPS_SCRIPT_URL.includes(
+            "TON_URL_APPS_SCRIPT"
+        )
+    ){
+
+        throw new Error(
+            "URL Apps Script non configurée."
+        );
+
+    }
+
+
+    const response =
+        await fetch(
+            APPS_SCRIPT_URL,
+            {
+
+                method:"POST",
+
+                redirect:"follow",
+
+                headers:{
+
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+
+                },
+
+                body:
+                    JSON.stringify(
+                        payload
+                    )
+
+            }
+        );
+
+
+    if(!response.ok){
+
+        throw new Error(
+            "Erreur HTTP " +
+            response.status
+        );
+
+    }
+
+
+    const text =
+        await response.text();
+
+
+    let data;
+
+
+    try{
+
+        data =
+            JSON.parse(
+                text
+            );
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Réponse POST non JSON :",
+            text
+        );
+
+
+        throw new Error(
+            "Réponse invalide du serveur Apps Script."
+        );
+
+    }
+
+
+    if(!data.success){
+
+        throw new Error(
+            data.message ||
+            "Erreur API."
+        );
+
+    }
+
+
+    return data;
+
+}
+
+
+/* =========================================================
+   CHARGEMENT GLOBAL
+   ---------------------------------------------------------
+   PROFILS + CONTROLES + CONFIG
+========================================================= */
+
+async function loadAppData(){
+
+    try{
+
+        const data =
+            await apiGet(
+                "getAppData"
+            );
+
+
+        /* =============================================
+           PROFILS
+        ============================================= */
+
+        profiles =
+            Array.isArray(
+                data.profiles
+            )
+                ? data.profiles
+                : [];
+
+
+        /* =============================================
+           CONTROLES
+        ============================================= */
+
+        controls =
+            Array.isArray(
+                data.controls
+            )
+                ? data.controls
+                : [];
+
+
+        /* =============================================
+           CONFIG
+        ============================================= */
+
+        if(data.config){
+
+            const parsedTempMax =
+                Number(
+                    data.config.tempMax
+                );
+
+
+            appConfig = {
+
+                tempMax:
+                    Number.isFinite(
+                        parsedTempMax
+                    )
+                        ? parsedTempMax
+                        : 6
+
+            };
+
+        }
+
+
+        /* =============================================
+           AFFICHAGE
+        ============================================= */
+
+        renderProfiles();
+
+        renderHistory();
+
+        updateTemperatureThreshold();
+
+        checkTemperature();
+
+
+        console.log(
+            "LDK — données chargées :",
+            {
+                profiles,
+                controls,
+                config:appConfig
+            }
+        );
+
+
+    }
+
+    catch(error){
+
+        console.error(
+            "loadAppData:",
+            error
+        );
+
+
+        showToast(
+            "⚠ Impossible de charger la configuration LDK."
+        );
+
+
+        throw error;
+
+    }
+
+}
+
+
+/* =========================================================
+   AFFICHAGE DES PROFILS
+   ---------------------------------------------------------
+   Les profils viennent maintenant de PROFILS
+========================================================= */
+
+function renderProfiles(){
+
+    const container =
+        document.getElementById(
+            "profilesContainer"
+        );
+
+
+    if(!container){
+
+        console.warn(
+            "profilesContainer introuvable."
+        );
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        "";
+
+
+    if(!profiles.length){
+
+        container.innerHTML = `
+
+            <div
+                style="
+                    grid-column:1/-1;
+                    padding:30px;
+                    border:1px solid var(--border);
+                    border-radius:20px;
+                    background:#fff;
+                    text-align:center;
+                    color:var(--grey);
+                    font-weight:700;
+                "
+            >
+
+                Aucun profil actif.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    profiles.forEach(
+        (profile,index) => {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.type =
+                "button";
+
+
+            button.className =
+                "profile";
+
+
+            button.onclick =
+                () =>
+                    selectProfile(
+                        profile.nom
+                    );
+
+
+            const initials =
+                profile.initiales ||
+                String(
+                    profile.nom || "?"
+                )
+                    .split(" ")
+                    .map(
+                        part =>
+                            part.charAt(0)
+                    )
+                    .join("")
+                    .substring(0,2)
+                    .toUpperCase();
+
+
+            button.innerHTML = `
+
+                <div class="profile-number">
+
+                    ${String(
+                        index + 1
+                    ).padStart(2,"0")}
+
+                    · SERVICE QUALITÉ
+
+                </div>
+
+
+                <div class="profile-avatar">
+
+                    ${escapeHTML(
+                        initials
+                    )}
+
+                </div>
+
+
+                <div class="profile-name">
+
+                    ${escapeHTML(
+                        profile.nom
+                    )}
+
+                </div>
+
+
+                <div class="profile-role">
+
+                    ${escapeHTML(
+                        profile.role
+                    )}
+
+                </div>
+
+
+                <div class="profile-arrow">
+
+                    →
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                button
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SEUIL TEMPERATURE
+   ---------------------------------------------------------
+   Le seuil vient maintenant de CONFIG
+========================================================= */
+
+function updateTemperatureThreshold(){
+
+    const threshold =
+        document.getElementById(
+            "temperatureThreshold"
+        );
+
+
+    if(!threshold){
+
+        return;
+
+    }
+
+
+    threshold.textContent =
+        "Seuil maximum : " +
+        appConfig.tempMax +
+        " °C";
+
+}
 
 
 /* =========================================================
    PROFILE
 ========================================================= */
 
-function selectProfile(profile){
+function selectProfile(
+    profile
+){
 
-    currentProfile = profile;
+    currentProfile =
+        profile;
 
 
     localStorage.setItem(
@@ -3810,40 +4353,136 @@ function selectProfile(profile){
         );
 
 
-    portal.style.opacity = "0";
+    if(!portal){
+
+        return;
+
+    }
+
+
+    portal.style.opacity =
+        "0";
+
 
     portal.style.transform =
         "scale(.98) translateY(-10px)";
 
 
-    setTimeout(() => {
+    setTimeout(
+        async () => {
 
-        portal.style.display =
-            "none";
-
-
-        document
-            .getElementById("app")
-            .classList
-            .add("active");
+            portal.style.display =
+                "none";
 
 
-        document
-            .getElementById("profileDisplay")
-            .textContent =
-            profile;
+            const app =
+                document.getElementById(
+                    "app"
+                );
+
+
+            if(app){
+
+                app.classList.add(
+                    "active"
+                );
+
+            }
+
+
+            const profileDisplay =
+                document.getElementById(
+                    "profileDisplay"
+                );
+
+
+            if(profileDisplay){
+
+                profileDisplay.textContent =
+                    profile;
+
+            }
+
+
+            renderHistory();
+
+
+            window.scrollTo({
+
+                top:0,
+
+                behavior:"instant"
+
+            });
+
+
+            await loadControls();
+
+        },
+
+        450
+    );
+
+}
+
+
+/* =========================================================
+   CHARGEMENT CONTROLES
+========================================================= */
+
+async function loadControls(){
+
+    try{
+
+        showToast(
+            "⟳ Synchronisation de la base LDK..."
+        );
+
+
+        const data =
+            await apiGet(
+                "getControls"
+            );
+
+
+        controls =
+            Array.isArray(
+                data.controls
+            )
+                ? data.controls
+                : [];
 
 
         renderHistory();
 
 
-        window.scrollTo({
-            top:0,
-            behavior:"instant"
-        });
+        showToast(
+            "✓ Base LDK synchronisée."
+        );
 
 
-    },450);
+    }
+
+    catch(error){
+
+        console.error(
+            "loadControls:",
+            error
+        );
+
+
+        controls = [];
+
+
+        renderHistory();
+
+
+        showToast(
+            "⚠ Échec de connexion à la base LDK."
+        );
+
+    }
+
 }
 
 
@@ -3851,7 +4490,9 @@ function selectProfile(profile){
    CHOICES
 ========================================================= */
 
-function choose(element){
+function choose(
+    element
+){
 
     const group =
         element.dataset.group;
@@ -3861,13 +4502,15 @@ function choose(element){
         .querySelectorAll(
             `.choice[data-group="${group}"]`
         )
-        .forEach(item => {
+        .forEach(
+            item => {
 
-            item.classList.remove(
-                "selected"
-            );
+                item.classList.remove(
+                    "selected"
+                );
 
-        });
+            }
+        );
 
 
     element.classList.add(
@@ -3875,18 +4518,25 @@ function choose(element){
     );
 
 
-    if(group === "product"){
+    if(
+        group === "product"
+    ){
 
         selectedProduct =
             element.dataset.value;
+
     }
 
 
-    if(group === "mg"){
+    if(
+        group === "mg"
+    ){
 
         selectedMG =
             element.dataset.value;
+
     }
+
 }
 
 
@@ -3908,9 +4558,22 @@ function checkTemperature(){
         );
 
 
+    if(!input || !status){
+
+        return;
+
+    }
+
+
     const value =
         parseFloat(
             input.value
+        );
+
+
+    const max =
+        Number(
+            appConfig.tempMax
         );
 
 
@@ -3930,16 +4593,17 @@ function checkTemperature(){
             </strong>
 
             <small>
-                Seuil maximum : 6 °C
+                Seuil maximum : ${max} °C
             </small>
 
         `;
 
         return;
+
     }
 
 
-    if(value <= 6){
+    if(value <= max){
 
         status.className =
             "temp-status ok";
@@ -3952,7 +4616,7 @@ function checkTemperature(){
             </strong>
 
             <small>
-                Seuil respecté · ≤ 6 °C
+                Seuil respecté · ≤ ${max} °C
             </small>
 
         `;
@@ -3972,11 +4636,13 @@ function checkTemperature(){
             </strong>
 
             <small>
-                Le seuil de 6 °C est dépassé
+                Le seuil de ${max} °C est dépassé
             </small>
 
         `;
+
     }
+
 }
 
 
@@ -3984,7 +4650,14 @@ function checkTemperature(){
    VALIDATION
 ========================================================= */
 
-function validateControl(){
+async function validateControl(){
+
+    if(isLoading){
+
+        return;
+
+    }
+
 
     const client =
         document.getElementById(
@@ -3992,26 +4665,46 @@ function validateControl(){
         );
 
 
-    const temperature =
-        parseFloat(
-            document
-                .getElementById(
-                    "temperature"
-                )
-                .value
+    const temperatureInput =
+        document.getElementById(
+            "temperature"
         );
 
 
-    let valid = true;
+    if(
+        !client ||
+        !temperatureInput
+    ){
+
+        return;
+
+    }
 
 
-    if(!client.value.trim()){
+    const temperature =
+        parseFloat(
+            temperatureInput.value
+        );
+
+
+    let valid =
+        true;
+
+
+    /* =============================================
+       CLIENT
+    ============================================= */
+
+    if(
+        !client.value.trim()
+    ){
 
         client.classList.add(
             "field-error"
         );
 
-        valid = false;
+        valid =
+            false;
 
     }
 
@@ -4024,30 +4717,109 @@ function validateControl(){
     }
 
 
-    if(!selectedProduct)
-        valid = false;
+    /* =============================================
+       PRODUIT
+    ============================================= */
+
+    if(
+        !selectedProduct
+    ){
+
+        valid =
+            false;
+
+    }
 
 
-    if(!selectedMG)
-        valid = false;
+    /* =============================================
+       MG
+    ============================================= */
+
+    if(
+        !selectedMG
+    ){
+
+        valid =
+            false;
+
+    }
 
 
-    if(Number.isNaN(temperature))
-        valid = false;
+    /* =============================================
+       TEMPERATURE
+    ============================================= */
+
+    if(
+        Number.isNaN(
+            temperature
+        )
+    ){
+
+        valid =
+            false;
+
+    }
 
 
-    const checks =
+    /* =============================================
+       CHECKBOXES
+    ============================================= */
+
+    const checkElements =
         document.querySelectorAll(
             ".controlCheck"
         );
 
 
-    checks.forEach(check => {
+    const checks = {
 
-        if(!check.checked)
-            valid = false;
+        etiquetage:
+            checkElements[0]
+                ? checkElements[0].checked
+                : false,
 
-    });
+        dlc:
+            checkElements[1]
+                ? checkElements[1].checked
+                : false,
+
+        conditionnement:
+            checkElements[2]
+                ? checkElements[2].checked
+                : false,
+
+        emballage:
+            checkElements[3]
+                ? checkElements[3].checked
+                : false,
+
+        quantite:
+            checkElements[4]
+                ? checkElements[4].checked
+                : false,
+
+        aspect:
+            checkElements[5]
+                ? checkElements[5].checked
+                : false
+
+    };
+
+
+    checkElements.forEach(
+        check => {
+
+            if(
+                !check.checked
+            ){
+
+                valid =
+                    false;
+
+            }
+
+        }
+    );
 
 
     if(!valid){
@@ -4057,14 +4829,29 @@ function validateControl(){
         );
 
         return;
+
     }
 
 
+    /* =============================================
+       RESULTAT
+       Seuil centralisé CONFIG
+    ============================================= */
+
     const result =
-        temperature <= 6
+        temperature <=
+        Number(
+            appConfig.tempMax
+        )
+
             ? "CONFORME"
+
             : "NON CONFORME";
 
+
+    /* =============================================
+       CONTROLE
+    ============================================= */
 
     const now =
         new Date();
@@ -4072,87 +4859,168 @@ function validateControl(){
 
     const control = {
 
-        numero:
-            "CTRL-" +
-            String(
-                controls.length + 1
-            ).padStart(4,"0"),
-
-
-        date:
-            now.toLocaleDateString(
-                "fr-FR"
-            ),
-
-
-        heure:
-            now.toLocaleTimeString(
-                "fr-FR",
-                {
-                    hour:"2-digit",
-                    minute:"2-digit"
-                }
-            ),
-
+        dateISO:
+            now.toISOString(),
 
         profil:
             currentProfile,
 
-
         client:
             client.value.trim(),
-
 
         produit:
             selectedProduct,
 
-
         mg:
             selectedMG,
-
 
         temperature:
             temperature,
 
-
         resultat:
             result,
-
 
         commentaire:
             document
                 .getElementById(
                     "comment"
                 )
-                .value.trim()
+                .value
+                .trim(),
+
+        checks:
+            checks
 
     };
 
 
-    controls.push(
-        control
+    setLoading(
+        true
     );
 
 
-    localStorage.setItem(
-        "LDK_CONTROLS",
-        JSON.stringify(
-            controls
-        )
-    );
+    try{
+
+        showToast(
+            "⟳ Enregistrement du contrôle..."
+        );
 
 
-    renderHistory();
+        const data =
+            await apiPost({
+
+                action:
+                    "saveControl",
+
+                control:
+                    control
+
+            });
 
 
-    showToast(
-        "✓ " +
-        control.numero +
-        " · Contrôle enregistré."
-    );
+        if(
+            data.control
+        ){
+
+            controls.unshift(
+                data.control
+            );
+
+        }
 
 
-    resetForm();
+        renderHistory();
+
+
+        showToast(
+
+            "✓ " +
+
+            (
+                data.control?.numero ||
+                "Contrôle"
+            ) +
+
+            " · Contrôle enregistré."
+
+        );
+
+
+        resetForm();
+
+
+        /* =========================================
+           RE-SYNCHRONISATION
+        ========================================= */
+
+        await loadControls();
+
+    }
+
+    catch(error){
+
+        console.error(
+            "validateControl:",
+            error
+        );
+
+
+        showToast(
+
+            "⚠ Échec de l'enregistrement : " +
+            error.message
+
+        );
+
+    }
+
+    finally{
+
+        setLoading(
+            false
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   BOUTON LOADING
+========================================================= */
+
+function setLoading(
+    state
+){
+
+    isLoading =
+        state;
+
+
+    const button =
+        document.getElementById(
+            "submitButton"
+        );
+
+
+    if(!button){
+
+        return;
+
+    }
+
+
+    button.disabled =
+        state;
+
+
+    button.textContent =
+        state
+
+            ? "ENREGISTREMENT..."
+
+            : "VALIDER LE CONTRÔLE";
+
 }
 
 
@@ -4162,35 +5030,61 @@ function validateControl(){
 
 function resetForm(){
 
-    document
-        .getElementById(
+    const client =
+        document.getElementById(
             "client"
-        )
-        .value = "";
+        );
 
 
-    document
-        .getElementById(
+    const temperature =
+        document.getElementById(
             "temperature"
-        )
-        .value = "";
+        );
 
 
-    document
-        .getElementById(
+    const comment =
+        document.getElementById(
             "comment"
-        )
-        .value = "";
+        );
+
+
+    if(client){
+
+        client.value =
+            "";
+
+        client.classList.remove(
+            "field-error"
+        );
+
+    }
+
+
+    if(temperature){
+
+        temperature.value =
+            "";
+
+    }
+
+
+    if(comment){
+
+        comment.value =
+            "";
+
+    }
 
 
     document
         .querySelectorAll(
             ".choice"
         )
-        .forEach(item =>
-            item.classList.remove(
-                "selected"
-            )
+        .forEach(
+            item =>
+                item.classList.remove(
+                    "selected"
+                )
         );
 
 
@@ -4198,22 +5092,28 @@ function resetForm(){
         .querySelectorAll(
             ".controlCheck"
         )
-        .forEach(item =>
-            item.checked = false
+        .forEach(
+            item =>
+                item.checked =
+                    false
         );
 
 
-    selectedProduct = "";
+    selectedProduct =
+        "";
 
-    selectedMG = "";
+
+    selectedMG =
+        "";
 
 
     checkTemperature();
+
 }
 
 
 /* =========================================================
-   HISTORY
+   HISTORIQUE
 ========================================================= */
 
 function renderHistory(){
@@ -4236,17 +5136,33 @@ function renderHistory(){
         );
 
 
-    body.innerHTML = "";
+    if(
+        !body ||
+        !mobile ||
+        !empty
+    ){
 
-    mobile.innerHTML = "";
+        return;
+
+    }
 
 
-    if(!controls.length){
+    body.innerHTML =
+        "";
+
+    mobile.innerHTML =
+        "";
+
+
+    if(
+        !controls.length
+    ){
 
         empty.style.display =
             "block";
 
         return;
+
     }
 
 
@@ -4254,14 +5170,13 @@ function renderHistory(){
         "none";
 
 
-    [...controls]
-        .reverse()
-        .forEach(control => {
+    controls.forEach(
+        control => {
 
 
-            /* =============================================
-               DESKTOP TABLE
-            ============================================= */
+            /* =========================================
+               DESKTOP
+            ========================================= */
 
             const row =
                 document.createElement(
@@ -4378,9 +5293,9 @@ function renderHistory(){
             );
 
 
-            /* =============================================
-               MOBILE CARD
-            ============================================= */
+            /* =========================================
+               MOBILE
+            ========================================= */
 
             const card =
                 document.createElement(
@@ -4394,28 +5309,37 @@ function renderHistory(){
 
             card.innerHTML = `
 
-                <div class="history-card-top">
+                <div
+                    class="history-card-top"
+                >
 
                     <div>
 
                         <div
                             class="history-card-number"
                         >
+
                             ${escapeHTML(
                                 control.numero
                             )}
+
                         </div>
+
 
                         <div
                             class="history-card-date"
                         >
+
                             ${escapeHTML(
                                 control.date
                             )}
+
                             ·
+
                             ${escapeHTML(
                                 control.heure
                             )}
+
                         </div>
 
                     </div>
@@ -4446,10 +5370,14 @@ function renderHistory(){
                 </div>
 
 
-                <div class="history-card-grid">
+                <div
+                    class="history-card-grid"
+                >
 
 
-                    <div class="history-item">
+                    <div
+                        class="history-item"
+                    >
 
                         <div
                             class="history-item-label"
@@ -4457,18 +5385,23 @@ function renderHistory(){
                             Contrôleur
                         </div>
 
+
                         <div
                             class="history-item-value"
                         >
+
                             ${escapeHTML(
                                 control.profil
                             )}
+
                         </div>
 
                     </div>
 
 
-                    <div class="history-item">
+                    <div
+                        class="history-item"
+                    >
 
                         <div
                             class="history-item-label"
@@ -4476,18 +5409,23 @@ function renderHistory(){
                             Client
                         </div>
 
+
                         <div
                             class="history-item-value"
                         >
+
                             ${escapeHTML(
                                 control.client
                             )}
+
                         </div>
 
                     </div>
 
 
-                    <div class="history-item">
+                    <div
+                        class="history-item"
+                    >
 
                         <div
                             class="history-item-label"
@@ -4495,18 +5433,23 @@ function renderHistory(){
                             Produit
                         </div>
 
+
                         <div
                             class="history-item-value"
                         >
+
                             ${escapeHTML(
                                 control.produit
                             )}
+
                         </div>
 
                     </div>
 
 
-                    <div class="history-item">
+                    <div
+                        class="history-item"
+                    >
 
                         <div
                             class="history-item-label"
@@ -4514,18 +5457,23 @@ function renderHistory(){
                             MG
                         </div>
 
+
                         <div
                             class="history-item-value"
                         >
+
                             ${escapeHTML(
                                 control.mg
                             )}
+
                         </div>
 
                     </div>
 
 
-                    <div class="history-item">
+                    <div
+                        class="history-item"
+                    >
 
                         <div
                             class="history-item-label"
@@ -4533,13 +5481,17 @@ function renderHistory(){
                             Température
                         </div>
 
+
                         <div
                             class="history-item-value"
                         >
+
                             ${escapeHTML(
                                 control.temperature
                             )}
+
                             °C
+
                         </div>
 
                     </div>
@@ -4547,33 +5499,37 @@ function renderHistory(){
 
                     ${
                         control.commentaire
-                            ? `
 
-                        <div
-                            class="history-item full"
-                        >
+                        ? `
 
                             <div
-                                class="history-item-label"
+                                class="history-item full"
                             >
-                                Observation
+
+                                <div
+                                    class="history-item-label"
+                                >
+                                    Observation
+                                </div>
+
+
+                                <div
+                                    class="history-item-value"
+                                >
+
+                                    ${escapeHTML(
+                                        control.commentaire
+                                    )}
+
+                                </div>
+
                             </div>
 
-                            <div
-                                class="history-item-value"
-                            >
-                                ${escapeHTML(
-                                    control.commentaire
-                                )}
-                            </div>
+                        `
 
-                        </div>
-
-                    `
-                    : ""
+                        : ""
 
                     }
-
 
                 </div>
 
@@ -4584,7 +5540,9 @@ function renderHistory(){
                 card
             );
 
-        });
+        }
+    );
+
 }
 
 
@@ -4594,13 +5552,16 @@ function renderHistory(){
 
 function exportExcel(){
 
-    if(!controls.length){
+    if(
+        !controls.length
+    ){
 
         showToast(
             "Aucun contrôle à exporter."
         );
 
         return;
+
     }
 
 
@@ -4651,14 +5612,23 @@ function exportExcel(){
     worksheet["!cols"] = [
 
         {wch:15},
+
         {wch:13},
+
         {wch:10},
+
         {wch:25},
+
         {wch:25},
+
         {wch:20},
+
         {wch:14},
+
         {wch:18},
+
         {wch:18},
+
         {wch:45}
 
     ];
@@ -4669,21 +5639,29 @@ function exportExcel(){
 
 
     XLSX.utils.book_append_sheet(
+
         workbook,
+
         worksheet,
+
         "Contrôles"
+
     );
 
 
     XLSX.writeFile(
+
         workbook,
+
         "LDK_Controle_Expedition.xlsx"
+
     );
 
 
     showToast(
         "✓ Export Excel généré."
     );
+
 }
 
 
@@ -4691,12 +5669,21 @@ function exportExcel(){
    TOAST
 ========================================================= */
 
-function showToast(message){
+function showToast(
+    message
+){
 
     const toast =
         document.getElementById(
             "toast"
         );
+
+
+    if(!toast){
+
+        return;
+
+    }
 
 
     toast.textContent =
@@ -4715,6 +5702,7 @@ function showToast(message){
         );
 
     },3200);
+
 }
 
 
@@ -4722,7 +5710,9 @@ function showToast(message){
    SECURITY
 ========================================================= */
 
-function escapeHTML(value){
+function escapeHTML(
+    value
+){
 
     return String(
         value ?? ""
@@ -4752,11 +5742,12 @@ function escapeHTML(value){
         "'",
         "&#039;"
     );
+
 }
 
 
 /* =========================================================
-   SAVED PROFILE
+   PROFIL SAUVEGARDE
 ========================================================= */
 
 const savedProfile =
@@ -4765,12 +5756,133 @@ const savedProfile =
     );
 
 
-if(savedProfile){
+if(
+    savedProfile
+){
 
     currentProfile =
         savedProfile;
+
 }
 
+
+/* =========================================================
+   AUTO REFRESH
+   ---------------------------------------------------------
+   Toutes les 30 secondes :
+   - profils
+   - config
+   - contrôles
+
+   Ainsi les changements Google Sheets
+   remontent automatiquement.
+========================================================= */
+
+setInterval(
+    async () => {
+
+        const app =
+            document.getElementById(
+                "app"
+            );
+
+
+        if(
+            app &&
+            app.classList.contains(
+                "active"
+            )
+        ){
+
+            try{
+
+                const data =
+                    await apiGet(
+                        "getAppData"
+                    );
+
+
+                /* ==============================
+                   PROFILS
+                ============================== */
+
+                const newProfiles =
+                    Array.isArray(
+                        data.profiles
+                    )
+                        ? data.profiles
+                        : [];
+
+
+                profiles =
+                    newProfiles;
+
+
+                /* ==============================
+                   CONTROLES
+                ============================== */
+
+                controls =
+                    Array.isArray(
+                        data.controls
+                    )
+                        ? data.controls
+                        : [];
+
+
+                /* ==============================
+                   CONFIG
+                ============================== */
+
+                if(
+                    data.config
+                ){
+
+                    const newTempMax =
+                        Number(
+                            data.config.tempMax
+                        );
+
+
+                    if(
+                        Number.isFinite(
+                            newTempMax
+                        )
+                    ){
+
+                        appConfig.tempMax =
+                            newTempMax;
+
+                    }
+
+                }
+
+
+                renderProfiles();
+
+                renderHistory();
+
+                updateTemperatureThreshold();
+
+                checkTemperature();
+
+
+            }
+
+            catch(error){
+
+                console.error(
+                    "AUTO REFRESH:",
+                    error
+                );
+
+            }
+
+        }
+
+    },
+    30000
+);
 
 </script>
 

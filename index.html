@@ -19,12 +19,11 @@
 
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
-
 <style>
 
 /* =========================================================
    LDK — CONTRÔLE EXPÉDITION
-   V2 — DESKTOP + MOBILE FIRST
+   PREMIUM QUALITY INTERFACE
 ========================================================= */
 
 *{
@@ -39,24 +38,39 @@ html{
 }
 
 body{
+
     margin:0;
+
     width:100%;
     min-height:100vh;
-    background:#f6f7f4;
+
+    background:
+        radial-gradient(
+            circle at 85% 8%,
+            #e7efeb 0,
+            transparent 28%
+        ),
+        #f5f7f4;
+
     color:#111512;
+
     font-family:
         Inter,
         "Segoe UI",
         Arial,
         sans-serif;
+
     -webkit-font-smoothing:antialiased;
+
     text-rendering:geometricPrecision;
+
     overflow-x:hidden;
 }
 
 button,
 input,
-textarea{
+textarea,
+select{
     font:inherit;
 }
 
@@ -69,7 +83,6 @@ button{
     --green:#173f32;
     --green-2:#235646;
     --green-3:#dfe9e4;
-
     --green-light:#edf4f0;
 
     --black:#111512;
@@ -78,7 +91,7 @@ button{
     --grey-2:#9aa29d;
 
     --white:#ffffff;
-    --off:#f6f7f4;
+    --off:#f5f7f4;
     --paper:#fbfcfa;
 
     --border:#dfe4df;
@@ -90,10 +103,10 @@ button{
     --yellow-bg:#fbf3df;
 
     --shadow:
-        0 24px 70px rgba(17,21,18,.09);
+        0 30px 90px rgba(17,21,18,.08);
 
     --shadow-small:
-        0 10px 30px rgba(17,21,18,.07);
+        0 12px 35px rgba(17,21,18,.06);
 }
 
 
@@ -114,7 +127,13 @@ button{
 
     padding:25px;
 
-    background:#f7f8f5;
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            #ffffff 0,
+            #f5f7f4 58%,
+            #eef2ef 100%
+        );
 
     transition:
         opacity .7s ease,
@@ -152,22 +171,26 @@ button{
 .intro-logo{
 
     display:flex;
+
     justify-content:center;
     align-items:center;
 
-    gap:28px;
+    gap:24px;
 
-    margin-bottom:55px;
+    margin-bottom:50px;
 }
 
 .intro-logo img{
 
-    width:110px;
-    height:110px;
+    width:104px;
+    height:104px;
 
     object-fit:contain;
 
-    border-radius:20px;
+    border-radius:22px;
+
+    box-shadow:
+        0 18px 50px rgba(23,63,50,.12);
 }
 
 .intro-logo-text{
@@ -178,12 +201,13 @@ button{
 
     display:block;
 
-    font-size:58px;
-    line-height:.85;
+    font-size:62px;
 
-    letter-spacing:-.07em;
+    line-height:.8;
 
-    font-weight:900;
+    letter-spacing:-.075em;
+
+    font-weight:950;
 
     color:var(--green);
 }
@@ -192,13 +216,13 @@ button{
 
     display:block;
 
-    margin-top:12px;
+    margin-top:13px;
 
-    font-size:12px;
+    font-size:11px;
 
-    font-weight:700;
+    font-weight:800;
 
-    letter-spacing:.16em;
+    letter-spacing:.18em;
 
     text-transform:uppercase;
 
@@ -207,17 +231,17 @@ button{
 
 .intro-overline{
 
-    font-size:13px;
+    font-size:11px;
 
-    font-weight:800;
+    font-weight:900;
 
-    letter-spacing:.2em;
+    letter-spacing:.22em;
 
     text-transform:uppercase;
 
     color:var(--green);
 
-    margin-bottom:20px;
+    margin-bottom:21px;
 }
 
 .intro-title{
@@ -225,13 +249,13 @@ button{
     margin:0;
 
     font-size:
-        clamp(60px,9vw,110px);
+        clamp(62px,9vw,112px);
 
-    line-height:.88;
+    line-height:.84;
 
-    letter-spacing:-.075em;
+    letter-spacing:-.085em;
 
-    font-weight:900;
+    font-weight:950;
 }
 
 .intro-title span{
@@ -240,23 +264,72 @@ button{
 
 .intro-line{
 
-    width:100px;
+    width:85px;
     height:4px;
 
-    margin:35px auto;
+    margin:32px auto;
 
     background:var(--green);
 
-    border-radius:20px;
+    border-radius:999px;
+
+    animation:linePulse 1.8s ease-in-out infinite;
+}
+
+@keyframes linePulse{
+
+    0%,100%{
+        width:70px;
+        opacity:.6;
+    }
+
+    50%{
+        width:110px;
+        opacity:1;
+    }
 }
 
 .intro-status{
 
-    font-size:13px;
+    font-size:12px;
 
-    font-weight:600;
+    font-weight:700;
 
     color:var(--grey);
+}
+
+.intro-loader{
+
+    width:min(300px,75vw);
+
+    height:4px;
+
+    margin:17px auto 0;
+
+    overflow:hidden;
+
+    border-radius:999px;
+
+    background:#dfe4df;
+}
+
+.intro-progress{
+
+    width:0%;
+
+    height:100%;
+
+    border-radius:999px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--green),
+            #2d715a
+        );
+
+    transition:
+        width .16s ease;
 }
 
 
@@ -270,11 +343,11 @@ button{
     min-height:100dvh;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
-    padding:
-        60px 25px;
+    padding:70px 25px;
 
     position:relative;
 
@@ -314,15 +387,21 @@ button{
 
     position:absolute;
 
-    width:700px;
-    height:700px;
+    width:760px;
+    height:760px;
 
-    top:-300px;
-    right:-200px;
+    top:-360px;
+    right:-220px;
 
     border-radius:50%;
 
-    background:#e1ebe6;
+    background:
+        radial-gradient(
+            circle,
+            #dfece6 0,
+            #edf3ef 60%,
+            transparent 72%
+        );
 }
 
 .portal-bg::after{
@@ -331,20 +410,25 @@ button{
 
     position:absolute;
 
-    width:550px;
-    height:550px;
+    width:620px;
+    height:620px;
 
-    bottom:-300px;
-    left:-200px;
+    bottom:-390px;
+    left:-220px;
 
     border-radius:50%;
 
-    background:#e8ece8;
+    background:
+        radial-gradient(
+            circle,
+            #e7ece8 0,
+            transparent 70%
+        );
 }
 
 .portal-content{
 
-    width:min(1050px,100%);
+    width:min(1080px,100%);
 
     position:relative;
 
@@ -355,7 +439,7 @@ button{
 
     text-align:center;
 
-    margin-bottom:55px;
+    margin-bottom:48px;
 }
 
 .portal-badge{
@@ -367,35 +451,42 @@ button{
 
     gap:10px;
 
-    padding:11px 17px;
+    padding:10px 15px;
 
     border:1px solid var(--border);
 
-    background:#fff;
+    background:
+        rgba(255,255,255,.8);
+
+    backdrop-filter:blur(12px);
 
     border-radius:999px;
 
-    font-size:12px;
+    font-size:10px;
 
-    font-weight:800;
+    font-weight:900;
 
-    letter-spacing:.08em;
+    letter-spacing:.09em;
 
     text-transform:uppercase;
 
     color:var(--green);
+
+    box-shadow:
+        0 10px 30px rgba(17,21,18,.04);
 }
 
 .portal-badge i{
 
-    width:9px;
-    height:9px;
-
-    flex:0 0 9px;
+    width:8px;
+    height:8px;
 
     border-radius:50%;
 
     background:#36a36f;
+
+    box-shadow:
+        0 0 0 5px rgba(54,163,111,.12);
 }
 
 .portal-title{
@@ -403,13 +494,13 @@ button{
     margin:28px 0 0;
 
     font-size:
-        clamp(55px,7vw,88px);
+        clamp(56px,7vw,92px);
 
-    line-height:.9;
+    line-height:.86;
 
-    font-weight:900;
+    font-weight:950;
 
-    letter-spacing:-.075em;
+    letter-spacing:-.085em;
 }
 
 .portal-title span{
@@ -418,21 +509,16 @@ button{
 
 .portal-description{
 
-    max-width:650px;
+    max-width:640px;
 
-    margin:25px auto 0;
+    margin:24px auto 0;
 
-    font-size:17px;
+    font-size:15px;
 
-    line-height:1.65;
+    line-height:1.7;
 
     color:var(--grey);
 }
-
-
-/* =========================================================
-   PROFILE CARDS
-========================================================= */
 
 .profiles{
 
@@ -440,22 +526,27 @@ button{
 
     grid-template-columns:1fr 1fr;
 
-    gap:24px;
+    gap:20px;
 }
 
 .profile{
 
     position:relative;
 
-    min-height:330px;
+    min-height:315px;
 
-    padding:38px;
+    padding:35px;
 
-    border:1px solid var(--border);
+    border:1px solid rgba(223,228,223,.95);
 
     border-radius:28px;
 
-    background:#fff;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.98),
+            rgba(248,250,248,.94)
+        );
 
     text-align:left;
 
@@ -464,11 +555,15 @@ button{
     overflow:hidden;
 
     transition:
-        transform .3s ease,
-        box-shadow .3s ease,
-        border-color .3s ease;
+
+        transform .35s cubic-bezier(.2,.75,.25,1),
+        box-shadow .35s ease,
+        border-color .35s ease;
 
     font-family:inherit;
+
+    box-shadow:
+        0 18px 50px rgba(17,21,18,.04);
 }
 
 .profile:hover{
@@ -478,11 +573,10 @@ button{
     border-color:#b9c9c1;
 
     box-shadow:
-        0 30px 70px rgba(23,63,50,.14);
+        0 30px 75px rgba(23,63,50,.14);
 }
 
 .profile:active{
-
     transform:scale(.985);
 }
 
@@ -492,21 +586,47 @@ button{
 
     position:absolute;
 
-    width:250px;
-    height:250px;
+    width:300px;
+    height:300px;
 
-    right:-120px;
-    bottom:-130px;
+    right:-150px;
+    bottom:-165px;
 
     border-radius:50%;
 
-    background:var(--green-3);
+    background:
+        radial-gradient(
+            circle,
+            #dbe9e2 0,
+            #edf4f0 65%,
+            transparent 70%
+        );
 
-    transition:.5s ease;
+    transition:.6s ease;
 }
 
 .profile:hover::before{
-    transform:scale(1.25);
+    transform:scale(1.22);
+}
+
+.profile::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:25px;
+    right:25px;
+
+    width:9px;
+    height:9px;
+
+    border-radius:50%;
+
+    background:#36a36f;
+
+    box-shadow:
+        0 0 0 6px rgba(54,163,111,.10);
 }
 
 .profile-number{
@@ -515,13 +635,13 @@ button{
 
     z-index:2;
 
-    font-size:12px;
+    font-size:10px;
 
-    font-weight:800;
+    font-weight:900;
 
     color:var(--grey-2);
 
-    letter-spacing:.1em;
+    letter-spacing:.12em;
 }
 
 .profile-avatar{
@@ -530,25 +650,33 @@ button{
 
     z-index:2;
 
-    width:68px;
-    height:68px;
+    width:65px;
+    height:65px;
 
-    margin:35px 0 30px;
+    margin:32px 0 28px;
 
     display:flex;
 
     align-items:center;
     justify-content:center;
 
-    border-radius:20px;
+    border-radius:19px;
 
-    background:var(--green);
+    background:
+        linear-gradient(
+            145deg,
+            var(--green),
+            var(--green-2)
+        );
 
     color:#fff;
 
-    font-size:25px;
+    font-size:23px;
 
-    font-weight:900;
+    font-weight:950;
+
+    box-shadow:
+        0 12px 25px rgba(23,63,50,.2);
 }
 
 .profile-name{
@@ -557,13 +685,13 @@ button{
 
     z-index:2;
 
-    font-size:28px;
+    font-size:27px;
 
     line-height:1;
 
-    font-weight:900;
+    font-weight:950;
 
-    letter-spacing:-.05em;
+    letter-spacing:-.055em;
 }
 
 .profile-role{
@@ -574,9 +702,9 @@ button{
 
     margin-top:10px;
 
-    font-size:15px;
+    font-size:14px;
 
-    font-weight:600;
+    font-weight:650;
 
     color:var(--grey);
 }
@@ -587,8 +715,8 @@ button{
 
     z-index:3;
 
-    right:30px;
-    bottom:28px;
+    right:28px;
+    bottom:26px;
 
     width:50px;
     height:50px;
@@ -604,7 +732,10 @@ button{
 
     color:#fff;
 
-    font-size:22px;
+    font-size:20px;
+
+    box-shadow:
+        0 12px 25px rgba(23,63,50,.18);
 
     transition:.3s;
 }
@@ -627,7 +758,15 @@ button{
 
     min-height:100vh;
 
-    background:var(--off);
+    background:
+
+        radial-gradient(
+            circle at 90% 0,
+            #eaf1ed 0,
+            transparent 25%
+        ),
+
+        var(--off);
 }
 
 #app.active{
@@ -663,7 +802,7 @@ button{
 
     z-index:100;
 
-    min-height:88px;
+    min-height:84px;
 
     padding:0 55px;
 
@@ -673,13 +812,14 @@ button{
 
     justify-content:space-between;
 
-    background:rgba(255,255,255,.94);
+    background:
+        rgba(255,255,255,.88);
 
-    border-bottom:1px solid var(--border);
+    border-bottom:1px solid rgba(223,228,223,.85);
 
-    backdrop-filter:blur(18px);
+    backdrop-filter:blur(22px);
 
-    -webkit-backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(22px);
 }
 
 .header-left{
@@ -688,17 +828,20 @@ button{
 
     align-items:center;
 
-    gap:17px;
+    gap:15px;
 }
 
 .header-logo{
 
-    width:54px;
-    height:54px;
+    width:52px;
+    height:52px;
 
     object-fit:contain;
 
     border-radius:12px;
+
+    box-shadow:
+        0 8px 20px rgba(17,21,18,.07);
 }
 
 .header-brand{
@@ -707,16 +850,16 @@ button{
 
     align-items:center;
 
-    gap:18px;
+    gap:17px;
 }
 
 .header-brand-name{
 
-    font-size:25px;
+    font-size:24px;
 
-    font-weight:900;
+    font-weight:950;
 
-    letter-spacing:-.06em;
+    letter-spacing:-.07em;
 
     color:var(--green);
 }
@@ -724,25 +867,25 @@ button{
 .header-divider{
 
     width:1px;
-    height:32px;
+    height:30px;
 
     background:var(--border);
 }
 
 .header-title{
 
-    font-size:15px;
+    font-size:14px;
 
-    font-weight:850;
+    font-weight:900;
 }
 
 .header-subtitle{
 
     margin-top:4px;
 
-    font-size:11px;
+    font-size:10px;
 
-    font-weight:600;
+    font-weight:650;
 
     color:var(--grey);
 }
@@ -753,7 +896,7 @@ button{
 
     align-items:center;
 
-    gap:15px;
+    gap:10px;
 }
 
 .network-status{
@@ -762,9 +905,9 @@ button{
 
     align-items:center;
 
-    gap:9px;
+    gap:8px;
 
-    padding:11px 15px;
+    padding:10px 13px;
 
     border:1px solid var(--border);
 
@@ -772,26 +915,29 @@ button{
 
     background:#fff;
 
-    font-size:11px;
+    font-size:10px;
 
-    font-weight:750;
+    font-weight:800;
 
     color:var(--grey);
 }
 
 .status-dot{
 
-    width:9px;
-    height:9px;
+    width:8px;
+    height:8px;
 
     border-radius:50%;
 
-    background:#3aa36f;
+    background:#36a36f;
+
+    box-shadow:
+        0 0 0 4px rgba(54,163,111,.10);
 }
 
 .current-profile{
 
-    padding:12px 17px;
+    padding:11px 15px;
 
     border-radius:999px;
 
@@ -799,9 +945,12 @@ button{
 
     color:#fff;
 
-    font-size:11px;
+    font-size:10px;
 
-    font-weight:800;
+    font-weight:900;
+
+    box-shadow:
+        0 8px 20px rgba(23,63,50,.15);
 }
 
 
@@ -816,7 +965,7 @@ button{
         calc(100% - 50px)
     );
 
-    margin:70px auto 100px;
+    margin:62px auto 100px;
 }
 
 .page-heading{
@@ -829,7 +978,7 @@ button{
 
     gap:70px;
 
-    margin-bottom:45px;
+    margin-bottom:38px;
 }
 
 .page-kicker{
@@ -838,15 +987,15 @@ button{
 
     align-items:center;
 
-    gap:11px;
+    gap:10px;
 
-    font-size:12px;
+    font-size:10px;
 
-    font-weight:850;
+    font-weight:900;
 
     color:var(--green);
 
-    letter-spacing:.12em;
+    letter-spacing:.15em;
 
     text-transform:uppercase;
 }
@@ -855,26 +1004,26 @@ button{
 
     content:"";
 
-    width:35px;
+    width:28px;
     height:3px;
 
     background:var(--green);
 
-    border-radius:10px;
+    border-radius:999px;
 }
 
 .page-title{
 
-    margin-top:17px;
+    margin-top:15px;
 
     font-size:
         clamp(58px,7vw,92px);
 
-    line-height:.85;
+    line-height:.84;
 
-    letter-spacing:-.08em;
+    letter-spacing:-.085em;
 
-    font-weight:900;
+    font-weight:950;
 }
 
 .page-title span{
@@ -883,11 +1032,11 @@ button{
 
 .page-description{
 
-    max-width:380px;
+    max-width:390px;
 
     padding-bottom:5px;
 
-    font-size:15px;
+    font-size:14px;
 
     line-height:1.7;
 
@@ -900,9 +1049,9 @@ button{
 
     flex-wrap:wrap;
 
-    gap:12px;
+    gap:9px;
 
-    margin-top:22px;
+    margin-top:20px;
 }
 
 .page-meta span{
@@ -911,9 +1060,9 @@ button{
 
     align-items:center;
 
-    gap:8px;
+    gap:7px;
 
-    padding:9px 12px;
+    padding:8px 11px;
 
     border-radius:999px;
 
@@ -921,21 +1070,112 @@ button{
 
     border:1px solid var(--border);
 
-    font-size:10px;
+    font-size:9px;
 
-    font-weight:800;
+    font-weight:850;
 
     color:var(--grey);
 }
 
 .page-meta i{
 
-    width:7px;
-    height:7px;
+    width:6px;
+    height:6px;
 
     border-radius:50%;
 
     background:var(--green);
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress-panel{
+
+    margin-bottom:20px;
+
+    padding:18px 22px;
+
+    background:
+        rgba(255,255,255,.84);
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    box-shadow:
+        0 10px 30px rgba(17,21,18,.04);
+
+    backdrop-filter:blur(14px);
+}
+
+.progress-top{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    margin-bottom:12px;
+}
+
+.progress-label{
+
+    font-size:9px;
+
+    font-weight:900;
+
+    letter-spacing:.12em;
+
+    text-transform:uppercase;
+
+    color:var(--grey);
+}
+
+.progress-percent{
+
+    font-size:12px;
+
+    font-weight:950;
+
+    color:var(--green);
+}
+
+.progress-track{
+
+    width:100%;
+
+    height:5px;
+
+    border-radius:999px;
+
+    background:#e6ebe7;
+
+    overflow:hidden;
+}
+
+.progress-fill{
+
+    width:0%;
+
+    height:100%;
+
+    border-radius:999px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--green),
+            #2f745d
+        );
+
+    transition:
+        width .35s ease;
 }
 
 
@@ -945,7 +1185,8 @@ button{
 
 .control-card{
 
-    background:#fff;
+    background:
+        rgba(255,255,255,.96);
 
     border:1px solid var(--border);
 
@@ -958,9 +1199,24 @@ button{
 
 .card-section{
 
-    padding:40px 45px;
+    padding:39px 45px;
 
     border-bottom:1px solid var(--border);
+
+    animation:sectionIn .4s ease both;
+}
+
+@keyframes sectionIn{
+
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+
+    to{
+        opacity:1;
+        transform:none;
+    }
 }
 
 .section-title{
@@ -969,15 +1225,15 @@ button{
 
     align-items:center;
 
-    gap:14px;
+    gap:13px;
 
-    margin-bottom:25px;
+    margin-bottom:23px;
 
-    font-size:15px;
+    font-size:14px;
 
-    font-weight:900;
+    font-weight:950;
 
-    letter-spacing:.02em;
+    letter-spacing:.01em;
 }
 
 .section-number{
@@ -994,27 +1250,35 @@ button{
 
     border-radius:11px;
 
-    background:var(--green);
+    background:
+        linear-gradient(
+            145deg,
+            var(--green),
+            var(--green-2)
+        );
 
     color:#fff;
 
-    font-size:11px;
+    font-size:10px;
 
-    font-weight:900;
+    font-weight:950;
+
+    box-shadow:
+        0 8px 18px rgba(23,63,50,.15);
 }
 
 
 /* =========================================================
-   INPUT
+   INPUTS
 ========================================================= */
 
 .client-input{
 
     width:100%;
 
-    height:66px;
+    height:64px;
 
-    padding:0 20px;
+    padding:0 19px;
 
     border:2px solid var(--border);
 
@@ -1026,13 +1290,16 @@ button{
 
     font-family:inherit;
 
-    font-size:16px;
+    font-size:15px;
 
-    font-weight:600;
+    font-weight:650;
 
     color:var(--black);
 
-    transition:.2s;
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
 }
 
 .client-input::placeholder,
@@ -1047,7 +1314,16 @@ textarea::placeholder{
     background:#fff;
 
     box-shadow:
-        0 0 0 4px rgba(23,63,50,.08);
+        0 0 0 4px rgba(23,63,50,.07);
+}
+
+select.client-input{
+
+    appearance:auto;
+
+    -webkit-appearance:auto;
+
+    cursor:pointer;
 }
 
 .field-error{
@@ -1055,6 +1331,23 @@ textarea::placeholder{
     border-color:var(--red)!important;
 
     background:var(--red-bg)!important;
+}
+
+.field-label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-size:9px;
+
+    font-weight:950;
+
+    letter-spacing:.12em;
+
+    text-transform:uppercase;
+
+    color:var(--grey);
 }
 
 
@@ -1068,22 +1361,27 @@ textarea::placeholder{
 
     grid-template-columns:1fr 1fr;
 
-    gap:16px;
+    gap:13px;
 }
 
 .choice{
 
     position:relative;
 
-    min-height:125px;
+    min-height:112px;
 
-    padding:25px;
+    padding:23px;
 
     border:2px solid var(--border);
 
     border-radius:18px;
 
-    background:var(--paper);
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fafcfb
+        );
 
     cursor:pointer;
 
@@ -1091,7 +1389,11 @@ textarea::placeholder{
 
     font-family:inherit;
 
-    transition:.25s;
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
 }
 
 .choice:hover{
@@ -1100,7 +1402,8 @@ textarea::placeholder{
 
     border-color:#aebeb6;
 
-    box-shadow:var(--shadow-small);
+    box-shadow:
+        0 15px 35px rgba(17,21,18,.07);
 }
 
 .choice:active{
@@ -1111,30 +1414,36 @@ textarea::placeholder{
 
     border-color:var(--green);
 
-    background:#f0f5f2;
+    background:
+        linear-gradient(
+            145deg,
+            #f4f8f5,
+            #eaf2ed
+        );
 
     box-shadow:
-        inset 0 0 0 1px var(--green);
+        inset 0 0 0 1px var(--green),
+        0 12px 30px rgba(23,63,50,.08);
 }
 
 .choice-name{
 
-    font-size:20px;
+    font-size:18px;
 
-    font-weight:900;
+    font-weight:950;
 
-    letter-spacing:-.03em;
+    letter-spacing:-.035em;
 
-    padding-right:30px;
+    padding-right:35px;
 }
 
 .choice-desc{
 
-    margin-top:8px;
+    margin-top:7px;
 
-    font-size:13px;
+    font-size:11px;
 
-    font-weight:600;
+    font-weight:650;
 
     color:var(--grey);
 }
@@ -1143,8 +1452,8 @@ textarea::placeholder{
 
     position:absolute;
 
-    top:18px;
-    right:18px;
+    top:17px;
+    right:17px;
 
     width:28px;
     height:28px;
@@ -1160,13 +1469,38 @@ textarea::placeholder{
 
     color:#fff;
 
-    font-size:15px;
+    font-size:14px;
 
-    font-weight:900;
+    font-weight:950;
+
+    box-shadow:
+        0 7px 15px rgba(23,63,50,.18);
 }
 
 .choice.selected .choice-check{
     display:flex;
+}
+
+
+/* =========================================================
+   LOT
+========================================================= */
+
+.lot-centered{
+
+    max-width:480px;
+
+    margin:0 auto;
+
+    text-align:center;
+}
+
+.lot-centered .field-label{
+    text-align:center;
+}
+
+.lot-centered .client-input{
+    text-align:center;
 }
 
 
@@ -1181,7 +1515,7 @@ textarea::placeholder{
     grid-template-columns:
         1fr 320px;
 
-    gap:20px;
+    gap:18px;
 }
 
 .temp-input-wrap{
@@ -1192,7 +1526,7 @@ textarea::placeholder{
 
     width:100%;
 
-    height:110px;
+    height:112px;
 
     padding:
         0 90px
@@ -1200,19 +1534,26 @@ textarea::placeholder{
 
     border:2px solid var(--border);
 
-    border-radius:20px;
+    border-radius:22px;
 
-    background:var(--paper);
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fafcfb
+        );
 
     outline:none;
 
     font-family:inherit;
 
-    font-size:48px;
+    font-size:50px;
 
-    font-weight:900;
+    font-weight:950;
 
-    letter-spacing:-.06em;
+    letter-spacing:-.07em;
+
+    transition:.25s;
 }
 
 .temp-input:focus{
@@ -1220,7 +1561,7 @@ textarea::placeholder{
     border-color:var(--green);
 
     box-shadow:
-        0 0 0 4px rgba(23,63,50,.08);
+        0 0 0 5px rgba(23,63,50,.07);
 }
 
 .temp-unit{
@@ -1233,18 +1574,20 @@ textarea::placeholder{
 
     transform:translateY(-50%);
 
-    font-size:20px;
+    font-size:19px;
 
-    font-weight:800;
+    font-weight:900;
 
     color:var(--grey);
 }
 
 .temp-status{
 
-    min-height:110px;
+    position:relative;
 
-    padding:24px;
+    min-height:112px;
+
+    padding:23px;
 
     display:flex;
 
@@ -1254,25 +1597,55 @@ textarea::placeholder{
 
     border:2px solid var(--border);
 
-    border-radius:20px;
+    border-radius:22px;
 
     background:#f4f5f2;
+
+    overflow:hidden;
+
+    transition:.3s ease;
+}
+
+.temp-status::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:90px;
+    height:90px;
+
+    right:-35px;
+    top:-35px;
+
+    border-radius:50%;
+
+    background:#e9edea;
+
 }
 
 .temp-status strong{
 
-    font-size:16px;
+    position:relative;
 
-    font-weight:900;
+    z-index:2;
+
+    font-size:15px;
+
+    font-weight:950;
 }
 
 .temp-status small{
 
-    margin-top:8px;
+    position:relative;
 
-    font-size:12px;
+    z-index:2;
 
-    font-weight:600;
+    margin-top:7px;
+
+    font-size:11px;
+
+    font-weight:650;
 
     color:var(--grey);
 }
@@ -1286,6 +1659,10 @@ textarea::placeholder{
     color:var(--green);
 }
 
+.temp-status.ok::after{
+    background:#d6e9dd;
+}
+
 .temp-status.bad{
 
     background:var(--red-bg);
@@ -1293,6 +1670,10 @@ textarea::placeholder{
     border-color:#e0b5b0;
 
     color:var(--red);
+}
+
+.temp-status.bad::after{
+    background:#f2d7d4;
 }
 
 
@@ -1307,35 +1688,58 @@ textarea::placeholder{
     grid-template-columns:
         repeat(3,1fr);
 
-    gap:14px;
+    gap:12px;
 }
 
 .check{
 
-    min-height:80px;
+    position:relative;
+
+    min-height:82px;
 
     display:flex;
 
     align-items:center;
 
-    gap:14px;
+    gap:12px;
 
-    padding:18px;
+    padding:16px;
 
     border:2px solid var(--border);
 
     border-radius:16px;
 
-    background:var(--paper);
+    background:
+        linear-gradient(
+            145deg,
+            #fff,
+            #fafcfb
+        );
 
     cursor:pointer;
 
-    transition:.2s;
+    transition:
+        border-color .22s ease,
+        background .22s ease,
+        box-shadow .22s ease,
+        transform .22s ease;
 }
 
 .check:hover{
 
     border-color:#aebeb6;
+
+    transform:translateY(-2px);
+}
+
+.check:has(input:checked){
+
+    border-color:#a9c9b4;
+
+    background:#eff7f2;
+
+    box-shadow:
+        0 10px 25px rgba(23,63,50,.07);
 }
 
 .check input{
@@ -1360,9 +1764,11 @@ textarea::placeholder{
 
     color:transparent;
 
-    font-size:15px;
+    font-size:14px;
 
-    font-weight:900;
+    font-weight:950;
+
+    transition:.22s;
 }
 
 .check input:checked + .check-box{
@@ -1372,15 +1778,39 @@ textarea::placeholder{
     border-color:var(--green);
 
     color:#fff;
+
+    transform:scale(1.05);
+
+    box-shadow:
+        0 6px 15px rgba(23,63,50,.18);
 }
 
 .check-label{
 
-    font-size:13px;
+    font-size:12px;
 
-    font-weight:800;
+    font-weight:850;
 
     line-height:1.35;
+}
+
+.check-placeholder{
+
+    padding:28px;
+
+    border:2px dashed var(--border);
+
+    border-radius:17px;
+
+    color:var(--grey);
+
+    text-align:center;
+
+    font-size:11px;
+
+    font-weight:750;
+
+    background:#fafbf9;
 }
 
 
@@ -1392,15 +1822,15 @@ textarea{
 
     width:100%;
 
-    min-height:150px;
+    min-height:145px;
 
     resize:vertical;
 
-    padding:19px;
+    padding:18px;
 
     border:2px solid var(--border);
 
-    border-radius:16px;
+    border-radius:17px;
 
     background:var(--paper);
 
@@ -1408,11 +1838,13 @@ textarea{
 
     font-family:inherit;
 
-    font-size:14px;
+    font-size:13px;
 
     font-weight:600;
 
     color:var(--black);
+
+    transition:.2s;
 }
 
 textarea:focus{
@@ -1422,7 +1854,7 @@ textarea:focus{
     background:#fff;
 
     box-shadow:
-        0 0 0 4px rgba(23,63,50,.08);
+        0 0 0 4px rgba(23,63,50,.07);
 }
 
 
@@ -1432,7 +1864,7 @@ textarea:focus{
 
 .validation{
 
-    padding:30px 45px;
+    padding:27px 45px;
 
     display:flex;
 
@@ -1442,7 +1874,12 @@ textarea:focus{
 
     gap:25px;
 
-    background:#f3f5f2;
+    background:
+        linear-gradient(
+            135deg,
+            #f2f5f2,
+            #edf2ee
+        );
 }
 
 .validation-status{
@@ -1451,15 +1888,15 @@ textarea:focus{
 
     align-items:center;
 
-    gap:16px;
+    gap:14px;
 }
 
 .validation-icon{
 
-    width:56px;
-    height:56px;
+    width:54px;
+    height:54px;
 
-    flex:0 0 56px;
+    flex:0 0 54px;
 
     display:flex;
 
@@ -1468,33 +1905,41 @@ textarea:focus{
 
     border-radius:17px;
 
-    background:var(--green);
+    background:
+        linear-gradient(
+            145deg,
+            var(--green),
+            var(--green-2)
+        );
 
     color:#fff;
 
-    font-size:20px;
+    font-size:19px;
 
-    font-weight:900;
+    font-weight:950;
+
+    box-shadow:
+        0 10px 25px rgba(23,63,50,.18);
 }
 
 .validation-text strong{
 
     display:block;
 
-    font-size:15px;
+    font-size:14px;
 
-    font-weight:900;
+    font-weight:950;
 }
 
 .validation-text span{
 
     display:block;
 
-    margin-top:6px;
+    margin-top:5px;
 
-    font-size:12px;
+    font-size:11px;
 
-    font-weight:600;
+    font-weight:650;
 
     color:var(--grey);
 }
@@ -1503,13 +1948,18 @@ textarea:focus{
 
     min-height:58px;
 
-    padding:0 30px;
+    padding:0 28px;
 
     border:0;
 
-    border-radius:15px;
+    border-radius:16px;
 
-    background:var(--green);
+    background:
+        linear-gradient(
+            135deg,
+            var(--green),
+            var(--green-2)
+        );
 
     color:#fff;
 
@@ -1517,28 +1967,28 @@ textarea:focus{
 
     font-family:inherit;
 
-    font-size:12px;
+    font-size:11px;
 
-    font-weight:900;
+    font-weight:950;
 
-    letter-spacing:.08em;
+    letter-spacing:.09em;
 
     text-transform:uppercase;
 
     box-shadow:
-        0 12px 30px rgba(23,63,50,.2);
+        0 13px 32px rgba(23,63,50,.22);
 
-    transition:.25s;
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
 }
 
 .submit:hover{
 
     transform:translateY(-3px);
 
-    background:var(--green-2);
-
     box-shadow:
-        0 18px 38px rgba(23,63,50,.25);
+        0 18px 40px rgba(23,63,50,.28);
 }
 
 .submit:active{
@@ -1560,8 +2010,7 @@ textarea:focus{
 ========================================================= */
 
 .history{
-
-    margin-top:60px;
+    margin-top:55px;
 }
 
 .history-heading{
@@ -1572,7 +2021,7 @@ textarea:focus{
 
     justify-content:space-between;
 
-    margin-bottom:20px;
+    margin-bottom:18px;
 }
 
 .history-title{
@@ -1581,32 +2030,32 @@ textarea:focus{
 
     align-items:center;
 
-    gap:12px;
+    gap:11px;
 
-    font-size:22px;
+    font-size:21px;
 
-    font-weight:900;
+    font-weight:950;
 
-    letter-spacing:-.04em;
+    letter-spacing:-.045em;
 }
 
 .history-title::before{
 
     content:"";
 
-    width:32px;
+    width:28px;
     height:4px;
 
-    border-radius:10px;
+    border-radius:999px;
 
     background:var(--green);
 }
 
 .export{
 
-    min-height:46px;
+    min-height:45px;
 
-    padding:0 18px;
+    padding:0 17px;
 
     border:2px solid var(--border);
 
@@ -1620,9 +2069,9 @@ textarea:focus{
 
     font-family:inherit;
 
-    font-size:11px;
+    font-size:10px;
 
-    font-weight:900;
+    font-weight:950;
 
     transition:.2s;
 }
@@ -1644,7 +2093,7 @@ textarea:focus{
 
     border-radius:20px;
 
-    overflow:hidden;
+    overflow:auto;
 
     box-shadow:var(--shadow-small);
 }
@@ -1653,22 +2102,22 @@ table{
 
     width:100%;
 
-    min-width:950px;
+    min-width:1100px;
 
     border-collapse:collapse;
 }
 
 th{
 
-    padding:18px;
+    padding:16px;
 
     background:#f1f4f1;
 
     color:#68716c;
 
-    font-size:10px;
+    font-size:9px;
 
-    font-weight:900;
+    font-weight:950;
 
     letter-spacing:.08em;
 
@@ -1679,17 +2128,17 @@ th{
 
 td{
 
-    padding:18px;
+    padding:16px;
 
     border-top:1px solid var(--border);
 
-    font-size:12px;
+    font-size:11px;
 
-    font-weight:600;
+    font-weight:650;
 }
 
 td strong{
-    font-weight:900;
+    font-weight:950;
 }
 
 .status{
@@ -1698,13 +2147,13 @@ td strong{
 
     align-items:center;
 
-    padding:8px 12px;
+    padding:7px 10px;
 
     border-radius:999px;
 
-    font-size:10px;
+    font-size:9px;
 
-    font-weight:900;
+    font-weight:950;
 }
 
 .status.ok{
@@ -1723,15 +2172,15 @@ td strong{
 
 .empty{
 
-    padding:50px;
+    padding:48px;
 
     text-align:center;
 
     color:var(--grey);
 
-    font-size:13px;
+    font-size:12px;
 
-    font-weight:600;
+    font-weight:650;
 }
 
 .mobile-history{
@@ -1752,24 +2201,31 @@ td strong{
     right:25px;
     bottom:25px;
 
-    max-width:400px;
+    max-width:410px;
 
-    padding:17px 22px;
+    padding:16px 20px;
 
-    background:var(--green);
+    background:
+        linear-gradient(
+            135deg,
+            var(--green),
+            var(--green-2)
+        );
 
     color:#fff;
 
     border-radius:15px;
 
-    font-size:13px;
+    font-size:12px;
 
-    font-weight:800;
+    font-weight:850;
 
     box-shadow:
         0 20px 50px rgba(17,21,18,.2);
 
-    transform:translateY(30px);
+    transform:
+        translateY(25px)
+        scale(.97);
 
     opacity:0;
 
@@ -1787,7 +2243,7 @@ td strong{
 
 
 /* =========================================================
-   TABLET
+   MOBILE
 ========================================================= */
 
 @media(max-width:900px){
@@ -1801,27 +2257,20 @@ td strong{
     }
 
     .page-heading{
-
         gap:30px;
     }
 
     .temperature-layout{
-
         grid-template-columns:1fr;
     }
 
     .check-grid{
-
         grid-template-columns:
             repeat(2,1fr);
     }
 
 }
 
-
-/* =========================================================
-   MOBILE
-========================================================= */
 
 @media(max-width:600px){
 
@@ -1836,23 +2285,19 @@ td strong{
         padding:24px 20px;
     }
 
-    .intro-inner{
-        width:100%;
-    }
-
     .intro-logo{
 
         flex-direction:column;
 
-        gap:16px;
+        gap:15px;
 
-        margin-bottom:40px;
+        margin-bottom:38px;
     }
 
     .intro-logo img{
 
-        width:86px;
-        height:86px;
+        width:82px;
+        height:82px;
 
         border-radius:18px;
     }
@@ -1862,27 +2307,27 @@ td strong{
     }
 
     .intro-logo-text strong{
-        font-size:48px;
+        font-size:47px;
     }
 
     .intro-logo-text span{
 
-        margin-top:9px;
+        margin-top:8px;
 
         font-size:8px;
 
-        letter-spacing:.13em;
+        letter-spacing:.12em;
     }
 
     .intro-overline{
 
-        font-size:9px;
+        font-size:8px;
 
         line-height:1.5;
 
-        letter-spacing:.15em;
+        letter-spacing:.13em;
 
-        margin-bottom:17px;
+        margin-bottom:16px;
     }
 
     .intro-title{
@@ -1890,21 +2335,21 @@ td strong{
         font-size:
             clamp(50px,15vw,68px);
 
-        line-height:.88;
+        line-height:.87;
     }
 
     .intro-line{
 
-        width:70px;
+        width:65px;
 
         height:3px;
 
-        margin:27px auto;
+        margin:26px auto;
     }
 
     .intro-status{
 
-        font-size:11px;
+        font-size:10px;
 
         line-height:1.5;
     }
@@ -1945,119 +2390,95 @@ td strong{
 
         width:100%;
 
-        padding-top:20px;
+        padding-top:18px;
     }
 
     .portal-top{
 
-        margin-bottom:30px;
+        margin-bottom:28px;
     }
 
     .portal-badge{
 
-        width:100%;
-
         max-width:330px;
 
-        padding:10px 13px;
+        padding:9px 12px;
 
-        font-size:9px;
-
-        letter-spacing:.06em;
+        font-size:8px;
     }
 
     .portal-title{
 
-        margin-top:24px;
+        margin-top:22px;
 
         font-size:
-            clamp(48px,14vw,64px);
+            clamp(47px,14vw,63px);
 
         line-height:.91;
     }
 
     .portal-description{
 
-        margin-top:18px;
+        margin-top:16px;
 
-        font-size:13px;
+        font-size:12px;
 
         line-height:1.55;
 
-        padding:0 8px;
+        padding:0 7px;
     }
 
     .profiles{
 
         grid-template-columns:1fr;
 
-        gap:13px;
+        gap:12px;
     }
 
     .profile{
 
-        width:100%;
-
         min-height:0;
 
-        height:190px;
+        height:182px;
 
-        padding:21px;
+        padding:20px;
 
-        border-radius:22px;
-    }
-
-    .profile::before{
-
-        width:180px;
-        height:180px;
-
-        right:-100px;
-        bottom:-100px;
-    }
-
-    .profile-number{
-
-        font-size:9px;
-
-        letter-spacing:.09em;
+        border-radius:21px;
     }
 
     .profile-avatar{
 
-        width:48px;
-        height:48px;
+        width:47px;
+        height:47px;
 
-        margin:20px 0 17px;
+        margin:18px 0 16px;
 
         border-radius:14px;
 
-        font-size:19px;
+        font-size:18px;
     }
 
     .profile-name{
 
-        font-size:21px;
-
-        letter-spacing:-.045em;
+        font-size:20px;
     }
 
     .profile-role{
 
         margin-top:7px;
 
-        font-size:11px;
+        font-size:10px;
     }
 
     .profile-arrow{
 
-        right:18px;
-        bottom:18px;
+        right:17px;
+        bottom:17px;
 
-        width:43px;
-        height:43px;
+        width:41px;
+        height:41px;
 
-        font-size:18px;
+        font-size:17px;
     }
 
     .header{
@@ -2065,43 +2486,33 @@ td strong{
         position:sticky;
 
         min-height:
-            calc(68px + env(safe-area-inset-top));
+            calc(67px + env(safe-area-inset-top));
 
         padding:
             env(safe-area-inset-top)
-            14px
+            13px
             0
-            14px;
-
-        background:
-            rgba(255,255,255,.97);
-
-        box-shadow:
-            0 8px 25px rgba(17,21,18,.05);
+            13px;
     }
 
     .header-left{
 
         min-width:0;
 
-        gap:10px;
+        gap:9px;
     }
 
     .header-logo{
 
-        width:42px;
-        height:42px;
+        width:40px;
+        height:40px;
 
-        flex:0 0 42px;
+        flex:0 0 40px;
 
-        border-radius:10px;
+        border-radius:9px;
     }
 
     .header-brand{
-
-        display:flex;
-
-        gap:0;
 
         min-width:0;
     }
@@ -2114,29 +2525,24 @@ td strong{
 
     .header-title{
 
-        font-size:12px;
-
+        font-size:11px;
         line-height:1.1;
-
-        white-space:nowrap;
     }
 
     .header-subtitle{
 
         margin-top:3px;
 
-        font-size:8px;
-
-        white-space:nowrap;
+        font-size:7px;
     }
 
     .header-right{
-        gap:7px;
+        gap:6px;
     }
 
     .current-profile{
 
-        max-width:120px;
+        max-width:115px;
 
         overflow:hidden;
 
@@ -2144,151 +2550,159 @@ td strong{
 
         white-space:nowrap;
 
-        padding:9px 11px;
+        padding:8px 10px;
 
         font-size:8px;
-
-        border-radius:999px;
     }
 
     .main{
 
         width:
-            calc(100% - 24px);
+            calc(100% - 22px);
 
         margin:
-            27px auto
-            calc(55px + env(safe-area-inset-bottom));
+            25px auto
+            calc(50px + env(safe-area-inset-bottom));
     }
 
     .page-heading{
 
         display:block;
 
-        margin-bottom:25px;
+        margin-bottom:23px;
     }
 
     .page-kicker{
 
-        gap:8px;
+        gap:7px;
 
-        font-size:9px;
-
-        letter-spacing:.1em;
+        font-size:8px;
     }
 
     .page-kicker::before{
 
-        width:22px;
+        width:20px;
 
         height:2px;
     }
 
     .page-title{
 
-        margin-top:13px;
+        margin-top:12px;
 
         font-size:
-            clamp(43px,13vw,58px);
+            clamp(42px,13vw,57px);
 
         line-height:.86;
-
-        letter-spacing:-.075em;
     }
 
     .page-description{
 
-        max-width:none;
+        margin-top:16px;
 
-        margin-top:18px;
-
-        padding:0;
-
-        font-size:12px;
+        font-size:11px;
 
         line-height:1.55;
     }
 
     .page-meta{
 
-        gap:7px;
+        gap:6px;
 
-        margin-top:15px;
+        margin-top:13px;
     }
 
     .page-meta span{
 
-        padding:7px 9px;
+        padding:6px 8px;
+
+        font-size:7px;
+
+        gap:5px;
+    }
+
+    .progress-panel{
+
+        padding:15px 16px;
+
+        border-radius:16px;
+
+        margin-bottom:12px;
+    }
+
+    .progress-label{
 
         font-size:8px;
+    }
 
-        gap:6px;
+    .progress-percent{
+
+        font-size:11px;
+    }
+
+    .progress-track{
+        height:4px;
     }
 
     .control-card{
 
-        border-radius:22px;
-
-        box-shadow:
-            0 16px 45px rgba(17,21,18,.08);
+        border-radius:21px;
     }
 
     .card-section{
 
         padding:
-            24px 17px;
+            22px 15px;
     }
 
     .section-title{
 
-        gap:10px;
+        gap:9px;
 
-        margin-bottom:17px;
+        margin-bottom:16px;
 
-        font-size:13px;
+        font-size:12px;
     }
 
     .section-number{
 
-        width:32px;
-        height:32px;
+        width:31px;
+        height:31px;
 
-        flex-basis:32px;
+        flex-basis:31px;
 
-        border-radius:10px;
+        border-radius:9px;
 
-        font-size:9px;
+        font-size:8px;
     }
 
     .client-input{
 
-        height:57px;
+        height:55px;
 
         padding:
-            0 15px;
+            0 14px;
 
-        border-radius:14px;
+        border-radius:13px;
 
-        font-size:15px;
+        font-size:14px;
     }
 
     .choice-grid{
 
         grid-template-columns:1fr;
 
-        gap:10px;
+        gap:9px;
     }
 
     .choice{
 
-        width:100%;
-
-        min-height:86px;
+        min-height:83px;
 
         padding:
-            18px 17px;
+            17px 16px;
 
-        border-radius:15px;
+        border-radius:14px;
     }
 
     .choice:hover{
@@ -2300,25 +2714,31 @@ td strong{
 
     .choice-name{
 
-        font-size:17px;
-
-        padding-right:38px;
+        font-size:16px;
     }
 
     .choice-desc{
 
         margin-top:5px;
 
-        font-size:11px;
+        font-size:10px;
     }
 
     .choice-check{
 
-        top:16px;
-        right:15px;
+        top:14px;
+        right:14px;
 
-        width:27px;
-        height:27px;
+        width:26px;
+        height:26px;
+    }
+
+    .lot-centered{
+        max-width:none;
+    }
+
+    .lot-centered .client-input{
+        text-align:center;
     }
 
     .temperature-layout{
@@ -2327,216 +2747,191 @@ td strong{
 
         flex-direction:column;
 
-        gap:10px;
+        gap:9px;
     }
 
     .temp-input{
 
-        height:88px;
+        height:86px;
 
         padding:
-            0 70px
-            0 20px;
+            0 67px
+            0 19px;
 
-        border-radius:17px;
+        border-radius:16px;
 
-        font-size:39px;
+        font-size:38px;
     }
 
     .temp-unit{
 
-        right:20px;
+        right:19px;
 
-        font-size:17px;
+        font-size:16px;
     }
 
     .temp-status{
 
-        min-height:75px;
+        min-height:73px;
 
-        padding:15px 17px;
+        padding:14px 16px;
 
         border-radius:15px;
     }
 
     .temp-status strong{
-        font-size:13px;
+        font-size:12px;
     }
 
     .temp-status small{
 
         margin-top:5px;
 
-        font-size:10px;
+        font-size:9px;
     }
 
     .check-grid{
 
         grid-template-columns:1fr;
 
-        gap:8px;
+        gap:7px;
     }
 
     .check{
 
-        width:100%;
+        min-height:59px;
 
-        min-height:62px;
+        padding:12px;
 
-        padding:13px;
+        gap:10px;
 
-        gap:11px;
-
-        border-radius:14px;
+        border-radius:13px;
     }
 
     .check-box{
 
-        width:29px;
-        height:29px;
+        width:28px;
+        height:28px;
 
         border-radius:8px;
 
-        flex:0 0 29px;
+        flex:0 0 28px;
     }
 
     .check-label{
-        font-size:11px;
+        font-size:10px;
+    }
+
+    .check-placeholder{
+
+        padding:22px;
+
+        font-size:10px;
+
+        border-radius:14px;
     }
 
     textarea{
 
-        min-height:125px;
+        min-height:120px;
 
-        padding:15px;
+        padding:14px;
 
-        border-radius:14px;
+        border-radius:13px;
 
-        font-size:13px;
-
-        line-height:1.5;
+        font-size:12px;
     }
 
     .validation{
 
         padding:
-            19px 17px
-            calc(19px + env(safe-area-inset-bottom));
+            18px 15px
+            calc(18px + env(safe-area-inset-bottom));
 
         flex-direction:column;
 
         align-items:stretch;
 
-        gap:15px;
+        gap:14px;
     }
 
     .validation-status{
 
-        gap:11px;
+        gap:10px;
 
         align-items:flex-start;
     }
 
     .validation-icon{
 
-        width:43px;
-        height:43px;
+        width:41px;
+        height:41px;
 
-        flex-basis:43px;
+        flex-basis:41px;
 
-        border-radius:13px;
+        border-radius:12px;
 
-        font-size:16px;
-    }
-
-    .validation-text{
-        padding-top:2px;
+        font-size:15px;
     }
 
     .validation-text strong{
 
-        font-size:12px;
-
-        line-height:1.3;
+        font-size:11px;
     }
 
     .validation-text span{
 
         margin-top:4px;
 
-        font-size:10px;
-
-        line-height:1.4;
+        font-size:9px;
     }
 
     .submit{
 
         width:100%;
 
-        min-height:55px;
+        min-height:53px;
 
-        padding:
-            0 18px;
+        border-radius:13px;
 
-        border-radius:14px;
-
-        font-size:10px;
-
-        letter-spacing:.09em;
+        font-size:9px;
     }
 
     .history{
 
-        margin-top:35px;
+        margin-top:32px;
     }
 
     .history-heading{
-
-        display:flex;
 
         flex-direction:column;
 
         align-items:stretch;
 
-        gap:13px;
-
-        margin-bottom:15px;
+        gap:11px;
     }
 
     .history-title{
 
-        font-size:19px;
-
-        gap:9px;
-    }
-
-    .history-title::before{
-
-        width:23px;
-
-        height:3px;
+        font-size:18px;
     }
 
     .export{
 
         width:100%;
 
-        min-height:50px;
+        min-height:48px;
 
-        border-radius:14px;
-
-        font-size:10px;
+        font-size:9px;
     }
 
     .history-table-wrap{
 
-        border-radius:18px;
-
-        box-shadow:none;
-
         border:0;
 
         background:transparent;
+
+        box-shadow:none;
 
         overflow:visible;
     }
@@ -2551,7 +2946,7 @@ td strong{
 
         flex-direction:column;
 
-        gap:10px;
+        gap:9px;
     }
 
     .history-card{
@@ -2560,9 +2955,9 @@ td strong{
 
         border:1px solid var(--border);
 
-        border-radius:17px;
+        border-radius:16px;
 
-        padding:16px;
+        padding:15px;
 
         box-shadow:
             0 8px 25px rgba(17,21,18,.05);
@@ -2576,33 +2971,23 @@ td strong{
 
         justify-content:space-between;
 
-        gap:10px;
+        gap:8px;
 
-        padding-bottom:12px;
+        padding-bottom:11px;
 
         border-bottom:1px solid var(--border);
     }
 
     .history-card-number{
 
-        font-size:11px;
-
-        font-weight:900;
-
-        color:var(--green);
-
-        letter-spacing:.03em;
+        font-size:10px;
     }
 
     .history-card-date{
 
-        margin-top:4px;
+        margin-top:3px;
 
-        font-size:9px;
-
-        font-weight:600;
-
-        color:var(--grey);
+        font-size:8px;
     }
 
     .history-card-grid{
@@ -2611,175 +2996,73 @@ td strong{
 
         grid-template-columns:1fr 1fr;
 
-        gap:12px;
+        gap:11px;
 
-        padding-top:13px;
-    }
-
-    .history-item{
-        min-width:0;
-    }
-
-    .history-item.full{
-        grid-column:1 / -1;
+        padding-top:12px;
     }
 
     .history-item-label{
 
-        margin-bottom:4px;
+        margin-bottom:3px;
 
-        font-size:8px;
-
-        font-weight:900;
-
-        letter-spacing:.08em;
-
-        text-transform:uppercase;
-
-        color:var(--grey-2);
+        font-size:7px;
     }
 
     .history-item-value{
 
-        font-size:11px;
-
-        font-weight:800;
-
-        color:var(--black);
-
-        overflow-wrap:anywhere;
+        font-size:10px;
     }
 
     .history-card .status{
 
-        padding:6px 9px;
+        padding:5px 8px;
 
-        font-size:8px;
+        font-size:7px;
     }
 
     .empty{
 
-        padding:30px 15px;
+        padding:28px 14px;
 
-        background:#fff;
+        border-radius:16px;
 
-        border:1px solid var(--border);
-
-        border-radius:17px;
-
-        font-size:11px;
+        font-size:10px;
     }
 
     .toast{
 
-        left:12px;
-        right:12px;
+        left:11px;
+        right:11px;
 
         bottom:
-            calc(12px + env(safe-area-inset-bottom));
+            calc(11px + env(safe-area-inset-bottom));
 
-        max-width:none;
+        padding:13px 15px;
 
-        padding:14px 16px;
+        border-radius:13px;
 
-        border-radius:14px;
-
-        font-size:11px;
-
-        line-height:1.4;
-
-        text-align:center;
+        font-size:10px;
     }
 
 }
 
-
-/* =========================================================
-   VERY SMALL PHONES
-========================================================= */
 
 @media(max-width:360px){
 
-    .main{
-        width:calc(100% - 18px);
+    .page-title{
+        font-size:40px;
     }
 
     .portal-title{
-        font-size:46px;
-    }
-
-    .page-title{
-        font-size:41px;
-    }
-
-    .profile{
-
-        height:178px;
-
-        padding:18px;
-    }
-
-    .profile-name{
-        font-size:19px;
-    }
-
-    .profile-arrow{
-
-        width:39px;
-        height:39px;
-
-        right:15px;
-        bottom:15px;
+        font-size:45px;
     }
 
     .card-section{
-        padding:21px 14px;
+        padding:20px 13px;
     }
 
 }
 
-
-/* =========================================================
-   LANDSCAPE MOBILE
-========================================================= */
-
-@media(max-width:900px) and (orientation:landscape){
-
-    #portal{
-
-        align-items:flex-start;
-
-        padding-top:25px;
-    }
-
-    .portal-content{
-
-        max-width:700px;
-
-        margin:auto;
-    }
-
-    .portal-top{
-        margin-bottom:22px;
-    }
-
-    .profiles{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .profile{
-
-        height:180px;
-
-        min-height:180px;
-    }
-
-}
-
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
 
 @media(prefers-reduced-motion:reduce){
 
@@ -2790,45 +3073,14 @@ td strong{
         scroll-behavior:auto!important;
 
         animation-duration:.01ms!important;
+
         animation-iteration-count:1!important;
 
         transition-duration:.01ms!important;
     }
 
 }
-/* =========================================================
-   INTRO — LOADING BAR
-========================================================= */
 
-.intro-loader{
-
-    width:min(280px, 75vw);
-
-    height:3px;
-
-    margin:18px auto 0;
-
-    overflow:hidden;
-
-    border-radius:999px;
-
-    background:#dfe4df;
-}
-
-.intro-progress{
-
-    width:0%;
-
-    height:100%;
-
-    border-radius:999px;
-
-    background:var(--green);
-
-    transition:
-        width .18s ease;
-
-}
 </style>
 
 </head>
@@ -2864,28 +3116,37 @@ td strong{
 
         </div>
 
+
         <div class="intro-overline">
             Réseau qualité · Contrôle & traçabilité
         </div>
+
 
         <h1 class="intro-title">
             Portail <span>Qualité</span>
         </h1>
 
+
         <div class="intro-line"></div>
 
-        <div class="intro-status">
-    <span id="introStatusText">
-        Initialisation du système · Accès sécurisé
-    </span>
 
-    <div class="intro-loader">
-        <div
-            id="introProgress"
-            class="intro-progress"
-        ></div>
-    </div>
-</div>
+        <div class="intro-status">
+
+            <span id="introStatusText">
+                Initialisation du système · Accès sécurisé
+            </span>
+
+
+            <div class="intro-loader">
+
+                <div
+                    id="introProgress"
+                    class="intro-progress"
+                ></div>
+
+            </div>
+
+        </div>
 
     </div>
 
@@ -2912,6 +3173,7 @@ td strong{
 
             </div>
 
+
             <h1 class="portal-title">
 
                 Votre espace<br>
@@ -2919,6 +3181,7 @@ td strong{
                 <span>qualité.</span>
 
             </h1>
+
 
             <p class="portal-description">
 
@@ -2931,11 +3194,10 @@ td strong{
         </div>
 
 
-<div
-    id="profilesContainer"
-    class="profiles"
->
-</div>
+        <div
+            id="profilesContainer"
+            class="profiles"
+        ></div>
 
     </div>
 
@@ -2959,19 +3221,23 @@ td strong{
             alt="LDK"
         >
 
+
         <div class="header-brand">
 
             <div class="header-brand-name">
                 LDK
             </div>
 
+
             <div class="header-divider"></div>
+
 
             <div>
 
                 <div class="header-title">
                     Contrôle Expédition
                 </div>
+
 
                 <div class="header-subtitle">
                     Laiterie de Kerguillet
@@ -2994,11 +3260,10 @@ td strong{
 
         </div>
 
+
         <div class="current-profile">
 
-            <span id="profileDisplay">
-                Hafssa LAKHAL
-            </span>
+            <span id="profileDisplay"></span>
 
         </div>
 
@@ -3018,6 +3283,7 @@ td strong{
             Nouveau contrôle
         </div>
 
+
         <div class="page-title">
 
             Contrôle<br>
@@ -3025,6 +3291,7 @@ td strong{
             <span>d'expédition.</span>
 
         </div>
+
 
         <div class="page-meta">
 
@@ -3035,6 +3302,7 @@ td strong{
                 Traçabilité active
 
             </span>
+
 
             <span>
 
@@ -3051,10 +3319,40 @@ td strong{
 
     <div class="page-description">
 
-        Vérifiez chaque élément avant le départ
-        du produit. Les données sont enregistrées
-        pour assurer une traçabilité complète
-        de l'expédition.
+        Sélectionnez le type de produit puis
+        renseignez les éléments nécessaires
+        avant le départ de l'expédition.
+
+    </div>
+
+</div>
+
+
+<div class="progress-panel">
+
+    <div class="progress-top">
+
+        <div class="progress-label">
+            Progression du contrôle
+        </div>
+
+
+        <div
+            id="progressPercent"
+            class="progress-percent"
+        >
+            0 %
+        </div>
+
+    </div>
+
+
+    <div class="progress-track">
+
+        <div
+            id="progressFill"
+            class="progress-fill"
+        ></div>
 
     </div>
 
@@ -3065,7 +3363,7 @@ td strong{
 
 
 <!-- =====================================================
-     CLIENT
+     01 CLIENT
 ===================================================== -->
 
 <section class="card-section">
@@ -3080,19 +3378,40 @@ td strong{
 
     </div>
 
-    <input
+
+    <select
         id="client"
         class="client-input"
-        type="text"
-        autocomplete="organization"
-        placeholder="Nom du client livré..."
+        onchange="updateProgress()"
     >
+
+        <option value="">
+            Sélectionner le client...
+        </option>
+
+        <option value="Monde des crêpes">
+            Monde des crêpes
+        </option>
+
+        <option value="Maison LARZUL">
+            Maison LARZUL
+        </option>
+
+        <option value="La Boulangère & Co">
+            La Boulangère &amp; Co
+        </option>
+
+        <option value="Jarnoux">
+            Jarnoux
+        </option>
+
+    </select>
 
 </section>
 
 
 <!-- =====================================================
-     PRODUIT
+     02 TYPE
 ===================================================== -->
 
 <section class="card-section">
@@ -3103,18 +3422,94 @@ td strong{
             02
         </div>
 
-        Produit
+        Type de contrôle
 
     </div>
 
 
     <div class="choice-grid">
 
+        <button
+            type="button"
+            class="choice"
+            data-group="controlType"
+            data-value="Crème"
+            onclick="chooseControlType(this)"
+        >
+
+            <div class="choice-check">
+                ✓
+            </div>
+
+
+            <div class="choice-name">
+                Crème
+            </div>
+
+
+            <div class="choice-desc">
+                Contrôle des produits crème
+            </div>
+
+        </button>
+
 
         <button
             type="button"
             class="choice"
-            data-group="product"
+            data-group="controlType"
+            data-value="Lait"
+            onclick="chooseControlType(this)"
+        >
+
+            <div class="choice-check">
+                ✓
+            </div>
+
+
+            <div class="choice-name">
+                Lait
+            </div>
+
+
+            <div class="choice-desc">
+                Contrôle des produits lait
+            </div>
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CREME
+===================================================== -->
+
+<section
+    id="creamOptions"
+    class="card-section"
+    style="display:none;"
+>
+
+    <div class="section-title">
+
+        <div class="section-number">
+            03
+        </div>
+
+        Type de crème
+
+    </div>
+
+
+    <div class="choice-grid">
+
+        <button
+            type="button"
+            class="choice"
+            data-group="cream"
             data-value="Crème épaisse"
             onclick="choose(this)"
         >
@@ -3137,7 +3532,7 @@ td strong{
         <button
             type="button"
             class="choice"
-            data-group="product"
+            data-group="cream"
             data-value="Crème liquide"
             onclick="choose(this)"
         >
@@ -3156,22 +3551,16 @@ td strong{
 
         </button>
 
-
     </div>
 
-</section>
 
-
-<!-- =====================================================
-     MG
-===================================================== -->
-
-<section class="card-section">
-
-    <div class="section-title">
+    <div
+        class="section-title"
+        style="margin-top:28px;"
+    >
 
         <div class="section-number">
-            03
+            04
         </div>
 
         Taux de matière grasse
@@ -3180,7 +3569,6 @@ td strong{
 
 
     <div class="choice-grid">
-
 
         <button
             type="button"
@@ -3227,6 +3615,205 @@ td strong{
 
         </button>
 
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     LAIT
+===================================================== -->
+
+<section
+    id="milkOptions"
+    class="card-section"
+    style="display:none;"
+>
+
+    <div class="section-title">
+
+        <div class="section-number">
+            03
+        </div>
+
+        Type de lait
+
+    </div>
+
+
+    <div class="choice-grid">
+
+        <button
+            type="button"
+            class="choice"
+            data-group="milkType"
+            data-value="Lait frais pasteurisé"
+            onclick="choose(this)"
+        >
+
+            <div class="choice-check">
+                ✓
+            </div>
+
+            <div class="choice-name">
+                Lait frais pasteurisé
+            </div>
+
+            <div class="choice-desc">
+                Lait pasteurisé frais
+            </div>
+
+        </button>
+
+
+        <button
+            type="button"
+            class="choice"
+            data-group="milkType"
+            data-value="Lait pasteurisé"
+            onclick="choose(this)"
+        >
+
+            <div class="choice-check">
+                ✓
+            </div>
+
+            <div class="choice-name">
+                Lait pasteurisé
+            </div>
+
+            <div class="choice-desc">
+                Lait pasteurisé
+            </div>
+
+        </button>
+
+    </div>
+
+
+    <div
+        class="section-title"
+        style="margin-top:28px;"
+    >
+
+        <div class="section-number">
+            04
+        </div>
+
+        Matière grasse
+
+    </div>
+
+
+    <div class="choice-grid">
+
+        <button
+            type="button"
+            class="choice"
+            data-group="milkFat"
+            data-value="Entier"
+            onclick="choose(this)"
+        >
+
+            <div class="choice-check">
+                ✓
+            </div>
+
+            <div class="choice-name">
+                Entier
+            </div>
+
+            <div class="choice-desc">
+                Lait entier
+            </div>
+
+        </button>
+
+
+        <button
+            type="button"
+            class="choice"
+            data-group="milkFat"
+            data-value="Demi-écrémé"
+            onclick="choose(this)"
+        >
+
+            <div class="choice-check">
+                ✓
+            </div>
+
+            <div class="choice-name">
+                Demi-écrémé
+            </div>
+
+            <div class="choice-desc">
+                Lait demi-écrémé
+            </div>
+
+        </button>
+
+
+        <button
+            type="button"
+            class="choice"
+            data-group="milkFat"
+            data-value="Écrémé"
+            onclick="choose(this)"
+        >
+
+            <div class="choice-check">
+                ✓
+            </div>
+
+            <div class="choice-name">
+                Écrémé
+            </div>
+
+            <div class="choice-desc">
+                Lait écrémé
+            </div>
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     05 LOT
+===================================================== -->
+
+<section class="card-section">
+
+    <div class="section-title">
+
+        <div class="section-number">
+            05
+        </div>
+
+        Traçabilité
+
+    </div>
+
+
+    <div class="lot-centered">
+
+        <label
+            for="lot"
+            class="field-label"
+        >
+            Lot
+        </label>
+
+
+        <input
+            id="lot"
+            class="client-input"
+            type="text"
+            placeholder="Ex. 2407"
+            oninput="updateProgress()"
+        >
 
     </div>
 
@@ -3242,7 +3829,7 @@ td strong{
     <div class="section-title">
 
         <div class="section-number">
-            04
+            06
         </div>
 
         Température à l'expédition
@@ -3251,7 +3838,6 @@ td strong{
 
 
     <div class="temperature-layout">
-
 
         <div class="temp-input-wrap">
 
@@ -3262,8 +3848,12 @@ td strong{
                 inputmode="decimal"
                 step="0.1"
                 placeholder="0.0"
-                oninput="checkTemperature()"
+                oninput="
+                    checkTemperature();
+                    updateProgress();
+                "
             >
+
 
             <div class="temp-unit">
                 °C
@@ -3281,11 +3871,12 @@ td strong{
                 En attente
             </strong>
 
-            <small id="temperatureThreshold">
-    Seuil maximum : chargement...
-</small>
-        </div>
 
+            <small id="temperatureThreshold">
+                Seuil maximum : chargement...
+            </small>
+
+        </div>
 
     </div>
 
@@ -3293,7 +3884,7 @@ td strong{
 
 
 <!-- =====================================================
-     CHECKS
+     07 CONTROLES
 ===================================================== -->
 
 <section class="card-section">
@@ -3301,22 +3892,31 @@ td strong{
     <div class="section-title">
 
         <div class="section-number">
-            05
+            07
         </div>
 
-        Vérifications
+        Éléments de contrôle
 
     </div>
 
 
-    <div class="check-grid">
+    <!-- =========================
+         CREME
+    ========================== -->
 
+    <div
+        id="creamChecks"
+        class="check-grid"
+        style="display:none;"
+    >
 
         <label class="check">
 
             <input
                 type="checkbox"
-                class="controlCheck"
+                class="controlCheck creamCheck"
+                data-check="etiquetage"
+                onchange="updateProgress()"
             >
 
             <span class="check-box">
@@ -3334,25 +3934,9 @@ td strong{
 
             <input
                 type="checkbox"
-                class="controlCheck"
-            >
-
-            <span class="check-box">
-                ✓
-            </span>
-
-            <span class="check-label">
-                DLC conforme
-            </span>
-
-        </label>
-
-
-        <label class="check">
-
-            <input
-                type="checkbox"
-                class="controlCheck"
+                class="controlCheck creamCheck"
+                data-check="conditionnement"
+                onchange="updateProgress()"
             >
 
             <span class="check-box">
@@ -3370,7 +3954,9 @@ td strong{
 
             <input
                 type="checkbox"
-                class="controlCheck"
+                class="controlCheck creamCheck"
+                data-check="emballage"
+                onchange="updateProgress()"
             >
 
             <span class="check-box">
@@ -3388,7 +3974,9 @@ td strong{
 
             <input
                 type="checkbox"
-                class="controlCheck"
+                class="controlCheck creamCheck"
+                data-check="quantite"
+                onchange="updateProgress()"
             >
 
             <span class="check-box">
@@ -3406,7 +3994,9 @@ td strong{
 
             <input
                 type="checkbox"
-                class="controlCheck"
+                class="controlCheck creamCheck"
+                data-check="aspect"
+                onchange="updateProgress()"
             >
 
             <span class="check-box">
@@ -3419,6 +4009,128 @@ td strong{
 
         </label>
 
+    </div>
+
+
+    <!-- =========================
+         LAIT
+    ========================== -->
+
+    <div
+        id="milkChecks"
+        class="check-grid"
+        style="display:none;"
+    >
+
+        <label class="check">
+
+            <input
+                type="checkbox"
+                class="controlCheck milkCheck"
+                data-check="etiquette"
+                onchange="updateProgress()"
+            >
+
+            <span class="check-box">
+                ✓
+            </span>
+
+            <span class="check-label">
+                Étiquette présente
+            </span>
+
+        </label>
+
+
+        <label class="check">
+
+            <input
+                type="checkbox"
+                class="controlCheck milkCheck"
+                data-check="dlcConforme"
+                onchange="updateProgress()"
+            >
+
+            <span class="check-box">
+                ✓
+            </span>
+
+            <span class="check-label">
+                DLC conforme
+            </span>
+
+        </label>
+
+
+        <label class="check">
+
+            <input
+                id="milkTemperatureCheck"
+                type="checkbox"
+                class="controlCheck milkCheck"
+                data-check="temperatureConforme"
+                onchange="updateProgress()"
+            >
+
+            <span class="check-box">
+                ✓
+            </span>
+
+            <span class="check-label">
+                Température conforme
+            </span>
+
+        </label>
+
+
+        <label class="check">
+
+            <input
+                type="checkbox"
+                class="controlCheck milkCheck"
+                data-check="scelle"
+                onchange="updateProgress()"
+            >
+
+            <span class="check-box">
+                ✓
+            </span>
+
+            <span class="check-label">
+                Scellé conforme
+            </span>
+
+        </label>
+
+
+        <label class="check">
+
+            <input
+                type="checkbox"
+                class="controlCheck milkCheck"
+                data-check="typeLait"
+                onchange="updateProgress()"
+            >
+
+            <span class="check-box">
+                ✓
+            </span>
+
+            <span class="check-label">
+                Type de lait conforme
+            </span>
+
+        </label>
+
+    </div>
+
+
+    <div
+        id="checksPlaceholder"
+        class="check-placeholder"
+    >
+
+        Sélectionnez d'abord un type de contrôle.
 
     </div>
 
@@ -3426,7 +4138,7 @@ td strong{
 
 
 <!-- =====================================================
-     OBSERVATIONS
+     08 OBSERVATIONS
 ===================================================== -->
 
 <section class="card-section">
@@ -3434,7 +4146,7 @@ td strong{
     <div class="section-title">
 
         <div class="section-number">
-            06
+            08
         </div>
 
         Observations
@@ -3445,7 +4157,42 @@ td strong{
     <textarea
         id="comment"
         placeholder="Ajouter une observation ou préciser une non-conformité..."
+        oninput="updateProgress()"
     ></textarea>
+
+</section>
+
+
+<!-- =====================================================
+     RESUME
+===================================================== -->
+
+<section
+    id="summarySection"
+    class="card-section"
+    style="display:none;"
+>
+
+    <div class="section-title">
+
+        <div class="section-number">
+            ✓
+        </div>
+
+        Récapitulatif
+
+    </div>
+
+
+    <div
+        id="summaryCard"
+        style="
+            padding:22px;
+            border:1px solid var(--border);
+            border-radius:20px;
+            background:linear-gradient(145deg,#f8faf8,#eef4f0);
+        "
+    ></div>
 
 </section>
 
@@ -3456,7 +4203,6 @@ td strong{
 
 <div class="validation">
 
-
     <div class="validation-status">
 
         <div
@@ -3466,11 +4212,13 @@ td strong{
             ✓
         </div>
 
+
         <div class="validation-text">
 
             <strong id="validationTitle">
                 Contrôle prêt à être validé
             </strong>
+
 
             <span id="validationText">
                 Complétez les informations obligatoires.
@@ -3487,9 +4235,10 @@ td strong{
         type="button"
         onclick="validateControl()"
     >
-        Valider le contrôle
-    </button>
 
+        Valider le contrôle →
+
+    </button>
 
 </div>
 
@@ -3503,26 +4252,27 @@ td strong{
 
 <section class="history">
 
-
     <div class="history-heading">
 
         <div class="history-title">
             Historique des contrôles
         </div>
 
+
         <button
             class="export"
             type="button"
             onclick="exportExcel()"
         >
+
             ↓ &nbsp; Exporter Excel
+
         </button>
 
     </div>
 
 
     <div class="history-table-wrap">
-
 
         <table>
 
@@ -3531,24 +4281,21 @@ td strong{
                 <tr>
 
                     <th>N°</th>
-
                     <th>Date / heure</th>
-
                     <th>Contrôleur</th>
-
                     <th>Client</th>
-
+                    <th>Type</th>
                     <th>Produit</th>
-
+                    <th>Variante</th>
                     <th>MG</th>
-
+                    <th>Lot</th>
                     <th>Température</th>
-
                     <th>Résultat</th>
 
                 </tr>
 
             </thead>
+
 
             <tbody id="historyBody"></tbody>
 
@@ -3565,9 +4312,10 @@ td strong{
             id="emptyHistory"
             class="empty"
         >
-            Aucun contrôle enregistré pour le moment.
-        </div>
 
+            Aucun contrôle enregistré pour le moment.
+
+        </div>
 
     </div>
 
@@ -3584,23 +4332,8 @@ td strong{
     class="toast"
 ></div>
 
+
 <script>
-
-/* =========================================================
-   LDK — FRONTEND
-   ---------------------------------------------------------
-   INDEX HTML EXTERNE
-   ↓
-   GOOGLE APPS SCRIPT API
-   ↓
-   GOOGLE SHEETS
-
-   DONNÉES CENTRALISÉES :
-   - PROFILS
-   - CONFIG
-   - CONTROLES
-========================================================= */
-
 
 /* =========================================================
    CONFIGURATION
@@ -3616,218 +4349,25 @@ const APPS_SCRIPT_URL =
 
 let currentProfile = "";
 
-let selectedProduct = "";
+let selectedControlType = "";
+
+let selectedCreamType = "";
 
 let selectedMG = "";
 
-let controls = [];
+let selectedMilkType = "";
+
+let selectedMilkFat = "";
 
 let profiles = [];
 
+let controls = [];
+
 let appConfig = {
-
-    tempMax: 6
-
+    tempMax:6
 };
 
 let isLoading = false;
-
-
-/* =========================================================
-   INITIALISATION
-========================================================= */
-
-/* =========================================================
-   INITIALISATION LDK
-   ---------------------------------------------------------
-   Loading purement esthétique pendant le lancement
-========================================================= */
-
-async function initializeLDK(){
-
-    const progress =
-        document.getElementById(
-            "introProgress"
-        );
-
-    const statusText =
-        document.getElementById(
-            "introStatusText"
-        );
-
-
-    /* =============================================
-       ANIMATION ESTHÉTIQUE
-    ============================================= */
-
-    let progressValue = 0;
-
-
-    const progressTimer =
-        setInterval(() => {
-
-            /*
-             * On accélère au début,
-             * puis on ralentit légèrement
-             * avant la fin.
-             */
-
-            if(progressValue < 70){
-
-                progressValue +=
-                    Math.random() * 8 + 3;
-
-            }
-
-            else if(progressValue < 90){
-
-                progressValue +=
-                    Math.random() * 3 + 1;
-
-            }
-
-
-            progressValue =
-                Math.min(
-                    progressValue,
-                    94
-                );
-
-
-            if(progress){
-
-                progress.style.width =
-                    progressValue + "%";
-
-            }
-
-        },160);
-
-
-    try{
-
-        /* =========================================
-           CHARGEMENT REEL DES DONNEES
-        ========================================= */
-
-        if(statusText){
-
-            statusText.textContent =
-                "Connexion à la base qualité · Sécurisation...";
-
-        }
-
-
-        await loadAppData();
-
-
-        /* =========================================
-           DONNEES CHARGEES
-        ========================================= */
-
-        if(statusText){
-
-            statusText.textContent =
-                "Base qualité synchronisée · Accès sécurisé";
-
-        }
-
-
-        clearInterval(
-            progressTimer
-        );
-
-
-        if(progress){
-
-            progress.style.width =
-                "100%";
-
-        }
-
-
-    }
-
-    catch(error){
-
-        console.error(
-            "Erreur initialisation LDK :",
-            error
-        );
-
-
-        clearInterval(
-            progressTimer
-        );
-
-
-        if(progress){
-
-            progress.style.width =
-                "100%";
-
-        }
-
-
-        if(statusText){
-
-            statusText.textContent =
-                "Initialisation du portail · Accès sécurisé";
-
-        }
-
-    }
-
-
-    /* =============================================
-       DISPARITION DE L'INTRO
-    ============================================= */
-
-    setTimeout(() => {
-
-        const intro =
-            document.getElementById(
-                "intro"
-            );
-
-
-        const portal =
-            document.getElementById(
-                "portal"
-            );
-
-
-        if(intro){
-
-            intro.classList.add(
-                "hide"
-            );
-
-        }
-
-
-        setTimeout(() => {
-
-            if(portal){
-
-                portal.classList.add(
-                    "show"
-                );
-
-            }
-
-        },300);
-
-    },400);
-
-}
-
-
-/* =========================================================
-   INTRO
-========================================================= */
-
-initializeLDK();
 
 
 /* =========================================================
@@ -3836,26 +4376,10 @@ initializeLDK();
 
 async function apiGet(action){
 
-    if(
-        !APPS_SCRIPT_URL ||
-        APPS_SCRIPT_URL.includes(
-            "TON_URL_APPS_SCRIPT"
-        )
-    ){
-
-        throw new Error(
-            "URL Apps Script non configurée."
-        );
-
-    }
-
-
     const url =
         APPS_SCRIPT_URL +
         "?action=" +
-        encodeURIComponent(
-            action
-        ) +
+        encodeURIComponent(action) +
         "&t=" +
         Date.now();
 
@@ -3864,13 +4388,9 @@ async function apiGet(action){
         await fetch(
             url,
             {
-
                 method:"GET",
-
                 cache:"no-store",
-
                 redirect:"follow"
-
             }
         );
 
@@ -3895,28 +4415,27 @@ async function apiGet(action){
     try{
 
         data =
-            JSON.parse(
-                text
-            );
+            JSON.parse(text);
 
     }
 
     catch(error){
 
         console.error(
-            "Réponse serveur non JSON :",
+            "Réponse API :",
             text
         );
 
-
         throw new Error(
-            "Le serveur Apps Script ne renvoie pas du JSON."
+            "Réponse Apps Script invalide."
         );
 
     }
 
 
-    if(!data.success){
+    if(
+        data.success !== true
+    ){
 
         throw new Error(
             data.message ||
@@ -3935,23 +4454,7 @@ async function apiGet(action){
    API POST
 ========================================================= */
 
-async function apiPost(
-    payload
-){
-
-    if(
-        !APPS_SCRIPT_URL ||
-        APPS_SCRIPT_URL.includes(
-            "TON_URL_APPS_SCRIPT"
-        )
-    ){
-
-        throw new Error(
-            "URL Apps Script non configurée."
-        );
-
-    }
-
+async function apiPost(payload){
 
     const response =
         await fetch(
@@ -3963,16 +4466,12 @@ async function apiPost(
                 redirect:"follow",
 
                 headers:{
-
                     "Content-Type":
                         "text/plain;charset=utf-8"
-
                 },
 
                 body:
-                    JSON.stringify(
-                        payload
-                    )
+                    JSON.stringify(payload)
 
             }
         );
@@ -3998,32 +4497,31 @@ async function apiPost(
     try{
 
         data =
-            JSON.parse(
-                text
-            );
+            JSON.parse(text);
 
     }
 
     catch(error){
 
         console.error(
-            "Réponse POST non JSON :",
+            "Réponse POST :",
             text
         );
 
-
         throw new Error(
-            "Réponse invalide du serveur Apps Script."
+            "Réponse Apps Script invalide."
         );
 
     }
 
 
-    if(!data.success){
+    if(
+        data.success !== true
+    ){
 
         throw new Error(
             data.message ||
-            "Erreur API."
+            "Erreur d'enregistrement."
         );
 
     }
@@ -4036,119 +4534,742 @@ async function apiPost(
 
 /* =========================================================
    CHARGEMENT GLOBAL
-   ---------------------------------------------------------
-   PROFILS + CONTROLES + CONFIG
 ========================================================= */
 
 async function loadAppData(){
 
-    try{
+    const data =
+        await apiGet(
+            "getAppData"
+        );
 
-        const data =
-            await apiGet(
-                "getAppData"
+
+    profiles =
+        Array.isArray(
+            data.profiles
+        )
+            ? data.profiles
+            : [];
+
+
+    controls =
+        Array.isArray(
+            data.controls
+        )
+            ? data.controls
+            : [];
+
+
+    if(data.config){
+
+        const temp =
+            Number(
+                data.config.tempMax
             );
 
 
-        /* =============================================
-           PROFILS
-        ============================================= */
+        if(
+            Number.isFinite(temp)
+        ){
 
-        profiles =
-            Array.isArray(
-                data.profiles
-            )
-                ? data.profiles
-                : [];
-
-
-        /* =============================================
-           CONTROLES
-        ============================================= */
-
-        controls =
-            Array.isArray(
-                data.controls
-            )
-                ? data.controls
-                : [];
-
-
-        /* =============================================
-           CONFIG
-        ============================================= */
-
-        if(data.config){
-
-            const parsedTempMax =
-                Number(
-                    data.config.tempMax
-                );
-
-
-            appConfig = {
-
-                tempMax:
-                    Number.isFinite(
-                        parsedTempMax
-                    )
-                        ? parsedTempMax
-                        : 6
-
-            };
+            appConfig.tempMax =
+                temp;
 
         }
 
-
-        /* =============================================
-           AFFICHAGE
-        ============================================= */
-
-        renderProfiles();
-
-        renderHistory();
-
-        updateTemperatureThreshold();
-
-        checkTemperature();
-
-
-        console.log(
-            "LDK — données chargées :",
-            {
-                profiles,
-                controls,
-                config:appConfig
-            }
-        );
-
-
     }
 
-    catch(error){
 
-        console.error(
-            "loadAppData:",
-            error
-        );
+    renderProfiles();
 
+    renderHistory();
 
-        showToast(
-            "⚠ Impossible de charger la configuration LDK."
-        );
+    updateTemperatureThreshold();
 
-
-        throw error;
-
-    }
+    checkTemperature();
 
 }
 
 
 /* =========================================================
-   AFFICHAGE DES PROFILS
-   ---------------------------------------------------------
-   Les profils viennent maintenant de PROFILS
+   SEUIL
+========================================================= */
+
+function updateTemperatureThreshold(){
+
+    const element =
+        document.getElementById(
+            "temperatureThreshold"
+        );
+
+
+    if(!element){
+
+        return;
+
+    }
+
+
+    element.textContent =
+        "Seuil maximum : " +
+        appConfig.tempMax +
+        " °C";
+
+}
+
+
+/* =========================================================
+   PROGRESSION
+========================================================= */
+
+function updateProgress(){
+
+    let total = 0;
+
+    let completed = 0;
+
+
+    /* CLIENT */
+
+    total++;
+
+    if(
+        document
+            .getElementById("client")
+            ?.value
+            .trim()
+    ){
+
+        completed++;
+
+    }
+
+
+    /* TYPE */
+
+    total++;
+
+    if(selectedControlType){
+
+        completed++;
+
+    }
+
+
+    /* PRODUIT */
+
+    if(
+        selectedControlType === "Crème"
+    ){
+
+        total += 2;
+
+        if(selectedCreamType){
+            completed++;
+        }
+
+        if(selectedMG){
+            completed++;
+        }
+
+    }
+
+
+    if(
+        selectedControlType === "Lait"
+    ){
+
+        total += 2;
+
+        if(selectedMilkType){
+            completed++;
+        }
+
+        if(selectedMilkFat){
+            completed++;
+        }
+
+    }
+
+
+    /* LOT */
+
+    total++;
+
+    if(
+        document
+            .getElementById("lot")
+            ?.value
+            .trim()
+    ){
+
+        completed++;
+
+    }
+
+
+    /* TEMPERATURE */
+
+    total++;
+
+    const temperature =
+        parseFloat(
+            document
+                .getElementById(
+                    "temperature"
+                )
+                ?.value
+        );
+
+
+    if(
+        Number.isFinite(
+            temperature
+        )
+    ){
+
+        completed++;
+
+    }
+
+
+    /* CHECKS */
+
+    const activeChecks =
+        selectedControlType === "Crème"
+
+            ? document.querySelectorAll(
+                ".creamCheck"
+              )
+
+            : selectedControlType === "Lait"
+
+                ? document.querySelectorAll(
+                    ".milkCheck"
+                  )
+
+                : [];
+
+
+    activeChecks.forEach(
+        check => {
+
+            total++;
+
+            if(check.checked){
+
+                completed++;
+
+            }
+
+        }
+    );
+
+
+    const percentage =
+        total > 0
+
+            ? Math.round(
+                completed /
+                total *
+                100
+              )
+
+            : 0;
+
+
+    const fill =
+        document.getElementById(
+            "progressFill"
+        );
+
+
+    const percent =
+        document.getElementById(
+            "progressPercent"
+        );
+
+
+    if(fill){
+
+        fill.style.width =
+            percentage + "%";
+
+    }
+
+
+    if(percent){
+
+        percent.textContent =
+            percentage + " %";
+
+    }
+
+
+    updateSummary(
+        percentage
+    );
+
+}
+
+
+/* =========================================================
+   RESUME
+========================================================= */
+
+function updateSummary(
+    percentage
+){
+
+    const section =
+        document.getElementById(
+            "summarySection"
+        );
+
+
+    const card =
+        document.getElementById(
+            "summaryCard"
+        );
+
+
+    if(
+        !section ||
+        !card
+    ){
+
+        return;
+
+    }
+
+
+    if(
+        percentage < 70 ||
+        !selectedControlType
+    ){
+
+        section.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    const client =
+        document
+            .getElementById(
+                "client"
+            )
+            ?.value ||
+        "—";
+
+
+    const lot =
+        document
+            .getElementById(
+                "lot"
+            )
+            ?.value ||
+        "—";
+
+
+    const temperature =
+        document
+            .getElementById(
+                "temperature"
+            )
+            ?.value ||
+        "—";
+
+
+    const produit =
+        selectedControlType === "Crème"
+
+            ? selectedCreamType || "—"
+
+            : "Lait";
+
+
+    const variante =
+        selectedControlType === "Crème"
+
+            ? selectedMG || "—"
+
+            : (
+                (
+                    selectedMilkType ||
+                    "—"
+                )
+                +
+                " · " +
+                (
+                    selectedMilkFat ||
+                    "—"
+                )
+              );
+
+
+    const isTemperatureOK =
+        Number(
+            temperature
+        ) <=
+        Number(
+            appConfig.tempMax
+        );
+
+
+    card.innerHTML = `
+
+        <div
+            style="
+                display:grid;
+                grid-template-columns:
+                    repeat(2,1fr);
+                gap:14px;
+            "
+        >
+
+            <div>
+
+                <div
+                    style="
+                        font-size:8px;
+                        font-weight:900;
+                        letter-spacing:.1em;
+                        text-transform:uppercase;
+                        color:var(--grey-2);
+                        margin-bottom:5px;
+                    "
+                >
+                    Client
+                </div>
+
+                <div
+                    style="
+                        font-size:13px;
+                        font-weight:900;
+                    "
+                >
+                    ${escapeHTML(client)}
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <div
+                    style="
+                        font-size:8px;
+                        font-weight:900;
+                        letter-spacing:.1em;
+                        text-transform:uppercase;
+                        color:var(--grey-2);
+                        margin-bottom:5px;
+                    "
+                >
+                    Produit
+                </div>
+
+                <div
+                    style="
+                        font-size:13px;
+                        font-weight:900;
+                    "
+                >
+                    ${escapeHTML(produit)}
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <div
+                    style="
+                        font-size:8px;
+                        font-weight:900;
+                        letter-spacing:.1em;
+                        text-transform:uppercase;
+                        color:var(--grey-2);
+                        margin-bottom:5px;
+                    "
+                >
+                    Variante
+                </div>
+
+                <div
+                    style="
+                        font-size:12px;
+                        font-weight:800;
+                    "
+                >
+                    ${escapeHTML(variante)}
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <div
+                    style="
+                        font-size:8px;
+                        font-weight:900;
+                        letter-spacing:.1em;
+                        text-transform:uppercase;
+                        color:var(--grey-2);
+                        margin-bottom:5px;
+                    "
+                >
+                    Lot
+                </div>
+
+                <div
+                    style="
+                        font-size:12px;
+                        font-weight:900;
+                    "
+                >
+                    ${escapeHTML(lot)}
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <div
+                    style="
+                        font-size:8px;
+                        font-weight:900;
+                        letter-spacing:.1em;
+                        text-transform:uppercase;
+                        color:var(--grey-2);
+                        margin-bottom:5px;
+                    "
+                >
+                    Température
+                </div>
+
+                <div
+                    style="
+                        font-size:15px;
+                        font-weight:950;
+                        color:
+                            ${
+                                isTemperatureOK
+                                    ? "var(--green)"
+                                    : "var(--red)"
+                            };
+                    "
+                >
+                    ${escapeHTML(temperature)} °C
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <div
+                    style="
+                        font-size:8px;
+                        font-weight:900;
+                        letter-spacing:.1em;
+                        text-transform:uppercase;
+                        color:var(--grey-2);
+                        margin-bottom:5px;
+                    "
+                >
+                    Avancement
+                </div>
+
+                <div
+                    style="
+                        font-size:15px;
+                        font-weight:950;
+                        color:var(--green);
+                    "
+                >
+                    ${percentage} %
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    section.style.display =
+        "block";
+
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+async function initializeLDK(){
+
+    const progress =
+        document.getElementById(
+            "introProgress"
+        );
+
+
+    const statusText =
+        document.getElementById(
+            "introStatusText"
+        );
+
+
+    let value =
+        0;
+
+
+    const timer =
+        setInterval(
+            () => {
+
+                if(value < 70){
+
+                    value +=
+                        Math.random() * 8 + 3;
+
+                }
+                else if(value < 90){
+
+                    value +=
+                        Math.random() * 3 + 1;
+
+                }
+
+
+                value =
+                    Math.min(
+                        value,
+                        94
+                    );
+
+
+                if(progress){
+
+                    progress.style.width =
+                        value + "%";
+
+                }
+
+            },
+            160
+        );
+
+
+    try{
+
+        if(statusText){
+
+            statusText.textContent =
+                "Connexion à la base qualité · Sécurisation...";
+
+        }
+
+
+        await loadAppData();
+
+
+        if(statusText){
+
+            statusText.textContent =
+                "Base qualité synchronisée · Accès sécurisé";
+
+        }
+
+
+        clearInterval(timer);
+
+
+        if(progress){
+
+            progress.style.width =
+                "100%";
+
+        }
+
+    }
+
+    catch(error){
+
+        clearInterval(timer);
+
+
+        console.error(
+            "LDK initialization:",
+            error
+        );
+
+
+        if(progress){
+
+            progress.style.width =
+                "100%";
+
+        }
+
+
+        if(statusText){
+
+            statusText.textContent =
+                "Portail qualité · Accès sécurisé";
+
+        }
+
+    }
+
+
+    setTimeout(
+        () => {
+
+            const intro =
+                document.getElementById(
+                    "intro"
+                );
+
+
+            const portal =
+                document.getElementById(
+                    "portal"
+                );
+
+
+            intro?.classList.add(
+                "hide"
+            );
+
+
+            setTimeout(
+                () => {
+
+                    portal?.classList.add(
+                        "show"
+                    );
+
+                },
+                300
+            );
+
+        },
+        400
+    );
+
+}
+
+
+/* =========================================================
+   PROFILS
 ========================================================= */
 
 function renderProfiles(){
@@ -4160,10 +5281,6 @@ function renderProfiles(){
 
 
     if(!container){
-
-        console.warn(
-            "profilesContainer introuvable."
-        );
 
         return;
 
@@ -4181,13 +5298,13 @@ function renderProfiles(){
             <div
                 style="
                     grid-column:1/-1;
-                    padding:30px;
+                    padding:35px;
                     border:1px solid var(--border);
-                    border-radius:20px;
+                    border-radius:22px;
                     background:#fff;
                     text-align:center;
                     color:var(--grey);
-                    font-weight:700;
+                    font-weight:800;
                 "
             >
 
@@ -4229,7 +5346,8 @@ function renderProfiles(){
             const initials =
                 profile.initiales ||
                 String(
-                    profile.nom || "?"
+                    profile.nom ||
+                    "?"
                 )
                     .split(" ")
                     .map(
@@ -4237,7 +5355,10 @@ function renderProfiles(){
                             part.charAt(0)
                     )
                     .join("")
-                    .substring(0,2)
+                    .substring(
+                        0,
+                        2
+                    )
                     .toUpperCase();
 
 
@@ -4247,7 +5368,10 @@ function renderProfiles(){
 
                     ${String(
                         index + 1
-                    ).padStart(2,"0")}
+                    ).padStart(
+                        2,
+                        "0"
+                    )}
 
                     · SERVICE QUALITÉ
 
@@ -4282,9 +5406,7 @@ function renderProfiles(){
 
 
                 <div class="profile-arrow">
-
                     →
-
                 </div>
 
             `;
@@ -4301,36 +5423,7 @@ function renderProfiles(){
 
 
 /* =========================================================
-   SEUIL TEMPERATURE
-   ---------------------------------------------------------
-   Le seuil vient maintenant de CONFIG
-========================================================= */
-
-function updateTemperatureThreshold(){
-
-    const threshold =
-        document.getElementById(
-            "temperatureThreshold"
-        );
-
-
-    if(!threshold){
-
-        return;
-
-    }
-
-
-    threshold.textContent =
-        "Seuil maximum : " +
-        appConfig.tempMax +
-        " °C";
-
-}
-
-
-/* =========================================================
-   PROFILE
+   PROFIL
 ========================================================= */
 
 function selectProfile(
@@ -4354,9 +5447,7 @@ function selectProfile(
 
 
     if(!portal){
-
         return;
-
     }
 
 
@@ -4375,36 +5466,27 @@ function selectProfile(
                 "none";
 
 
-            const app =
-                document.getElementById(
+            document
+                .getElementById(
                     "app"
-                );
-
-
-            if(app){
-
-                app.classList.add(
+                )
+                ?.classList.add(
                     "active"
                 );
 
-            }
 
-
-            const profileDisplay =
+            const display =
                 document.getElementById(
                     "profileDisplay"
                 );
 
 
-            if(profileDisplay){
+            if(display){
 
-                profileDisplay.textContent =
+                display.textContent =
                     profile;
 
             }
-
-
-            renderHistory();
 
 
             window.scrollTo({
@@ -4419,7 +5501,6 @@ function selectProfile(
             await loadControls();
 
         },
-
         450
     );
 
@@ -4427,17 +5508,12 @@ function selectProfile(
 
 
 /* =========================================================
-   CHARGEMENT CONTROLES
+   CONTROLES
 ========================================================= */
 
 async function loadControls(){
 
     try{
-
-        showToast(
-            "⟳ Synchronisation de la base LDK..."
-        );
-
 
         const data =
             await apiGet(
@@ -4455,12 +5531,6 @@ async function loadControls(){
 
         renderHistory();
 
-
-        showToast(
-            "✓ Base LDK synchronisée."
-        );
-
-
     }
 
     catch(error){
@@ -4471,14 +5541,8 @@ async function loadControls(){
         );
 
 
-        controls = [];
-
-
-        renderHistory();
-
-
         showToast(
-            "⚠ Échec de connexion à la base LDK."
+            "⚠ Échec de synchronisation de l'historique."
         );
 
     }
@@ -4487,7 +5551,163 @@ async function loadControls(){
 
 
 /* =========================================================
-   CHOICES
+   TYPE DE CONTROLE
+========================================================= */
+
+function chooseControlType(
+    element
+){
+
+    selectedControlType =
+        element.dataset.value;
+
+
+    document
+        .querySelectorAll(
+            '[data-group="controlType"]'
+        )
+        .forEach(
+            item =>
+                item.classList.remove(
+                    "selected"
+                )
+        );
+
+
+    element.classList.add(
+        "selected"
+    );
+
+
+    const creamOptions =
+        document.getElementById(
+            "creamOptions"
+        );
+
+
+    const milkOptions =
+        document.getElementById(
+            "milkOptions"
+        );
+
+
+    const creamChecks =
+        document.getElementById(
+            "creamChecks"
+        );
+
+
+    const milkChecks =
+        document.getElementById(
+            "milkChecks"
+        );
+
+
+    const placeholder =
+        document.getElementById(
+            "checksPlaceholder"
+        );
+
+
+    if(
+        selectedControlType === "Crème"
+    ){
+
+        creamOptions.style.display =
+            "block";
+
+
+        milkOptions.style.display =
+            "none";
+
+
+        creamChecks.style.display =
+            "grid";
+
+
+        milkChecks.style.display =
+            "none";
+
+
+        placeholder.style.display =
+            "none";
+
+
+        selectedMilkType =
+            "";
+
+        selectedMilkFat =
+            "";
+
+
+        document
+            .querySelectorAll(
+                '[data-group="milkType"], [data-group="milkFat"]'
+            )
+            .forEach(
+                item =>
+                    item.classList.remove(
+                        "selected"
+                    )
+            );
+
+    }
+
+
+    if(
+        selectedControlType === "Lait"
+    ){
+
+        creamOptions.style.display =
+            "none";
+
+
+        milkOptions.style.display =
+            "block";
+
+
+        creamChecks.style.display =
+            "none";
+
+
+        milkChecks.style.display =
+            "grid";
+
+
+        placeholder.style.display =
+            "none";
+
+
+        selectedCreamType =
+            "";
+
+        selectedMG =
+            "";
+
+
+        document
+            .querySelectorAll(
+                '[data-group="cream"], [data-group="mg"]'
+            )
+            .forEach(
+                item =>
+                    item.classList.remove(
+                        "selected"
+                    )
+            );
+
+    }
+
+
+    syncMilkTemperatureCheck();
+
+    updateProgress();
+
+}
+
+
+/* =========================================================
+   CHOIX
 ========================================================= */
 
 function choose(
@@ -4503,13 +5723,10 @@ function choose(
             `.choice[data-group="${group}"]`
         )
         .forEach(
-            item => {
-
+            item =>
                 item.classList.remove(
                     "selected"
-                );
-
-            }
+                )
         );
 
 
@@ -4518,24 +5735,43 @@ function choose(
     );
 
 
-    if(
-        group === "product"
-    ){
+    switch(group){
 
-        selectedProduct =
-            element.dataset.value;
+        case "cream":
+
+            selectedCreamType =
+                element.dataset.value;
+
+            break;
+
+
+        case "mg":
+
+            selectedMG =
+                element.dataset.value;
+
+            break;
+
+
+        case "milkType":
+
+            selectedMilkType =
+                element.dataset.value;
+
+            break;
+
+
+        case "milkFat":
+
+            selectedMilkFat =
+                element.dataset.value;
+
+            break;
 
     }
 
 
-    if(
-        group === "mg"
-    ){
-
-        selectedMG =
-            element.dataset.value;
-
-    }
+    updateProgress();
 
 }
 
@@ -4558,7 +5794,10 @@ function checkTemperature(){
         );
 
 
-    if(!input || !status){
+    if(
+        !input ||
+        !status
+    ){
 
         return;
 
@@ -4592,11 +5831,13 @@ function checkTemperature(){
                 En attente
             </strong>
 
-            <small>
+            <small id="temperatureThreshold">
                 Seuil maximum : ${max} °C
             </small>
 
         `;
+
+        syncMilkTemperatureCheck();
 
         return;
 
@@ -4615,7 +5856,7 @@ function checkTemperature(){
                 ✓ Température conforme
             </strong>
 
-            <small>
+            <small id="temperatureThreshold">
                 Seuil respecté · ≤ ${max} °C
             </small>
 
@@ -4635,13 +5876,125 @@ function checkTemperature(){
                 ⚠ Température non conforme
             </strong>
 
-            <small>
+            <small id="temperatureThreshold">
                 Le seuil de ${max} °C est dépassé
             </small>
 
         `;
 
     }
+
+
+    syncMilkTemperatureCheck();
+
+}
+
+
+/* =========================================================
+   CHECK TEMPERATURE LAIT
+========================================================= */
+
+function syncMilkTemperatureCheck(){
+
+    const check =
+        document.getElementById(
+            "milkTemperatureCheck"
+        );
+
+
+    if(!check){
+
+        return;
+
+    }
+
+
+    const temperature =
+        parseFloat(
+            document
+                .getElementById(
+                    "temperature"
+                )
+                ?.value
+        );
+
+
+    check.checked =
+
+        selectedControlType === "Lait" &&
+
+        Number.isFinite(
+            temperature
+        ) &&
+
+        temperature <=
+            Number(
+                appConfig.tempMax
+            );
+
+}
+
+
+/* =========================================================
+   CHECKS
+========================================================= */
+
+function collectChecks(){
+
+    const checks = {
+
+        etiquetage:false,
+
+        conditionnement:false,
+
+        emballage:false,
+
+        quantite:false,
+
+        aspect:false,
+
+        etiquette:false,
+
+        dlcConforme:false,
+
+        temperatureConforme:false,
+
+        scelle:false,
+
+        typeLait:false
+
+    };
+
+
+    document
+        .querySelectorAll(
+            ".controlCheck"
+        )
+        .forEach(
+            check => {
+
+                const key =
+                    check.dataset.check;
+
+
+                if(
+                    key &&
+                    Object.prototype.hasOwnProperty.call(
+                        checks,
+                        key
+                    )
+                ){
+
+                    checks[key] =
+                        check.checked;
+
+                }
+
+            }
+        );
+
+
+    return checks;
 
 }
 
@@ -4665,25 +6018,37 @@ async function validateControl(){
         );
 
 
+    const lotInput =
+        document.getElementById(
+            "lot"
+        );
+
+
     const temperatureInput =
         document.getElementById(
             "temperature"
         );
 
 
-    if(
-        !client ||
-        !temperatureInput
-    ){
+    const comment =
+        document.getElementById(
+            "comment"
+        );
 
-        return;
 
-    }
+    const clientValue =
+        client?.value.trim() ||
+        "";
+
+
+    const lot =
+        lotInput?.value.trim() ||
+        "";
 
 
     const temperature =
         parseFloat(
-            temperatureInput.value
+            temperatureInput?.value
         );
 
 
@@ -4691,13 +6056,9 @@ async function validateControl(){
         true;
 
 
-    /* =============================================
-       CLIENT
-    ============================================= */
+    /* CLIENT */
 
-    if(
-        !client.value.trim()
-    ){
+    if(!clientValue){
 
         client.classList.add(
             "field-error"
@@ -4707,7 +6068,6 @@ async function validateControl(){
             false;
 
     }
-
     else{
 
         client.classList.remove(
@@ -4717,13 +6077,9 @@ async function validateControl(){
     }
 
 
-    /* =============================================
-       PRODUIT
-    ============================================= */
+    /* TYPE */
 
-    if(
-        !selectedProduct
-    ){
+    if(!selectedControlType){
 
         valid =
             false;
@@ -4731,23 +6087,76 @@ async function validateControl(){
     }
 
 
-    /* =============================================
-       MG
-    ============================================= */
+    /* CREME */
 
     if(
-        !selectedMG
+        selectedControlType === "Crème"
     ){
+
+        if(!selectedCreamType){
+
+            valid =
+                false;
+
+        }
+
+
+        if(!selectedMG){
+
+            valid =
+                false;
+
+        }
+
+    }
+
+
+    /* LAIT */
+
+    if(
+        selectedControlType === "Lait"
+    ){
+
+        if(!selectedMilkType){
+
+            valid =
+                false;
+
+        }
+
+
+        if(!selectedMilkFat){
+
+            valid =
+                false;
+
+        }
+
+    }
+
+
+    /* LOT */
+
+    if(!lot){
+
+        lotInput.classList.add(
+            "field-error"
+        );
 
         valid =
             false;
 
     }
+    else{
+
+        lotInput.classList.remove(
+            "field-error"
+        );
+
+    }
 
 
-    /* =============================================
-       TEMPERATURE
-    ============================================= */
+    /* TEMPERATURE */
 
     if(
         Number.isNaN(
@@ -4761,71 +6170,84 @@ async function validateControl(){
     }
 
 
-    /* =============================================
-       CHECKBOXES
-    ============================================= */
-
-    const checkElements =
-        document.querySelectorAll(
-            ".controlCheck"
-        );
+    const checks =
+        collectChecks();
 
 
-    const checks = {
+    /* =====================================================
+       CREME
+    ===================================================== */
 
-        etiquetage:
-            checkElements[0]
-                ? checkElements[0].checked
-                : false,
+    if(
+        selectedControlType === "Crème"
+    ){
 
-        dlc:
-            checkElements[1]
-                ? checkElements[1].checked
-                : false,
+        const requiredCream = [
 
-        conditionnement:
-            checkElements[2]
-                ? checkElements[2].checked
-                : false,
+            "etiquetage",
+            "conditionnement",
+            "emballage",
+            "quantite",
+            "aspect"
 
-        emballage:
-            checkElements[3]
-                ? checkElements[3].checked
-                : false,
-
-        quantite:
-            checkElements[4]
-                ? checkElements[4].checked
-                : false,
-
-        aspect:
-            checkElements[5]
-                ? checkElements[5].checked
-                : false
-
-    };
+        ];
 
 
-    checkElements.forEach(
-        check => {
+        requiredCream.forEach(
+            key => {
 
-            if(
-                !check.checked
-            ){
+                if(!checks[key]){
 
-                valid =
-                    false;
+                    valid =
+                        false;
+
+                }
 
             }
+        );
 
-        }
-    );
+    }
+
+
+    /* =====================================================
+       LAIT
+    ===================================================== */
+
+    if(
+        selectedControlType === "Lait"
+    ){
+
+        const requiredMilk = [
+
+            "etiquette",
+            "dlcConforme",
+            "temperatureConforme",
+            "scelle",
+            "typeLait"
+
+        ];
+
+
+        requiredMilk.forEach(
+            key => {
+
+                if(!checks[key]){
+
+                    valid =
+                        false;
+
+                }
+
+            }
+        );
+
+    }
 
 
     if(!valid){
 
         showToast(
-            "⚠ Complétez tous les contrôles avant de valider."
+            "⚠ Complétez tous les éléments obligatoires."
         );
 
         return;
@@ -4833,10 +6255,9 @@ async function validateControl(){
     }
 
 
-    /* =============================================
+    /* =====================================================
        RESULTAT
-       Seuil centralisé CONFIG
-    ============================================= */
+    ===================================================== */
 
     const result =
         temperature <=
@@ -4849,30 +6270,52 @@ async function validateControl(){
             : "NON CONFORME";
 
 
-    /* =============================================
+    /* =====================================================
        CONTROLE
-    ============================================= */
-
-    const now =
-        new Date();
-
+    ===================================================== */
 
     const control = {
 
         dateISO:
-            now.toISOString(),
+            new Date().toISOString(),
 
         profil:
             currentProfile,
 
         client:
-            client.value.trim(),
+            clientValue,
+
+        typeControle:
+            selectedControlType,
 
         produit:
-            selectedProduct,
+            selectedControlType === "Crème"
+
+                ? selectedCreamType
+
+                : "Lait",
+
+        variante:
+            selectedControlType === "Lait"
+
+                ? selectedMilkType
+
+                : "",
 
         mg:
-            selectedMG,
+            selectedControlType === "Crème"
+
+                ? selectedMG
+
+                : selectedMilkFat,
+
+        lot:
+            lot,
+
+        /*
+         * Pas de champ DLC dans le formulaire actuel.
+         * Pour le lait, la case DLC conforme est enregistrée.
+         */
 
         temperature:
             temperature,
@@ -4881,12 +6324,7 @@ async function validateControl(){
             result,
 
         commentaire:
-            document
-                .getElementById(
-                    "comment"
-                )
-                .value
-                .trim(),
+            comment.value.trim(),
 
         checks:
             checks
@@ -4918,29 +6356,13 @@ async function validateControl(){
             });
 
 
-        if(
-            data.control
-        ){
-
-            controls.unshift(
-                data.control
-            );
-
-        }
-
-
-        renderHistory();
-
-
         showToast(
 
             "✓ " +
-
             (
                 data.control?.numero ||
                 "Contrôle"
             ) +
-
             " · Contrôle enregistré."
 
         );
@@ -4948,10 +6370,6 @@ async function validateControl(){
 
         resetForm();
 
-
-        /* =========================================
-           RE-SYNCHRONISATION
-        ========================================= */
 
         await loadControls();
 
@@ -4966,10 +6384,8 @@ async function validateControl(){
 
 
         showToast(
-
             "⚠ Échec de l'enregistrement : " +
             error.message
-
         );
 
     }
@@ -4986,7 +6402,7 @@ async function validateControl(){
 
 
 /* =========================================================
-   BOUTON LOADING
+   LOADING
 ========================================================= */
 
 function setLoading(
@@ -5019,7 +6435,7 @@ function setLoading(
 
             ? "ENREGISTREMENT..."
 
-            : "VALIDER LE CONTRÔLE";
+            : "VALIDER LE CONTRÔLE →";
 
 }
 
@@ -5030,50 +6446,34 @@ function setLoading(
 
 function resetForm(){
 
-    const client =
-        document.getElementById(
-            "client"
+    [
+        "client",
+        "lot",
+        "temperature",
+        "comment"
+    ]
+        .forEach(
+            id => {
+
+                const field =
+                    document.getElementById(
+                        id
+                    );
+
+
+                if(field){
+
+                    field.value =
+                        "";
+
+                    field.classList.remove(
+                        "field-error"
+                    );
+
+                }
+
+            }
         );
-
-
-    const temperature =
-        document.getElementById(
-            "temperature"
-        );
-
-
-    const comment =
-        document.getElementById(
-            "comment"
-        );
-
-
-    if(client){
-
-        client.value =
-            "";
-
-        client.classList.remove(
-            "field-error"
-        );
-
-    }
-
-
-    if(temperature){
-
-        temperature.value =
-            "";
-
-    }
-
-
-    if(comment){
-
-        comment.value =
-            "";
-
-    }
 
 
     document
@@ -5099,13 +6499,71 @@ function resetForm(){
         );
 
 
-    selectedProduct =
+    selectedControlType =
         "";
 
+    selectedCreamType =
+        "";
 
     selectedMG =
         "";
 
+    selectedMilkType =
+        "";
+
+    selectedMilkFat =
+        "";
+
+
+    document
+        .getElementById(
+            "creamOptions"
+        )
+        .style.display =
+            "none";
+
+
+    document
+        .getElementById(
+            "milkOptions"
+        )
+        .style.display =
+            "none";
+
+
+    document
+        .getElementById(
+            "creamChecks"
+        )
+        .style.display =
+            "none";
+
+
+    document
+        .getElementById(
+            "milkChecks"
+        )
+        .style.display =
+            "none";
+
+
+    document
+        .getElementById(
+            "checksPlaceholder"
+        )
+        .style.display =
+            "block";
+
+
+    document
+        .getElementById(
+            "summarySection"
+        )
+        .style.display =
+            "none";
+
+
+    updateProgress();
 
     checkTemperature();
 
@@ -5154,9 +6612,7 @@ function renderHistory(){
         "";
 
 
-    if(
-        !controls.length
-    ){
+    if(!controls.length){
 
         empty.style.display =
             "block";
@@ -5173,11 +6629,6 @@ function renderHistory(){
     controls.forEach(
         control => {
 
-
-            /* =========================================
-               DESKTOP
-            ========================================= */
-
             const row =
                 document.createElement(
                     "tr"
@@ -5187,15 +6638,12 @@ function renderHistory(){
             row.innerHTML = `
 
                 <td>
-
                     <strong>
                         ${escapeHTML(
                             control.numero
                         )}
                     </strong>
-
                 </td>
-
 
                 <td>
 
@@ -5211,53 +6659,54 @@ function renderHistory(){
 
                 </td>
 
-
                 <td>
-
                     ${escapeHTML(
                         control.profil
                     )}
-
                 </td>
 
-
                 <td>
-
                     ${escapeHTML(
                         control.client
                     )}
-
                 </td>
 
+                <td>
+                    ${escapeHTML(
+                        control.typeControle
+                    )}
+                </td>
 
                 <td>
-
                     ${escapeHTML(
                         control.produit
                     )}
-
                 </td>
 
+                <td>
+                    ${escapeHTML(
+                        control.variante
+                    )}
+                </td>
 
                 <td>
-
                     ${escapeHTML(
                         control.mg
                     )}
-
                 </td>
 
+                <td>
+                    ${escapeHTML(
+                        control.lot
+                    )}
+                </td>
 
                 <td>
-
                     ${escapeHTML(
                         control.temperature
                     )}
-
                     °C
-
                 </td>
-
 
                 <td>
 
@@ -5292,10 +6741,6 @@ function renderHistory(){
                 row
             );
 
-
-            /* =========================================
-               MOBILE
-            ========================================= */
 
             const card =
                 document.createElement(
@@ -5370,25 +6815,16 @@ function renderHistory(){
                 </div>
 
 
-                <div
-                    class="history-card-grid"
-                >
+                <div class="history-card-grid">
 
 
-                    <div
-                        class="history-item"
-                    >
+                    <div class="history-item">
 
-                        <div
-                            class="history-item-label"
-                        >
+                        <div class="history-item-label">
                             Contrôleur
                         </div>
 
-
-                        <div
-                            class="history-item-value"
-                        >
+                        <div class="history-item-value">
 
                             ${escapeHTML(
                                 control.profil
@@ -5399,20 +6835,13 @@ function renderHistory(){
                     </div>
 
 
-                    <div
-                        class="history-item"
-                    >
+                    <div class="history-item">
 
-                        <div
-                            class="history-item-label"
-                        >
+                        <div class="history-item-label">
                             Client
                         </div>
 
-
-                        <div
-                            class="history-item-value"
-                        >
+                        <div class="history-item-value">
 
                             ${escapeHTML(
                                 control.client
@@ -5423,20 +6852,30 @@ function renderHistory(){
                     </div>
 
 
-                    <div
-                        class="history-item"
-                    >
+                    <div class="history-item">
 
-                        <div
-                            class="history-item-label"
-                        >
+                        <div class="history-item-label">
+                            Type
+                        </div>
+
+                        <div class="history-item-value">
+
+                            ${escapeHTML(
+                                control.typeControle
+                            )}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="history-item">
+
+                        <div class="history-item-label">
                             Produit
                         </div>
 
-
-                        <div
-                            class="history-item-value"
-                        >
+                        <div class="history-item-value">
 
                             ${escapeHTML(
                                 control.produit
@@ -5447,20 +6886,40 @@ function renderHistory(){
                     </div>
 
 
-                    <div
-                        class="history-item"
-                    >
+                    ${
+                        control.variante
 
-                        <div
-                            class="history-item-label"
-                        >
+                            ? `
+
+                                <div class="history-item">
+
+                                    <div class="history-item-label">
+                                        Variante
+                                    </div>
+
+                                    <div class="history-item-value">
+
+                                        ${escapeHTML(
+                                            control.variante
+                                        )}
+
+                                    </div>
+
+                                </div>
+
+                            `
+
+                            : ""
+                    }
+
+
+                    <div class="history-item">
+
+                        <div class="history-item-label">
                             MG
                         </div>
 
-
-                        <div
-                            class="history-item-value"
-                        >
+                        <div class="history-item-value">
 
                             ${escapeHTML(
                                 control.mg
@@ -5471,20 +6930,30 @@ function renderHistory(){
                     </div>
 
 
-                    <div
-                        class="history-item"
-                    >
+                    <div class="history-item">
 
-                        <div
-                            class="history-item-label"
-                        >
+                        <div class="history-item-label">
+                            Lot
+                        </div>
+
+                        <div class="history-item-value">
+
+                            ${escapeHTML(
+                                control.lot
+                            )}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="history-item">
+
+                        <div class="history-item-label">
                             Température
                         </div>
 
-
-                        <div
-                            class="history-item-value"
-                        >
+                        <div class="history-item-value">
 
                             ${escapeHTML(
                                 control.temperature
@@ -5500,35 +6969,29 @@ function renderHistory(){
                     ${
                         control.commentaire
 
-                        ? `
-
-                            <div
-                                class="history-item full"
-                            >
+                            ? `
 
                                 <div
-                                    class="history-item-label"
-                                >
-                                    Observation
-                                </div>
-
-
-                                <div
-                                    class="history-item-value"
+                                    class="history-item full"
                                 >
 
-                                    ${escapeHTML(
-                                        control.commentaire
-                                    )}
+                                    <div class="history-item-label">
+                                        Observation
+                                    </div>
+
+                                    <div class="history-item-value">
+
+                                        ${escapeHTML(
+                                            control.commentaire
+                                        )}
+
+                                    </div>
 
                                 </div>
 
-                            </div>
+                            `
 
-                        `
-
-                        : ""
-
+                            : ""
                     }
 
                 </div>
@@ -5547,14 +7010,12 @@ function renderHistory(){
 
 
 /* =========================================================
-   EXPORT EXCEL
+   EXPORT
 ========================================================= */
 
 function exportExcel(){
 
-    if(
-        !controls.length
-    ){
+    if(!controls.length){
 
         showToast(
             "Aucun contrôle à exporter."
@@ -5584,11 +7045,20 @@ function exportExcel(){
                 "Client":
                     control.client,
 
+                "Type de contrôle":
+                    control.typeControle,
+
                 "Produit":
                     control.produit,
 
-                "Taux MG":
+                "Variante":
+                    control.variante,
+
+                "MG":
                     control.mg,
+
+                "Lot":
+                    control.lot,
 
                 "Température °C":
                     control.temperature,
@@ -5612,23 +7082,17 @@ function exportExcel(){
     worksheet["!cols"] = [
 
         {wch:15},
-
         {wch:13},
-
         {wch:10},
-
         {wch:25},
-
         {wch:25},
-
         {wch:20},
-
+        {wch:25},
+        {wch:25},
         {wch:14},
-
+        {wch:14},
         {wch:18},
-
         {wch:18},
-
         {wch:45}
 
     ];
@@ -5639,22 +7103,15 @@ function exportExcel(){
 
 
     XLSX.utils.book_append_sheet(
-
         workbook,
-
         worksheet,
-
         "Contrôles"
-
     );
 
 
     XLSX.writeFile(
-
         workbook,
-
         "LDK_Controle_Expedition.xlsx"
-
     );
 
 
@@ -5695,13 +7152,16 @@ function showToast(
     );
 
 
-    setTimeout(() => {
+    setTimeout(
+        () => {
 
-        toast.classList.remove(
-            "show"
-        );
+            toast.classList.remove(
+                "show"
+            );
 
-    },3200);
+        },
+        3200
+    );
 
 }
 
@@ -5747,35 +7207,7 @@ function escapeHTML(
 
 
 /* =========================================================
-   PROFIL SAUVEGARDE
-========================================================= */
-
-const savedProfile =
-    localStorage.getItem(
-        "LDK_PROFILE"
-    );
-
-
-if(
-    savedProfile
-){
-
-    currentProfile =
-        savedProfile;
-
-}
-
-
-/* =========================================================
    AUTO REFRESH
-   ---------------------------------------------------------
-   Toutes les 30 secondes :
-   - profils
-   - config
-   - contrôles
-
-   Ainsi les changements Google Sheets
-   remontent automatiquement.
 ========================================================= */
 
 setInterval(
@@ -5788,95 +7220,79 @@ setInterval(
 
 
         if(
-            app &&
-            app.classList.contains(
+            !app ||
+            !app.classList.contains(
                 "active"
             )
         ){
 
-            try{
+            return;
 
-                const data =
-                    await apiGet(
-                        "getAppData"
+        }
+
+
+        try{
+
+            const data =
+                await apiGet(
+                    "getAppData"
+                );
+
+
+            profiles =
+                Array.isArray(
+                    data.profiles
+                )
+                    ? data.profiles
+                    : [];
+
+
+            controls =
+                Array.isArray(
+                    data.controls
+                )
+                    ? data.controls
+                    : [];
+
+
+            if(data.config){
+
+                const temp =
+                    Number(
+                        data.config.tempMax
                     );
 
 
-                /* ==============================
-                   PROFILS
-                ============================== */
-
-                const newProfiles =
-                    Array.isArray(
-                        data.profiles
-                    )
-                        ? data.profiles
-                        : [];
-
-
-                profiles =
-                    newProfiles;
-
-
-                /* ==============================
-                   CONTROLES
-                ============================== */
-
-                controls =
-                    Array.isArray(
-                        data.controls
-                    )
-                        ? data.controls
-                        : [];
-
-
-                /* ==============================
-                   CONFIG
-                ============================== */
-
                 if(
-                    data.config
+                    Number.isFinite(temp)
                 ){
 
-                    const newTempMax =
-                        Number(
-                            data.config.tempMax
-                        );
-
-
-                    if(
-                        Number.isFinite(
-                            newTempMax
-                        )
-                    ){
-
-                        appConfig.tempMax =
-                            newTempMax;
-
-                    }
+                    appConfig.tempMax =
+                        temp;
 
                 }
 
-
-                renderProfiles();
-
-                renderHistory();
-
-                updateTemperatureThreshold();
-
-                checkTemperature();
-
-
             }
 
-            catch(error){
 
-                console.error(
-                    "AUTO REFRESH:",
-                    error
-                );
+            renderProfiles();
 
-            }
+            renderHistory();
+
+            updateTemperatureThreshold();
+
+            checkTemperature();
+
+            updateProgress();
+
+        }
+
+        catch(error){
+
+            console.error(
+                "AUTO REFRESH:",
+                error
+            );
 
         }
 
@@ -5884,8 +7300,32 @@ setInterval(
     30000
 );
 
-</script>
 
+/* =========================================================
+   PROFIL MEMORISE
+========================================================= */
+
+const savedProfile =
+    localStorage.getItem(
+        "LDK_PROFILE"
+    );
+
+
+if(savedProfile){
+
+    currentProfile =
+        savedProfile;
+
+}
+
+
+/* =========================================================
+   INITIALISATION
+========================================================= */
+
+initializeLDK();
+
+</script>
 
 </body>
 

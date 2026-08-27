@@ -7,7 +7,7 @@
 
 <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
 >
 
 <meta
@@ -1326,6 +1326,80 @@ select.client-input{
     cursor:pointer;
 }
 
+/* =========================================================
+   CLIENTS À COCHER
+========================================================= */
+
+.client-choice-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+}
+
+.client-choice{
+    min-height:58px;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:13px 14px;
+    border:2px solid var(--border);
+    border-radius:14px;
+    background:#fff;
+    cursor:pointer;
+    font-size:11px;
+    font-weight:850;
+    transition:.2s ease;
+}
+
+.client-choice input{
+    position:absolute;
+    opacity:0;
+    pointer-events:none;
+}
+
+.client-choice-box{
+    width:27px;
+    height:27px;
+    flex:0 0 27px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:2px solid #cdd4cf;
+    border-radius:8px;
+    color:transparent;
+    font-size:12px;
+    font-weight:950;
+    transition:.2s ease;
+}
+
+.client-choice:has(input:checked){
+    border-color:var(--green);
+    background:#eff7f2;
+    box-shadow:0 8px 20px rgba(23,63,50,.07);
+}
+
+.client-choice input:checked + .client-choice-box{
+    background:var(--green);
+    border-color:var(--green);
+    color:#fff;
+}
+
+.client-choice-grid.field-error .client-choice{
+    border-color:#e0b5b0;
+}
+
+@media(max-width:600px){
+    .client-choice-grid{
+        grid-template-columns:1fr;
+        gap:7px;
+    }
+
+    .client-choice{
+        min-height:54px;
+        font-size:10px;
+    }
+}
+
 .field-error{
 
     border-color:var(--red)!important;
@@ -1482,26 +1556,6 @@ select.client-input{
 }
 
 
-/* =========================================================
-   LOT
-========================================================= */
-
-.lot-centered{
-
-    max-width:480px;
-
-    margin:0 auto;
-
-    text-align:center;
-}
-
-.lot-centered .field-label{
-    text-align:center;
-}
-
-.lot-centered .client-input{
-    text-align:center;
-}
 
 
 /* =========================================================
@@ -1981,6 +2035,47 @@ select.client-input{
 .quality-field select{
     min-height:44px;
     font-size:10px;
+}
+
+.quality-choice-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:7px;
+}
+
+.quality-choice{
+    min-height:44px;
+    border:2px solid var(--border);
+    border-radius:10px;
+    background:#fff;
+    cursor:pointer;
+    font-size:9px;
+    font-weight:900;
+    transition:.2s ease;
+}
+
+.quality-choice.quality-ok.selected{
+    border-color:#9fc7ad;
+    background:#eaf4ee;
+    color:var(--green);
+}
+
+.quality-choice.quality-bad.selected{
+    border-color:#e0b5b0;
+    background:var(--red-bg);
+    color:var(--red);
+}
+
+.quality-field.field-error{
+    border-color:#e0b5b0;
+    background:var(--red-bg);
+}
+
+@media(max-width:600px){
+    .quality-choice{
+        min-height:46px;
+        font-size:9px;
+    }
 }
 
 .add-line-button{
@@ -2965,13 +3060,6 @@ td strong{
         height:26px;
     }
 
-    .lot-centered{
-        max-width:none;
-    }
-
-    .lot-centered .client-input{
-        text-align:center;
-    }
 
     .temperature-layout{
 
@@ -3313,6 +3401,285 @@ td strong{
 
 }
 
+
+/* =========================================================
+   RESPONSIVE GLOBAL — v6.3
+   Priorité téléphone / tablette / écrans larges
+========================================================= */
+
+html,
+body{
+    max-width:100%;
+    min-width:0;
+}
+
+body{
+    min-height:100svh;
+}
+
+img,
+svg,
+video,
+canvas{
+    max-width:100%;
+}
+
+button,
+.choice,
+.profile,
+.client-choice,
+.quality-choice,
+.add-line-button,
+.remove-line,
+.submit,
+.export{
+    touch-action:manipulation;
+}
+
+.header,
+.main,
+.control-card,
+.card-section,
+.validation,
+.line-item,
+.line-item-head,
+.line-item-body,
+.item-grid,
+.item-field,
+.quality-grid,
+.quality-field,
+.client-choice-grid{
+    min-width:0;
+}
+
+.item-field input,
+.item-field select,
+.client-input,
+textarea{
+    max-width:100%;
+}
+
+/* Écrans larges */
+@media(min-width:1280px){
+    .main{
+        width:min(1240px,calc(100% - 80px));
+    }
+
+    .client-choice-grid{
+        grid-template-columns:repeat(3,minmax(0,1fr));
+    }
+
+    .quality-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+}
+
+/* Tablette / petit ordinateur */
+@media(max-width:1024px){
+    .header{
+        padding-left:24px;
+        padding-right:24px;
+    }
+
+    .main{
+        width:calc(100% - 36px);
+    }
+
+    .card-section{
+        padding-left:28px;
+        padding-right:28px;
+    }
+
+    .validation{
+        padding-left:28px;
+        padding-right:28px;
+    }
+}
+
+/* Tablette étroite / grand téléphone */
+@media(max-width:760px){
+    .item-grid,
+    .quality-grid{
+        grid-template-columns:1fr;
+    }
+
+    .client-choice-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .page-heading{
+        gap:24px;
+    }
+
+    .line-item-head{
+        align-items:flex-start;
+    }
+}
+
+/* Téléphone */
+@media(max-width:600px){
+    body{
+        min-height:100dvh;
+    }
+
+    #portal{
+        min-height:100dvh;
+    }
+
+    .main{
+        width:calc(100% - 20px);
+        margin-top:22px;
+    }
+
+    .header{
+        padding-left:max(12px,env(safe-area-inset-left));
+        padding-right:max(12px,env(safe-area-inset-right));
+    }
+
+    .card-section{
+        padding-left:14px;
+        padding-right:14px;
+    }
+
+    .client-choice-grid{
+        grid-template-columns:1fr;
+    }
+
+    .client-choice{
+        min-height:52px;
+        padding:12px 13px;
+        font-size:12px;
+    }
+
+    .client-choice-box{
+        width:30px;
+        height:30px;
+        flex-basis:30px;
+    }
+
+    /* 16px évite le zoom automatique Safari/iOS */
+    .client-input,
+    .item-field input,
+    .item-field select,
+    textarea{
+        font-size:16px;
+    }
+
+    .item-field input,
+    .item-field select{
+        min-height:52px;
+        padding-left:12px;
+        padding-right:12px;
+    }
+
+    .line-item{
+        border-radius:17px;
+    }
+
+    .line-item-body{
+        padding:13px;
+    }
+
+    .line-item-head{
+        padding:12px 13px;
+        gap:10px;
+    }
+
+    .line-item-title{
+        font-size:11px;
+    }
+
+    .remove-line{
+        min-height:44px;
+        padding:0 11px;
+        flex:0 0 auto;
+    }
+
+    .quality-field{
+        padding:11px;
+    }
+
+    .quality-choice-row{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:7px;
+    }
+
+    .quality-choice{
+        min-height:48px;
+        padding:7px 6px;
+        font-size:10px;
+        line-height:1.2;
+    }
+
+    .add-line-button{
+        min-height:54px;
+        font-size:11px;
+    }
+
+    .submit{
+        min-height:56px;
+        font-size:10px;
+    }
+
+    .validation{
+        padding-left:14px;
+        padding-right:14px;
+        padding-bottom:calc(18px + env(safe-area-inset-bottom));
+    }
+
+    .toast{
+        left:max(10px,env(safe-area-inset-left));
+        right:max(10px,env(safe-area-inset-right));
+        bottom:calc(10px + env(safe-area-inset-bottom));
+    }
+}
+
+/* Très petits téléphones */
+@media(max-width:380px){
+    .main{
+        width:calc(100% - 14px);
+    }
+
+    .card-section,
+    .line-item-body{
+        padding-left:11px;
+        padding-right:11px;
+    }
+
+    .quality-choice-row{
+        grid-template-columns:1fr;
+    }
+
+    .quality-choice{
+        min-height:46px;
+    }
+
+    .remove-line{
+        font-size:8px;
+        padding:0 9px;
+    }
+
+    .page-title{
+        font-size:39px;
+    }
+}
+
+/* Téléphone en paysage */
+@media(max-height:520px) and (orientation:landscape){
+    #portal{
+        align-items:flex-start;
+        padding-top:18px;
+    }
+
+    .profile{
+        min-height:145px;
+    }
+
+    .main{
+        margin-top:18px;
+    }
+}
+
 </style>
 
 </head>
@@ -3552,8 +3919,8 @@ td strong{
     <div class="page-description">
 
         Ajoutez toutes les cuves et références du client,
-        puis renseignez chaque lot, DLC, température
-        et contrôle qualité avant le départ.
+        puis renseignez pour chacune la DLC, la température
+        et les contrôles qualité avant le départ.
 
     </div>
 
@@ -3611,46 +3978,46 @@ td strong{
     </div>
 
 
-    <select
-        id="client"
-        class="client-input"
-        onchange="handleClientChange()"
+    <div
+        id="clientChoices"
+        class="client-choice-grid"
     >
+        <label class="client-choice">
+            <input type="radio" name="clientChoice" value="Monde des crêpes" onchange="handleClientChange(this)">
+            <span class="client-choice-box">✓</span>
+            <span>Monde des crêpes</span>
+        </label>
 
-        <option value="">
-            Sélectionner le client...
-        </option>
+        <label class="client-choice">
+            <input type="radio" name="clientChoice" value="Maison LARZUL" onchange="handleClientChange(this)">
+            <span class="client-choice-box">✓</span>
+            <span>Maison LARZUL</span>
+        </label>
 
-        <option value="Monde des crêpes">
-            Monde des crêpes
-        </option>
+        <label class="client-choice">
+            <input type="radio" name="clientChoice" value="La Boulangère & Co" onchange="handleClientChange(this)">
+            <span class="client-choice-box">✓</span>
+            <span>La Boulangère &amp; Co</span>
+        </label>
 
-        <option value="Maison LARZUL">
-            Maison LARZUL
-        </option>
+        <label class="client-choice">
+            <input type="radio" name="clientChoice" value="Jarnoux" onchange="handleClientChange(this)">
+            <span class="client-choice-box">✓</span>
+            <span>Jarnoux</span>
+        </label>
 
-        <option value="La Boulangère & Co">
-            La Boulangère &amp; Co
-        </option>
-
-        <option value="Jarnoux">
-            Jarnoux
-        </option>
-
-        <option value="__MANUAL__">
-            + Saisir un autre client
-        </option>
-
-    </select>
+        <label class="client-choice">
+            <input type="radio" name="clientChoice" value="__MANUAL__" onchange="handleClientChange(this)">
+            <span class="client-choice-box">✓</span>
+            <span>Autre client</span>
+        </label>
+    </div>
 
     <div
         id="manualClientWrap"
         style="display:none; margin-top:12px;"
     >
-        <label
-            for="manualClient"
-            class="field-label"
-        >
+        <label for="manualClient" class="field-label">
             Nom du client
         </label>
 
@@ -3685,7 +4052,7 @@ td strong{
 
     <div class="item-helper">
         Ajoutez toutes les cuves de lait et/ou références de crème destinées à ce client.
-        Chaque ligne conserve son propre lot, sa DLC si nécessaire, sa température et ses contrôles qualité.
+        Chaque ligne conserve sa propre DLC, sa température, son type et ses contrôles qualité.
     </div>
 
     <div
@@ -4155,21 +4522,60 @@ function parseNumberInput(value){
         : Number(normalized);
 }
 
-function optionHTML(value, label){
-    return `<option value="${escapeHTML(value)}">${escapeHTML(label)}</option>`;
-}
-
-function qualitySelect(key, label){
+function qualityCheck(key, label){
     return `
         <div class="quality-field">
             <label>${escapeHTML(label)}</label>
-            <select class="item-check" data-check="${escapeHTML(key)}" onchange="updateProgress()">
-                <option value="">À contrôler...</option>
-                <option value="true">✓ Conforme</option>
-                <option value="false">⚠ Non conforme</option>
-            </select>
+
+            <input
+                type="hidden"
+                class="item-check"
+                data-check="${escapeHTML(key)}"
+                value=""
+            >
+
+            <div class="quality-choice-row">
+                <button
+                    type="button"
+                    class="quality-choice quality-ok"
+                    data-value="true"
+                    onclick="setQualityCheck(this)"
+                >
+                    ✓ Conforme
+                </button>
+
+                <button
+                    type="button"
+                    class="quality-choice quality-bad"
+                    data-value="false"
+                    onclick="setQualityCheck(this)"
+                >
+                    ✕ Non conforme
+                </button>
+            </div>
         </div>
     `;
+}
+
+function setQualityCheck(button){
+    const field = button?.closest(".quality-field");
+    if(!field) return;
+
+    const hidden = field.querySelector(".item-check");
+    const value = button.dataset.value;
+
+    field
+        .querySelectorAll(".quality-choice")
+        .forEach(item => item.classList.remove("selected"));
+
+    button.classList.add("selected");
+    field.classList.remove("field-error");
+
+    if(hidden){
+        hidden.value = value;
+    }
+
+    updateProgress();
 }
 
 function addControlItem(prefill = null){
@@ -4256,11 +4662,11 @@ function refreshLineNumbers(){
 function renderItemFields(item, prefill = null){
     if(!item) return;
 
-    const type = item.querySelector(".item-type")?.value || "";
+    const controlType = item.querySelector(".item-type")?.value || "";
     const dynamic = item.querySelector(".item-dynamic");
     if(!dynamic) return;
 
-    if(!type){
+    if(!controlType){
         dynamic.innerHTML = `
             <div class="check-placeholder" style="margin-top:14px;">
                 Sélectionnez Lait ou Crème pour afficher les champs de cette ligne.
@@ -4271,8 +4677,8 @@ function renderItemFields(item, prefill = null){
 
     const commonTail = `
         <div class="item-field">
-            <label>Lot</label>
-            <input class="item-lot" type="text" placeholder="Ex. 2407" oninput="updateProgress()">
+            <label>DLC</label>
+            <input class="item-dlc" type="date" oninput="updateProgress()">
         </div>
 
         <div class="item-field">
@@ -4288,7 +4694,7 @@ function renderItemFields(item, prefill = null){
         </div>
     `;
 
-    if(type === "Crème"){
+    if(controlType === "Crème"){
         dynamic.innerHTML = `
             <div class="item-grid" style="margin-top:14px;">
                 <div class="item-field">
@@ -4301,8 +4707,8 @@ function renderItemFields(item, prefill = null){
                 </div>
 
                 <div class="item-field">
-                    <label>Matière grasse</label>
-                    <select class="item-mg" onchange="updateProgress()">
+                    <label>Type</label>
+                    <select class="item-detail-type" onchange="updateProgress()">
                         <option value="">Sélectionner...</option>
                         <option value="30 %">30 %</option>
                         <option value="40 %">40 %</option>
@@ -4312,18 +4718,18 @@ function renderItemFields(item, prefill = null){
                 ${commonTail}
             </div>
 
-            <div class="quality-title">Éléments de contrôle</div>
+            <div class="quality-title">Check-ups</div>
             <div class="quality-grid">
-                ${qualitySelect("etiquetage", "Étiquetage")}
-                ${qualitySelect("conditionnement", "Conditionnement")}
-                ${qualitySelect("emballage", "Emballage")}
-                ${qualitySelect("quantite", "Quantité")}
-                ${qualitySelect("aspect", "Aspect")}
+                ${qualityCheck("etiquetage", "Étiquetage")}
+                ${qualityCheck("conditionnement", "Conditionnement")}
+                ${qualityCheck("emballage", "Emballage")}
+                ${qualityCheck("quantite", "Quantité")}
+                ${qualityCheck("aspect", "Aspect")}
             </div>
         `;
     }
 
-    if(type === "Lait"){
+    if(controlType === "Lait"){
         dynamic.innerHTML = `
             <div class="item-grid" style="margin-top:14px;">
                 <div class="item-field">
@@ -4336,8 +4742,8 @@ function renderItemFields(item, prefill = null){
                 </div>
 
                 <div class="item-field">
-                    <label>Catégorie</label>
-                    <select class="item-mg" onchange="updateProgress()">
+                    <label>Type</label>
+                    <select class="item-detail-type" onchange="updateProgress()">
                         <option value="">Sélectionner...</option>
                         <option value="Entier">Entier</option>
                         <option value="Demi-écrémé">Demi-écrémé</option>
@@ -4345,20 +4751,15 @@ function renderItemFields(item, prefill = null){
                     </select>
                 </div>
 
-                <div class="item-field">
-                    <label>DLC</label>
-                    <input class="item-dlc" type="date" oninput="updateProgress()">
-                </div>
-
                 ${commonTail}
             </div>
 
-            <div class="quality-title">Éléments de contrôle</div>
+            <div class="quality-title">Check-ups</div>
             <div class="quality-grid">
-                ${qualitySelect("etiquette", "Étiquette")}
-                ${qualitySelect("dlcConforme", "DLC conforme")}
-                ${qualitySelect("scelle", "Scellé")}
-                ${qualitySelect("typeLait", "Type de lait")}
+                ${qualityCheck("etiquette", "Étiquette")}
+                ${qualityCheck("dlcConforme", "DLC conforme")}
+                ${qualityCheck("scelle", "Scellé")}
+                ${qualityCheck("typeLait", "Type de lait")}
             </div>
         `;
     }
@@ -4371,14 +4772,22 @@ function renderItemFields(item, prefill = null){
 
         setValue(".item-product", prefill.produit);
         setValue(".item-milk-type", prefill.variante);
-        setValue(".item-mg", prefill.mg);
-        setValue(".item-lot", prefill.lot);
+        setValue(".item-detail-type", prefill.type);
         setValue(".item-dlc", prefill.dlc);
         setValue(".item-temperature", prefill.temperature);
 
         Object.entries(prefill.checks || {}).forEach(([key, value]) => {
-            const select = item.querySelector(`.item-check[data-check="${key}"]`);
-            if(select) select.value = value ? "true" : "false";
+            const hidden = item.querySelector(`.item-check[data-check="${key}"]`);
+            if(!hidden) return;
+
+            hidden.value = value ? "true" : "false";
+
+            const field = hidden.closest(".quality-field");
+            const button = field?.querySelector(
+                `.quality-choice[data-value="${value ? "true" : "false"}"]`
+            );
+
+            button?.classList.add("selected");
         });
     }
 
@@ -4389,8 +4798,8 @@ function requiredSelectorsForItem(type){
     if(type === "Crème"){
         return [
             ".item-product",
-            ".item-mg",
-            ".item-lot",
+            ".item-detail-type",
+            ".item-dlc",
             ".item-temperature"
         ];
     }
@@ -4398,9 +4807,8 @@ function requiredSelectorsForItem(type){
     if(type === "Lait"){
         return [
             ".item-milk-type",
-            ".item-mg",
+            ".item-detail-type",
             ".item-dlc",
-            ".item-lot",
             ".item-temperature"
         ];
     }
@@ -4441,7 +4849,7 @@ function collectItems(validate = false){
 
         checkFields.forEach(field => {
             const missing = field.value === "";
-            if(validate) field.classList.toggle("field-error", missing);
+            if(validate) field.closest(".quality-field")?.classList.toggle("field-error", missing);
             if(missing) valid = false;
             if(!missing) checks[field.dataset.check] = field.value === "true";
         });
@@ -4452,9 +4860,8 @@ function collectItems(validate = false){
             typeControle:type,
             produit:type === "Crème" ? (element.querySelector(".item-product")?.value || "") : "Lait",
             variante:type === "Lait" ? (element.querySelector(".item-milk-type")?.value || "") : "",
-            mg:element.querySelector(".item-mg")?.value || "",
-            lot:element.querySelector(".item-lot")?.value?.trim() || "",
-            dlc:type === "Lait" ? (element.querySelector(".item-dlc")?.value || "") : "",
+            type:element.querySelector(".item-detail-type")?.value || "",
+            dlc:element.querySelector(".item-dlc")?.value || "",
             temperature:temperature,
             checks:checks,
             _line:index + 1
@@ -4468,12 +4875,13 @@ function collectItems(validate = false){
    CLIENT
 ========================================================= */
 
-function handleClientChange(){
-    const select = document.getElementById("client");
+function handleClientChange(input){
     const wrap = document.getElementById("manualClientWrap");
     const manual = document.getElementById("manualClient");
+    const choices = document.getElementById("clientChoices");
 
-    const isManual = select?.value === "__MANUAL__";
+    const selected = input || document.querySelector('input[name="clientChoice"]:checked');
+    const isManual = selected?.value === "__MANUAL__";
 
     if(wrap){
         wrap.style.display = isManual ? "block" : "none";
@@ -4484,7 +4892,7 @@ function handleClientChange(){
         manual.classList.remove("field-error");
     }
 
-    select?.classList.remove("field-error");
+    choices?.classList.remove("field-error");
 
     if(isManual){
         setTimeout(() => manual?.focus(), 0);
@@ -4494,20 +4902,20 @@ function handleClientChange(){
 }
 
 function getClientValue(){
-    const select = document.getElementById("client");
+    const selected = document.querySelector('input[name="clientChoice"]:checked');
 
-    if(!select){
+    if(!selected){
         return "";
     }
 
-    if(select.value === "__MANUAL__"){
+    if(selected.value === "__MANUAL__"){
         return document
             .getElementById("manualClient")
             ?.value
             ?.trim() || "";
     }
 
-    return select.value.trim();
+    return selected.value.trim();
 }
 
 /* =========================================================
@@ -4585,9 +4993,8 @@ function updateSummary(percentage){
                 <div class="history-line">
                     <strong>Ligne ${index + 1} · ${escapeHTML(item.typeControle)}</strong><br>
                     ${escapeHTML(item.typeControle === "Crème" ? item.produit : item.variante || "Lait")}
-                    ${item.mg ? " · " + escapeHTML(item.mg) : ""}
-                    ${item.lot ? " · Lot " + escapeHTML(item.lot) : ""}
-                    ${Number.isFinite(item.temperature) ? " · " + escapeHTML(item.temperature) + " °C" : ""}
+                    ${item.type ? " · " + escapeHTML(item.type) : ""}
+                                        ${Number.isFinite(item.temperature) ? " · " + escapeHTML(item.temperature) + " °C" : ""}
                 </div>
             `).join("")}
         </div>
@@ -5103,15 +5510,16 @@ function checkTemperature(target = null){
 async function validateControl(){
     if(isLoading) return;
 
-    const clientField = document.getElementById("client");
+    const clientChoices = document.getElementById("clientChoices");
+    const selectedClient = document.querySelector('input[name="clientChoice"]:checked');
     const manualClientField = document.getElementById("manualClient");
     const commentField = document.getElementById("comment");
     const client = getClientValue();
-    const manualMode = clientField?.value === "__MANUAL__";
+    const manualMode = selectedClient?.value === "__MANUAL__";
 
-    clientField?.classList.toggle(
+    clientChoices?.classList.toggle(
         "field-error",
-        !client && !manualMode
+        !selectedClient
     );
 
     manualClientField?.classList.toggle(
@@ -5139,8 +5547,7 @@ async function validateControl(){
             typeControle:item.typeControle,
             produit:item.produit,
             variante:item.variante,
-            mg:item.mg,
-            lot:item.lot,
+            type:item.type,
             dlc:item.dlc,
             temperature:item.temperature,
             checks:item.checks
@@ -5222,16 +5629,17 @@ function setLoading(
 ========================================================= */
 
 function resetForm(){
-    const client = document.getElementById("client");
+    const clientChoices = document.getElementById("clientChoices");
     const manualClient = document.getElementById("manualClient");
     const manualClientWrap = document.getElementById("manualClientWrap");
     const comment = document.getElementById("comment");
     const container = document.getElementById("itemsContainer");
 
-    if(client){
-        client.value = "";
-        client.classList.remove("field-error");
-    }
+    document
+        .querySelectorAll('input[name="clientChoice"]')
+        .forEach(input => input.checked = false);
+
+    clientChoices?.classList.remove("field-error");
 
     if(manualClient){
         manualClient.value = "";
@@ -5286,9 +5694,8 @@ function renderHistory(){
             <div class="history-line">
                 <strong>${index + 1}. ${escapeHTML(item.typeControle || "")}</strong>
                 · ${escapeHTML(item.typeControle === "Crème" ? (item.produit || "") : (item.variante || "Lait"))}
-                ${item.mg ? " · " + escapeHTML(item.mg) : ""}
-                ${item.lot ? " · Lot " + escapeHTML(item.lot) : ""}
-                ${item.dlc ? " · DLC " + escapeHTML(item.dlc) : ""}
+                ${item.type ? " · " + escapeHTML(item.type) : ""}
+                                ${item.dlc ? " · DLC " + escapeHTML(item.dlc) : ""}
                 ${item.temperature !== "" && item.temperature !== undefined ? " · " + escapeHTML(item.temperature) + " °C" : ""}
                 · <strong>${escapeHTML(item.resultat || "")}</strong>
             </div>
@@ -5378,8 +5785,7 @@ function exportExcel(){
                 "Type de contrôle":item.typeControle || "",
                 "Produit":item.produit || "",
                 "Variante":item.variante || "",
-                "MG":item.mg || "",
-                "Lot":item.lot || "",
+                "Type":item.type || "",
                 "DLC":item.dlc || "",
                 "Température °C":item.temperature ?? "",
                 "Étiquetage":item.typeControle === "Crème" ? boolLabel(item.checks?.etiquetage) : "",
@@ -5400,7 +5806,7 @@ function exportExcel(){
     });
 
     const worksheet = XLSX.utils.json_to_sheet(rows);
-    worksheet["!cols"] = Array(26).fill({wch:18});
+    worksheet["!cols"] = Array(Object.keys(rows[0] || {}).length).fill({wch:18});
 
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Contrôles");

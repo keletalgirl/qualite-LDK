@@ -1814,6 +1814,238 @@ select.client-input{
 }
 
 
+
+/* =========================================================
+   MULTI-LIGNES / CUVES
+========================================================= */
+
+.items-container{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.line-item{
+    border:1px solid var(--border);
+    border-radius:22px;
+    background:linear-gradient(145deg,#fff,#f8faf8);
+    overflow:hidden;
+    box-shadow:0 12px 30px rgba(17,21,18,.05);
+}
+
+.line-item-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    padding:16px 18px;
+    border-bottom:1px solid var(--border);
+    background:#f3f6f3;
+}
+
+.line-item-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:12px;
+    font-weight:950;
+}
+
+.line-number{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:34px;
+    height:28px;
+    padding:0 9px;
+    border-radius:9px;
+    background:var(--green);
+    color:#fff;
+    font-size:9px;
+    font-weight:950;
+}
+
+.remove-line{
+    border:1px solid #e0b5b0;
+    background:#fff;
+    color:var(--red);
+    min-height:36px;
+    padding:0 12px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:9px;
+    font-weight:900;
+}
+
+.line-item-body{
+    padding:20px;
+}
+
+.item-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:14px;
+}
+
+.item-grid .full{
+    grid-column:1 / -1;
+}
+
+.item-field label,
+.quality-field label{
+    display:block;
+    margin-bottom:7px;
+    font-size:8px;
+    font-weight:950;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--grey);
+}
+
+.item-field input,
+.item-field select,
+.quality-field select{
+    width:100%;
+    min-height:52px;
+    padding:0 13px;
+    border:2px solid var(--border);
+    border-radius:12px;
+    background:#fff;
+    outline:none;
+    font-size:12px;
+    font-weight:700;
+}
+
+.item-field input:focus,
+.item-field select:focus,
+.quality-field select:focus{
+    border-color:var(--green);
+    box-shadow:0 0 0 4px rgba(23,63,50,.06);
+}
+
+.item-temp-status{
+    min-height:52px;
+    padding:10px 13px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    border:2px solid var(--border);
+    border-radius:12px;
+    background:#f4f5f2;
+}
+
+.item-temp-status strong{
+    font-size:11px;
+    font-weight:950;
+}
+
+.item-temp-status small{
+    margin-top:4px;
+    font-size:8px;
+    font-weight:700;
+    color:var(--grey);
+}
+
+.item-temp-status.ok{
+    background:#eaf4ee;
+    border-color:#b9d6c4;
+    color:var(--green);
+}
+
+.item-temp-status.bad{
+    background:var(--red-bg);
+    border-color:#e0b5b0;
+    color:var(--red);
+}
+
+.quality-title{
+    margin:18px 0 10px;
+    font-size:10px;
+    font-weight:950;
+    color:var(--green);
+}
+
+.quality-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+}
+
+.quality-field{
+    padding:12px;
+    border:1px solid var(--border);
+    border-radius:13px;
+    background:#fafbf9;
+}
+
+.quality-field select{
+    min-height:44px;
+    font-size:10px;
+}
+
+.add-line-button{
+    width:100%;
+    min-height:54px;
+    margin-top:16px;
+    border:2px dashed #a9b9b1;
+    border-radius:14px;
+    background:#f6f9f7;
+    color:var(--green);
+    cursor:pointer;
+    font-size:10px;
+    font-weight:950;
+    letter-spacing:.04em;
+}
+
+.add-line-button:hover{
+    border-color:var(--green);
+    background:#edf4f0;
+}
+
+.item-helper{
+    margin-bottom:16px;
+    color:var(--grey);
+    font-size:11px;
+    line-height:1.55;
+}
+
+.history-lines{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.history-line{
+    padding:8px 10px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:#fafbf9;
+    font-size:9px;
+    line-height:1.45;
+}
+
+@media(max-width:600px){
+    .item-grid,
+    .quality-grid{
+        grid-template-columns:1fr;
+    }
+
+    .line-item-body{
+        padding:14px;
+    }
+
+    .line-item-head{
+        padding:13px 14px;
+    }
+
+    .item-field input,
+    .item-field select,
+    .quality-field select{
+        min-height:50px;
+        font-size:12px;
+    }
+}
+
 /* =========================================================
    TEXTAREA
 ========================================================= */
@@ -3319,9 +3551,9 @@ td strong{
 
     <div class="page-description">
 
-        Sélectionnez le type de produit puis
-        renseignez les éléments nécessaires
-        avant le départ de l'expédition.
+        Ajoutez toutes les cuves et références du client,
+        puis renseignez chaque lot, DLC, température
+        et contrôle qualité avant le départ.
 
     </div>
 
@@ -3382,7 +3614,7 @@ td strong{
     <select
         id="client"
         class="client-input"
-        onchange="updateProgress()"
+        onchange="handleClientChange()"
     >
 
         <option value="">
@@ -3405,13 +3637,38 @@ td strong{
             Jarnoux
         </option>
 
+        <option value="__MANUAL__">
+            + Saisir un autre client
+        </option>
+
     </select>
+
+    <div
+        id="manualClientWrap"
+        style="display:none; margin-top:12px;"
+    >
+        <label
+            for="manualClient"
+            class="field-label"
+        >
+            Nom du client
+        </label>
+
+        <input
+            id="manualClient"
+            class="client-input"
+            type="text"
+            autocomplete="organization"
+            placeholder="Saisir le nom du client..."
+            oninput="updateProgress()"
+        >
+    </div>
 
 </section>
 
 
 <!-- =====================================================
-     02 TYPE
+     02 PRODUITS / CUVES
 ===================================================== -->
 
 <section class="card-section">
@@ -3422,717 +3679,28 @@ td strong{
             02
         </div>
 
-        Type de contrôle
+        Produits / cuves de l'expédition
 
     </div>
 
-
-    <div class="choice-grid">
-
-        <button
-            type="button"
-            class="choice"
-            data-group="controlType"
-            data-value="Crème"
-            onclick="chooseControlType(this)"
-        >
-
-            <div class="choice-check">
-                ✓
-            </div>
-
-
-            <div class="choice-name">
-                Crème
-            </div>
-
-
-            <div class="choice-desc">
-                Contrôle des produits crème
-            </div>
-
-        </button>
-
-
-        <button
-            type="button"
-            class="choice"
-            data-group="controlType"
-            data-value="Lait"
-            onclick="chooseControlType(this)"
-        >
-
-            <div class="choice-check">
-                ✓
-            </div>
-
-
-            <div class="choice-name">
-                Lait
-            </div>
-
-
-            <div class="choice-desc">
-                Contrôle des produits lait
-            </div>
-
-        </button>
-
+    <div class="item-helper">
+        Ajoutez toutes les cuves de lait et/ou références de crème destinées à ce client.
+        Chaque ligne conserve son propre lot, sa DLC si nécessaire, sa température et ses contrôles qualité.
     </div>
-
-</section>
-
-
-<!-- =====================================================
-     CREME
-===================================================== -->
-
-<section
-    id="creamOptions"
-    class="card-section"
-    style="display:none;"
->
-
-    <div class="section-title">
-
-        <div class="section-number">
-            03
-        </div>
-
-        Type de crème
-
-    </div>
-
-
-    <div class="choice-grid">
-
-        <button
-            type="button"
-            class="choice"
-            data-group="cream"
-            data-value="Crème épaisse"
-            onclick="choose(this)"
-        >
-
-            <div class="choice-check">
-                ✓
-            </div>
-
-            <div class="choice-name">
-                Crème épaisse
-            </div>
-
-            <div class="choice-desc">
-                Produit laitier · Crème
-            </div>
-
-        </button>
-
-
-        <button
-            type="button"
-            class="choice"
-            data-group="cream"
-            data-value="Crème liquide"
-            onclick="choose(this)"
-        >
-
-            <div class="choice-check">
-                ✓
-            </div>
-
-            <div class="choice-name">
-                Crème liquide
-            </div>
-
-            <div class="choice-desc">
-                Produit laitier · Crème
-            </div>
-
-        </button>
-
-    </div>
-
 
     <div
-        class="section-title"
-        style="margin-top:28px;"
+        id="itemsContainer"
+        class="items-container"
+    ></div>
+
+    <button
+        id="addItemButton"
+        class="add-line-button"
+        type="button"
+        onclick="addControlItem()"
     >
-
-        <div class="section-number">
-            04
-        </div>
-
-        Taux de matière grasse
-
-    </div>
-
-
-    <div class="choice-grid">
-
-        <button
-            type="button"
-            class="choice"
-            data-group="mg"
-            data-value="30 %"
-            onclick="choose(this)"
-        >
-
-            <div class="choice-check">
-                ✓
-            </div>
-
-            <div class="choice-name">
-                30 %
-            </div>
-
-            <div class="choice-desc">
-                Matière grasse
-            </div>
-
-        </button>
-
-
-        <button
-            type="button"
-            class="choice"
-            data-group="mg"
-            data-value="40 %"
-            onclick="choose(this)"
-        >
-
-            <div class="choice-check">
-                ✓
-            </div>
-
-            <div class="choice-name">
-                40 %
-            </div>
-
-            <div class="choice-desc">
-                Matière grasse
-            </div>
-
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     LAIT
-===================================================== -->
-
-<section
-    id="milkOptions"
-    class="card-section"
-    style="display:none;"
->
-
-    <div class="section-title">
-
-        <div class="section-number">
-            03
-        </div>
-
-        Type de lait
-
-    </div>
-
-
-    <div class="choice-grid">
-
-        <button
-            type="button"
-            class="choice"
-            data-group="milkType"
-            data-value="Lait frais pasteurisé"
-            onclick="choose(this)"
-        >
-
-            <div class="choice-check">
-                ✓
-            </div>
-
-            <div class="choice-name">
-                Lait frais pasteurisé
-            </div>
-
-            <div class="choice-desc">
-                Lait pasteurisé frais
-            </div>
-
-        </button>
-
-
-        <button
-            type="button"
-            class="choice"
-            data-group="milkType"
-            data-value="Lait pasteurisé"
-            onclick="choose(this)"
-        >
-
-            <div class="choice-check">
-                ✓
-            </div>
-
-            <div class="choice-name">
-                Lait pasteurisé
-            </div>
-
-            <div class="choice-desc">
-                Lait pasteurisé
-            </div>
-
-        </button>
-
-    </div>
-
-
-    <div
-        class="section-title"
-        style="margin-top:28px;"
-    >
-
-        <div class="section-number">
-            04
-        </div>
-
-        Matière grasse
-
-    </div>
-
-
-    <div class="choice-grid">
-
-        <button
-            type="button"
-            class="choice"
-            data-group="milkFat"
-            data-value="Entier"
-            onclick="choose(this)"
-        >
-
-            <div class="choice-check">
-                ✓
-            </div>
-
-            <div class="choice-name">
-                Entier
-            </div>
-
-            <div class="choice-desc">
-                Lait entier
-            </div>
-
-        </button>
-
-
-        <button
-            type="button"
-            class="choice"
-            data-group="milkFat"
-            data-value="Demi-écrémé"
-            onclick="choose(this)"
-        >
-
-            <div class="choice-check">
-                ✓
-            </div>
-
-            <div class="choice-name">
-                Demi-écrémé
-            </div>
-
-            <div class="choice-desc">
-                Lait demi-écrémé
-            </div>
-
-        </button>
-
-
-        <button
-            type="button"
-            class="choice"
-            data-group="milkFat"
-            data-value="Écrémé"
-            onclick="choose(this)"
-        >
-
-            <div class="choice-check">
-                ✓
-            </div>
-
-            <div class="choice-name">
-                Écrémé
-            </div>
-
-            <div class="choice-desc">
-                Lait écrémé
-            </div>
-
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     05 LOT
-===================================================== -->
-
-<section class="card-section">
-
-    <div class="section-title">
-
-        <div class="section-number">
-            05
-        </div>
-
-        Traçabilité
-
-    </div>
-
-
-    <div class="lot-centered">
-
-        <label
-            for="lot"
-            class="field-label"
-        >
-            Lot
-        </label>
-
-
-        <input
-            id="lot"
-            class="client-input"
-            type="text"
-            placeholder="Ex. 2407"
-            oninput="updateProgress()"
-        >
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     TEMPERATURE
-===================================================== -->
-
-<section class="card-section">
-
-    <div class="section-title">
-
-        <div class="section-number">
-            06
-        </div>
-
-        Température à l'expédition
-
-    </div>
-
-
-    <div class="temperature-layout">
-
-        <div class="temp-input-wrap">
-
-            <input
-                id="temperature"
-                class="temp-input"
-                type="number"
-                inputmode="decimal"
-                step="0.1"
-                placeholder="0.0"
-                oninput="
-                    checkTemperature();
-                    updateProgress();
-                "
-            >
-
-
-            <div class="temp-unit">
-                °C
-            </div>
-
-        </div>
-
-
-        <div
-            id="tempStatus"
-            class="temp-status"
-        >
-
-            <strong>
-                En attente
-            </strong>
-
-
-            <small id="temperatureThreshold">
-                Seuil maximum : chargement...
-            </small>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     07 CONTROLES
-===================================================== -->
-
-<section class="card-section">
-
-    <div class="section-title">
-
-        <div class="section-number">
-            07
-        </div>
-
-        Éléments de contrôle
-
-    </div>
-
-
-    <!-- =========================
-         CREME
-    ========================== -->
-
-    <div
-        id="creamChecks"
-        class="check-grid"
-        style="display:none;"
-    >
-
-        <label class="check">
-
-            <input
-                type="checkbox"
-                class="controlCheck creamCheck"
-                data-check="etiquetage"
-                onchange="updateProgress()"
-            >
-
-            <span class="check-box">
-                ✓
-            </span>
-
-            <span class="check-label">
-                Étiquetage conforme
-            </span>
-
-        </label>
-
-
-        <label class="check">
-
-            <input
-                type="checkbox"
-                class="controlCheck creamCheck"
-                data-check="conditionnement"
-                onchange="updateProgress()"
-            >
-
-            <span class="check-box">
-                ✓
-            </span>
-
-            <span class="check-label">
-                Conditionnement intact
-            </span>
-
-        </label>
-
-
-        <label class="check">
-
-            <input
-                type="checkbox"
-                class="controlCheck creamCheck"
-                data-check="emballage"
-                onchange="updateProgress()"
-            >
-
-            <span class="check-box">
-                ✓
-            </span>
-
-            <span class="check-label">
-                Emballage conforme
-            </span>
-
-        </label>
-
-
-        <label class="check">
-
-            <input
-                type="checkbox"
-                class="controlCheck creamCheck"
-                data-check="quantite"
-                onchange="updateProgress()"
-            >
-
-            <span class="check-box">
-                ✓
-            </span>
-
-            <span class="check-label">
-                Quantité conforme
-            </span>
-
-        </label>
-
-
-        <label class="check">
-
-            <input
-                type="checkbox"
-                class="controlCheck creamCheck"
-                data-check="aspect"
-                onchange="updateProgress()"
-            >
-
-            <span class="check-box">
-                ✓
-            </span>
-
-            <span class="check-label">
-                Aspect conforme
-            </span>
-
-        </label>
-
-    </div>
-
-
-    <!-- =========================
-         LAIT
-    ========================== -->
-
-    <div
-        id="milkChecks"
-        class="check-grid"
-        style="display:none;"
-    >
-
-        <label class="check">
-
-            <input
-                type="checkbox"
-                class="controlCheck milkCheck"
-                data-check="etiquette"
-                onchange="updateProgress()"
-            >
-
-            <span class="check-box">
-                ✓
-            </span>
-
-            <span class="check-label">
-                Étiquette présente
-            </span>
-
-        </label>
-
-
-        <label class="check">
-
-            <input
-                type="checkbox"
-                class="controlCheck milkCheck"
-                data-check="dlcConforme"
-                onchange="updateProgress()"
-            >
-
-            <span class="check-box">
-                ✓
-            </span>
-
-            <span class="check-label">
-                DLC conforme
-            </span>
-
-        </label>
-
-
-        <label class="check">
-
-            <input
-                id="milkTemperatureCheck"
-                type="checkbox"
-                class="controlCheck milkCheck"
-                data-check="temperatureConforme"
-                onchange="updateProgress()"
-            >
-
-            <span class="check-box">
-                ✓
-            </span>
-
-            <span class="check-label">
-                Température conforme
-            </span>
-
-        </label>
-
-
-        <label class="check">
-
-            <input
-                type="checkbox"
-                class="controlCheck milkCheck"
-                data-check="scelle"
-                onchange="updateProgress()"
-            >
-
-            <span class="check-box">
-                ✓
-            </span>
-
-            <span class="check-label">
-                Scellé conforme
-            </span>
-
-        </label>
-
-
-        <label class="check">
-
-            <input
-                type="checkbox"
-                class="controlCheck milkCheck"
-                data-check="typeLait"
-                onchange="updateProgress()"
-            >
-
-            <span class="check-box">
-                ✓
-            </span>
-
-            <span class="check-label">
-                Type de lait conforme
-            </span>
-
-        </label>
-
-    </div>
-
-
-    <div
-        id="checksPlaceholder"
-        class="check-placeholder"
-    >
-
-        Sélectionnez d'abord un type de contrôle.
-
-    </div>
+        + Ajouter une cuve / une crème
+    </button>
 
 </section>
 
@@ -4146,7 +3714,7 @@ td strong{
     <div class="section-title">
 
         <div class="section-number">
-            08
+            03
         </div>
 
         Observations
@@ -4284,12 +3852,8 @@ td strong{
                     <th>Date / heure</th>
                     <th>Contrôleur</th>
                     <th>Client</th>
-                    <th>Type</th>
-                    <th>Produit</th>
-                    <th>Variante</th>
-                    <th>MG</th>
-                    <th>Lot</th>
-                    <th>Température</th>
+                    <th>Lignes</th>
+                    <th>Détail</th>
                     <th>Résultat</th>
 
                 </tr>
@@ -4348,16 +3912,6 @@ const APPS_SCRIPT_URL =
 ========================================================= */
 
 let currentProfile = "";
-
-let selectedControlType = "";
-
-let selectedCreamType = "";
-
-let selectedMG = "";
-
-let selectedMilkType = "";
-
-let selectedMilkFat = "";
 
 let profiles = [];
 
@@ -4456,79 +4010,57 @@ async function apiGet(action){
 
 async function apiPost(payload){
 
+    const url =
+        APPS_SCRIPT_URL +
+        (APPS_SCRIPT_URL.includes("?") ? "&" : "?") +
+        "t=" +
+        Date.now();
+
     const response =
         await fetch(
-            APPS_SCRIPT_URL,
+            url,
             {
-
                 method:"POST",
-
                 redirect:"follow",
-
+                cache:"no-store",
                 headers:{
-                    "Content-Type":
-                        "text/plain;charset=utf-8"
+                    "Content-Type":"text/plain;charset=utf-8"
                 },
-
-                body:
-                    JSON.stringify(payload)
-
+                body:JSON.stringify(payload)
             }
         );
 
+    const text = await response.text();
 
     if(!response.ok){
-
+        console.error("Réponse POST HTTP :", response.status, text);
         throw new Error(
-            "Erreur HTTP " +
-            response.status
+            "Erreur HTTP " + response.status +
+            ". Vérifiez que l'URL Apps Script /exec correspond au déploiement Web App actif."
         );
-
     }
-
-
-    const text =
-        await response.text();
-
 
     let data;
 
-
     try{
-
-        data =
-            JSON.parse(text);
-
+        data = JSON.parse(text);
     }
-
     catch(error){
-
-        console.error(
-            "Réponse POST :",
-            text
-        );
-
+        console.error("Réponse POST non JSON :", text);
         throw new Error(
-            "Réponse Apps Script invalide."
+            "Le serveur Apps Script a renvoyé une page HTML au lieu du JSON. " +
+            "Vérifiez le déploiement Web App et l'URL /exec."
         );
-
     }
 
-
-    if(
-        data.success !== true
-    ){
-
+    if(data.success !== true){
         throw new Error(
             data.message ||
             "Erreur d'enregistrement."
         );
-
     }
 
-
     return data;
-
 }
 
 
@@ -4596,220 +4128,430 @@ async function loadAppData(){
 ========================================================= */
 
 function updateTemperatureThreshold(){
-
-    const element =
-        document.getElementById(
-            "temperatureThreshold"
-        );
-
-
-    if(!element){
-
-        return;
-
-    }
-
-
-    element.textContent =
-        "Seuil maximum : " +
-        appConfig.tempMax +
-        " °C";
-
+    document
+        .querySelectorAll(".item-temp-status small")
+        .forEach(element => {
+            if(element.closest(".item-temp-status")?.classList.contains("ok")) return;
+            if(element.closest(".item-temp-status")?.classList.contains("bad")) return;
+            element.textContent = "Seuil maximum : " + appConfig.tempMax + " °C";
+        });
 }
 
+
+
+/* =========================================================
+   LIGNES PRODUITS / CUVES
+========================================================= */
+
+let itemSequence = 0;
+
+function parseNumberInput(value){
+    const normalized = String(value ?? "")
+        .trim()
+        .replace(",", ".");
+
+    return normalized === ""
+        ? NaN
+        : Number(normalized);
+}
+
+function optionHTML(value, label){
+    return `<option value="${escapeHTML(value)}">${escapeHTML(label)}</option>`;
+}
+
+function qualitySelect(key, label){
+    return `
+        <div class="quality-field">
+            <label>${escapeHTML(label)}</label>
+            <select class="item-check" data-check="${escapeHTML(key)}" onchange="updateProgress()">
+                <option value="">À contrôler...</option>
+                <option value="true">✓ Conforme</option>
+                <option value="false">⚠ Non conforme</option>
+            </select>
+        </div>
+    `;
+}
+
+function addControlItem(prefill = null){
+    const container = document.getElementById("itemsContainer");
+    if(!container) return;
+
+    itemSequence++;
+
+    const article = document.createElement("article");
+    article.className = "line-item";
+    article.dataset.itemId = String(itemSequence);
+
+    article.innerHTML = `
+        <div class="line-item-head">
+            <div class="line-item-title">
+                <span class="line-number"></span>
+                <span>Produit / cuve</span>
+            </div>
+
+            <button
+                type="button"
+                class="remove-line"
+                onclick="removeControlItem(this)"
+            >
+                Supprimer
+            </button>
+        </div>
+
+        <div class="line-item-body">
+            <div class="item-grid">
+                <div class="item-field full">
+                    <label>Type</label>
+                    <select class="item-type" onchange="renderItemFields(this.closest('.line-item')); updateProgress();">
+                        <option value="">Sélectionner...</option>
+                        <option value="Crème">Crème</option>
+                        <option value="Lait">Lait</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="item-dynamic"></div>
+        </div>
+    `;
+
+    container.appendChild(article);
+
+    if(prefill && prefill.typeControle){
+        const typeSelect = article.querySelector(".item-type");
+        typeSelect.value = prefill.typeControle;
+        renderItemFields(article, prefill);
+    }
+
+    refreshLineNumbers();
+    updateProgress();
+}
+
+function removeControlItem(button){
+    const container = document.getElementById("itemsContainer");
+    const item = button?.closest(".line-item");
+    if(!container || !item) return;
+
+    if(container.querySelectorAll(".line-item").length <= 1){
+        showToast("Conservez au moins une ligne produit / cuve.");
+        return;
+    }
+
+    item.remove();
+    refreshLineNumbers();
+    updateProgress();
+}
+
+function refreshLineNumbers(){
+    const items = Array.from(document.querySelectorAll("#itemsContainer .line-item"));
+
+    items.forEach((item, index) => {
+        const number = item.querySelector(".line-number");
+        if(number) number.textContent = String(index + 1).padStart(2, "0");
+
+        const remove = item.querySelector(".remove-line");
+        if(remove) remove.style.visibility = items.length === 1 ? "hidden" : "visible";
+    });
+}
+
+function renderItemFields(item, prefill = null){
+    if(!item) return;
+
+    const type = item.querySelector(".item-type")?.value || "";
+    const dynamic = item.querySelector(".item-dynamic");
+    if(!dynamic) return;
+
+    if(!type){
+        dynamic.innerHTML = `
+            <div class="check-placeholder" style="margin-top:14px;">
+                Sélectionnez Lait ou Crème pour afficher les champs de cette ligne.
+            </div>
+        `;
+        return;
+    }
+
+    const commonTail = `
+        <div class="item-field">
+            <label>Lot</label>
+            <input class="item-lot" type="text" placeholder="Ex. 2407" oninput="updateProgress()">
+        </div>
+
+        <div class="item-field">
+            <label>Température °C</label>
+            <input class="item-temperature" type="number" inputmode="decimal" step="0.1" placeholder="0.0" oninput="checkTemperature(this); updateProgress();">
+        </div>
+
+        <div class="item-field full">
+            <div class="item-temp-status">
+                <strong>En attente</strong>
+                <small>Seuil maximum : ${escapeHTML(appConfig.tempMax)} °C</small>
+            </div>
+        </div>
+    `;
+
+    if(type === "Crème"){
+        dynamic.innerHTML = `
+            <div class="item-grid" style="margin-top:14px;">
+                <div class="item-field">
+                    <label>Type de crème</label>
+                    <select class="item-product" onchange="updateProgress()">
+                        <option value="">Sélectionner...</option>
+                        <option value="Crème épaisse">Crème épaisse</option>
+                        <option value="Crème liquide">Crème liquide</option>
+                    </select>
+                </div>
+
+                <div class="item-field">
+                    <label>Matière grasse</label>
+                    <select class="item-mg" onchange="updateProgress()">
+                        <option value="">Sélectionner...</option>
+                        <option value="30 %">30 %</option>
+                        <option value="40 %">40 %</option>
+                    </select>
+                </div>
+
+                ${commonTail}
+            </div>
+
+            <div class="quality-title">Éléments de contrôle</div>
+            <div class="quality-grid">
+                ${qualitySelect("etiquetage", "Étiquetage")}
+                ${qualitySelect("conditionnement", "Conditionnement")}
+                ${qualitySelect("emballage", "Emballage")}
+                ${qualitySelect("quantite", "Quantité")}
+                ${qualitySelect("aspect", "Aspect")}
+            </div>
+        `;
+    }
+
+    if(type === "Lait"){
+        dynamic.innerHTML = `
+            <div class="item-grid" style="margin-top:14px;">
+                <div class="item-field">
+                    <label>Type de lait</label>
+                    <select class="item-milk-type" onchange="updateProgress()">
+                        <option value="">Sélectionner...</option>
+                        <option value="Lait frais pasteurisé">Lait frais pasteurisé</option>
+                        <option value="Lait pasteurisé">Lait pasteurisé</option>
+                    </select>
+                </div>
+
+                <div class="item-field">
+                    <label>Catégorie</label>
+                    <select class="item-mg" onchange="updateProgress()">
+                        <option value="">Sélectionner...</option>
+                        <option value="Entier">Entier</option>
+                        <option value="Demi-écrémé">Demi-écrémé</option>
+                        <option value="Écrémé">Écrémé</option>
+                    </select>
+                </div>
+
+                <div class="item-field">
+                    <label>DLC</label>
+                    <input class="item-dlc" type="date" oninput="updateProgress()">
+                </div>
+
+                ${commonTail}
+            </div>
+
+            <div class="quality-title">Éléments de contrôle</div>
+            <div class="quality-grid">
+                ${qualitySelect("etiquette", "Étiquette")}
+                ${qualitySelect("dlcConforme", "DLC conforme")}
+                ${qualitySelect("scelle", "Scellé")}
+                ${qualitySelect("typeLait", "Type de lait")}
+            </div>
+        `;
+    }
+
+    if(prefill){
+        const setValue = (selector, value) => {
+            const field = item.querySelector(selector);
+            if(field && value !== undefined && value !== null) field.value = String(value);
+        };
+
+        setValue(".item-product", prefill.produit);
+        setValue(".item-milk-type", prefill.variante);
+        setValue(".item-mg", prefill.mg);
+        setValue(".item-lot", prefill.lot);
+        setValue(".item-dlc", prefill.dlc);
+        setValue(".item-temperature", prefill.temperature);
+
+        Object.entries(prefill.checks || {}).forEach(([key, value]) => {
+            const select = item.querySelector(`.item-check[data-check="${key}"]`);
+            if(select) select.value = value ? "true" : "false";
+        });
+    }
+
+    checkTemperature(item.querySelector(".item-temperature"));
+}
+
+function requiredSelectorsForItem(type){
+    if(type === "Crème"){
+        return [
+            ".item-product",
+            ".item-mg",
+            ".item-lot",
+            ".item-temperature"
+        ];
+    }
+
+    if(type === "Lait"){
+        return [
+            ".item-milk-type",
+            ".item-mg",
+            ".item-dlc",
+            ".item-lot",
+            ".item-temperature"
+        ];
+    }
+
+    return [];
+}
+
+function collectItems(validate = false){
+    const itemElements = Array.from(document.querySelectorAll("#itemsContainer .line-item"));
+    const items = [];
+    let valid = itemElements.length > 0;
+
+    itemElements.forEach((element, index) => {
+        const typeField = element.querySelector(".item-type");
+        const type = typeField?.value || "";
+
+        if(validate){
+            typeField?.classList.toggle("field-error", !type);
+        }
+
+        if(!type){
+            valid = false;
+            return;
+        }
+
+        requiredSelectorsForItem(type).forEach(selector => {
+            const field = element.querySelector(selector);
+            const value = field?.value?.trim() || "";
+            const numberInvalid = selector === ".item-temperature" && !Number.isFinite(parseNumberInput(value));
+            const missing = !value || numberInvalid;
+
+            if(validate) field?.classList.toggle("field-error", missing);
+            if(missing) valid = false;
+        });
+
+        const checkFields = Array.from(element.querySelectorAll(".item-check"));
+        const checks = {};
+
+        checkFields.forEach(field => {
+            const missing = field.value === "";
+            if(validate) field.classList.toggle("field-error", missing);
+            if(missing) valid = false;
+            if(!missing) checks[field.dataset.check] = field.value === "true";
+        });
+
+        const temperature = parseNumberInput(element.querySelector(".item-temperature")?.value);
+
+        items.push({
+            typeControle:type,
+            produit:type === "Crème" ? (element.querySelector(".item-product")?.value || "") : "Lait",
+            variante:type === "Lait" ? (element.querySelector(".item-milk-type")?.value || "") : "",
+            mg:element.querySelector(".item-mg")?.value || "",
+            lot:element.querySelector(".item-lot")?.value?.trim() || "",
+            dlc:type === "Lait" ? (element.querySelector(".item-dlc")?.value || "") : "",
+            temperature:temperature,
+            checks:checks,
+            _line:index + 1
+        });
+    });
+
+    return { valid, items };
+}
+
+/* =========================================================
+   CLIENT
+========================================================= */
+
+function handleClientChange(){
+    const select = document.getElementById("client");
+    const wrap = document.getElementById("manualClientWrap");
+    const manual = document.getElementById("manualClient");
+
+    const isManual = select?.value === "__MANUAL__";
+
+    if(wrap){
+        wrap.style.display = isManual ? "block" : "none";
+    }
+
+    if(!isManual && manual){
+        manual.value = "";
+        manual.classList.remove("field-error");
+    }
+
+    select?.classList.remove("field-error");
+
+    if(isManual){
+        setTimeout(() => manual?.focus(), 0);
+    }
+
+    updateProgress();
+}
+
+function getClientValue(){
+    const select = document.getElementById("client");
+
+    if(!select){
+        return "";
+    }
+
+    if(select.value === "__MANUAL__"){
+        return document
+            .getElementById("manualClient")
+            ?.value
+            ?.trim() || "";
+    }
+
+    return select.value.trim();
+}
 
 /* =========================================================
    PROGRESSION
 ========================================================= */
 
 function updateProgress(){
+    let total = 1;
+    let completed = getClientValue() ? 1 : 0;
 
-    let total = 0;
+    const itemElements = Array.from(document.querySelectorAll("#itemsContainer .line-item"));
 
-    let completed = 0;
+    itemElements.forEach(element => {
+        const type = element.querySelector(".item-type")?.value || "";
+        total++;
+        if(type) completed++;
 
-
-    /* CLIENT */
-
-    total++;
-
-    if(
-        document
-            .getElementById("client")
-            ?.value
-            .trim()
-    ){
-
-        completed++;
-
-    }
-
-
-    /* TYPE */
-
-    total++;
-
-    if(selectedControlType){
-
-        completed++;
-
-    }
-
-
-    /* PRODUIT */
-
-    if(
-        selectedControlType === "Crème"
-    ){
-
-        total += 2;
-
-        if(selectedCreamType){
-            completed++;
-        }
-
-        if(selectedMG){
-            completed++;
-        }
-
-    }
-
-
-    if(
-        selectedControlType === "Lait"
-    ){
-
-        total += 2;
-
-        if(selectedMilkType){
-            completed++;
-        }
-
-        if(selectedMilkFat){
-            completed++;
-        }
-
-    }
-
-
-    /* LOT */
-
-    total++;
-
-    if(
-        document
-            .getElementById("lot")
-            ?.value
-            .trim()
-    ){
-
-        completed++;
-
-    }
-
-
-    /* TEMPERATURE */
-
-    total++;
-
-    const temperature =
-        parseFloat(
-            document
-                .getElementById(
-                    "temperature"
-                )
-                ?.value
-        );
-
-
-    if(
-        Number.isFinite(
-            temperature
-        )
-    ){
-
-        completed++;
-
-    }
-
-
-    /* CHECKS */
-
-    const activeChecks =
-        selectedControlType === "Crème"
-
-            ? document.querySelectorAll(
-                ".creamCheck"
-              )
-
-            : selectedControlType === "Lait"
-
-                ? document.querySelectorAll(
-                    ".milkCheck"
-                  )
-
-                : [];
-
-
-    activeChecks.forEach(
-        check => {
-
+        requiredSelectorsForItem(type).forEach(selector => {
             total++;
+            const field = element.querySelector(selector);
+            const value = field?.value?.trim() || "";
+            const good = selector === ".item-temperature"
+                ? Number.isFinite(parseNumberInput(value))
+                : Boolean(value);
+            if(good) completed++;
+        });
 
-            if(check.checked){
+        element.querySelectorAll(".item-check").forEach(field => {
+            total++;
+            if(field.value !== "") completed++;
+        });
+    });
 
-                completed++;
+    const percentage = total > 0
+        ? Math.round(completed / total * 100)
+        : 0;
 
-            }
+    const fill = document.getElementById("progressFill");
+    const percent = document.getElementById("progressPercent");
 
-        }
-    );
+    if(fill) fill.style.width = percentage + "%";
+    if(percent) percent.textContent = percentage + " %";
 
-
-    const percentage =
-        total > 0
-
-            ? Math.round(
-                completed /
-                total *
-                100
-              )
-
-            : 0;
-
-
-    const fill =
-        document.getElementById(
-            "progressFill"
-        );
-
-
-    const percent =
-        document.getElementById(
-            "progressPercent"
-        );
-
-
-    if(fill){
-
-        fill.style.width =
-            percentage + "%";
-
-    }
-
-
-    if(percent){
-
-        percent.textContent =
-            percentage + " %";
-
-    }
-
-
-    updateSummary(
-        percentage
-    );
-
+    updateSummary(percentage);
 }
 
 
@@ -4817,295 +4559,39 @@ function updateProgress(){
    RESUME
 ========================================================= */
 
-function updateSummary(
-    percentage
-){
+function updateSummary(percentage){
+    const section = document.getElementById("summarySection");
+    const card = document.getElementById("summaryCard");
+    if(!section || !card) return;
 
-    const section =
-        document.getElementById(
-            "summarySection"
-        );
+    const {items} = collectItems(false);
 
-
-    const card =
-        document.getElementById(
-            "summaryCard"
-        );
-
-
-    if(
-        !section ||
-        !card
-    ){
-
+    if(percentage < 45 || !items.length){
+        section.style.display = "none";
         return;
-
     }
 
+    section.style.display = "block";
 
-    if(
-        percentage < 70 ||
-        !selectedControlType
-    ){
-
-        section.style.display =
-            "none";
-
-        return;
-
-    }
-
-
-    const client =
-        document
-            .getElementById(
-                "client"
-            )
-            ?.value ||
-        "—";
-
-
-    const lot =
-        document
-            .getElementById(
-                "lot"
-            )
-            ?.value ||
-        "—";
-
-
-    const temperature =
-        document
-            .getElementById(
-                "temperature"
-            )
-            ?.value ||
-        "—";
-
-
-    const produit =
-        selectedControlType === "Crème"
-
-            ? selectedCreamType || "—"
-
-            : "Lait";
-
-
-    const variante =
-        selectedControlType === "Crème"
-
-            ? selectedMG || "—"
-
-            : (
-                (
-                    selectedMilkType ||
-                    "—"
-                )
-                +
-                " · " +
-                (
-                    selectedMilkFat ||
-                    "—"
-                )
-              );
-
-
-    const isTemperatureOK =
-        Number(
-            temperature
-        ) <=
-        Number(
-            appConfig.tempMax
-        );
-
+    const client = getClientValue() || "—";
 
     card.innerHTML = `
-
-        <div
-            style="
-                display:grid;
-                grid-template-columns:
-                    repeat(2,1fr);
-                gap:14px;
-            "
-        >
-
-            <div>
-
-                <div
-                    style="
-                        font-size:8px;
-                        font-weight:900;
-                        letter-spacing:.1em;
-                        text-transform:uppercase;
-                        color:var(--grey-2);
-                        margin-bottom:5px;
-                    "
-                >
-                    Client
-                </div>
-
-                <div
-                    style="
-                        font-size:13px;
-                        font-weight:900;
-                    "
-                >
-                    ${escapeHTML(client)}
-                </div>
-
-            </div>
-
-
-            <div>
-
-                <div
-                    style="
-                        font-size:8px;
-                        font-weight:900;
-                        letter-spacing:.1em;
-                        text-transform:uppercase;
-                        color:var(--grey-2);
-                        margin-bottom:5px;
-                    "
-                >
-                    Produit
-                </div>
-
-                <div
-                    style="
-                        font-size:13px;
-                        font-weight:900;
-                    "
-                >
-                    ${escapeHTML(produit)}
-                </div>
-
-            </div>
-
-
-            <div>
-
-                <div
-                    style="
-                        font-size:8px;
-                        font-weight:900;
-                        letter-spacing:.1em;
-                        text-transform:uppercase;
-                        color:var(--grey-2);
-                        margin-bottom:5px;
-                    "
-                >
-                    Variante
-                </div>
-
-                <div
-                    style="
-                        font-size:12px;
-                        font-weight:800;
-                    "
-                >
-                    ${escapeHTML(variante)}
-                </div>
-
-            </div>
-
-
-            <div>
-
-                <div
-                    style="
-                        font-size:8px;
-                        font-weight:900;
-                        letter-spacing:.1em;
-                        text-transform:uppercase;
-                        color:var(--grey-2);
-                        margin-bottom:5px;
-                    "
-                >
-                    Lot
-                </div>
-
-                <div
-                    style="
-                        font-size:12px;
-                        font-weight:900;
-                    "
-                >
-                    ${escapeHTML(lot)}
-                </div>
-
-            </div>
-
-
-            <div>
-
-                <div
-                    style="
-                        font-size:8px;
-                        font-weight:900;
-                        letter-spacing:.1em;
-                        text-transform:uppercase;
-                        color:var(--grey-2);
-                        margin-bottom:5px;
-                    "
-                >
-                    Température
-                </div>
-
-                <div
-                    style="
-                        font-size:15px;
-                        font-weight:950;
-                        color:
-                            ${
-                                isTemperatureOK
-                                    ? "var(--green)"
-                                    : "var(--red)"
-                            };
-                    "
-                >
-                    ${escapeHTML(temperature)} °C
-                </div>
-
-            </div>
-
-
-            <div>
-
-                <div
-                    style="
-                        font-size:8px;
-                        font-weight:900;
-                        letter-spacing:.1em;
-                        text-transform:uppercase;
-                        color:var(--grey-2);
-                        margin-bottom:5px;
-                    "
-                >
-                    Avancement
-                </div>
-
-                <div
-                    style="
-                        font-size:15px;
-                        font-weight:950;
-                        color:var(--green);
-                    "
-                >
-                    ${percentage} %
-                </div>
-
-            </div>
-
+        <div style="font-size:9px;font-weight:900;color:var(--grey);margin-bottom:10px;">
+            ${escapeHTML(client)} · ${items.length} ligne${items.length > 1 ? "s" : ""}
         </div>
 
+        <div class="history-lines">
+            ${items.map((item, index) => `
+                <div class="history-line">
+                    <strong>Ligne ${index + 1} · ${escapeHTML(item.typeControle)}</strong><br>
+                    ${escapeHTML(item.typeControle === "Crème" ? item.produit : item.variante || "Lait")}
+                    ${item.mg ? " · " + escapeHTML(item.mg) : ""}
+                    ${item.lot ? " · Lot " + escapeHTML(item.lot) : ""}
+                    ${Number.isFinite(item.temperature) ? " · " + escapeHTML(item.temperature) + " °C" : ""}
+                </div>
+            `).join("")}
+        </div>
     `;
-
-
-    section.style.display =
-        "block";
-
 }
 
 
@@ -5554,339 +5040,51 @@ async function loadControls(){
    TYPE DE CONTROLE
 ========================================================= */
 
-function chooseControlType(
-    element
-){
-
-    selectedControlType =
-        element.dataset.value;
-
-
-    document
-        .querySelectorAll(
-            '[data-group="controlType"]'
-        )
-        .forEach(
-            item =>
-                item.classList.remove(
-                    "selected"
-                )
-        );
-
-
-    element.classList.add(
-        "selected"
-    );
-
-
-    const creamOptions =
-        document.getElementById(
-            "creamOptions"
-        );
-
-
-    const milkOptions =
-        document.getElementById(
-            "milkOptions"
-        );
-
-
-    const creamChecks =
-        document.getElementById(
-            "creamChecks"
-        );
-
-
-    const milkChecks =
-        document.getElementById(
-            "milkChecks"
-        );
-
-
-    const placeholder =
-        document.getElementById(
-            "checksPlaceholder"
-        );
-
-
-    if(
-        selectedControlType === "Crème"
-    ){
-
-        creamOptions.style.display =
-            "block";
-
-
-        milkOptions.style.display =
-            "none";
-
-
-        creamChecks.style.display =
-            "grid";
-
-
-        milkChecks.style.display =
-            "none";
-
-
-        placeholder.style.display =
-            "none";
-
-
-        selectedMilkType =
-            "";
-
-        selectedMilkFat =
-            "";
-
-
-        document
-            .querySelectorAll(
-                '[data-group="milkType"], [data-group="milkFat"]'
-            )
-            .forEach(
-                item =>
-                    item.classList.remove(
-                        "selected"
-                    )
-            );
-
-    }
-
-
-    if(
-        selectedControlType === "Lait"
-    ){
-
-        creamOptions.style.display =
-            "none";
-
-
-        milkOptions.style.display =
-            "block";
-
-
-        creamChecks.style.display =
-            "none";
-
-
-        milkChecks.style.display =
-            "grid";
-
-
-        placeholder.style.display =
-            "none";
-
-
-        selectedCreamType =
-            "";
-
-        selectedMG =
-            "";
-
-
-        document
-            .querySelectorAll(
-                '[data-group="cream"], [data-group="mg"]'
-            )
-            .forEach(
-                item =>
-                    item.classList.remove(
-                        "selected"
-                    )
-            );
-
-    }
-
-
-    syncMilkTemperatureCheck();
-
-    updateProgress();
-
-}
-
-
 /* =========================================================
    CHOIX
 ========================================================= */
-
-function choose(
-    element
-){
-
-    const group =
-        element.dataset.group;
-
-
-    document
-        .querySelectorAll(
-            `.choice[data-group="${group}"]`
-        )
-        .forEach(
-            item =>
-                item.classList.remove(
-                    "selected"
-                )
-        );
-
-
-    element.classList.add(
-        "selected"
-    );
-
-
-    switch(group){
-
-        case "cream":
-
-            selectedCreamType =
-                element.dataset.value;
-
-            break;
-
-
-        case "mg":
-
-            selectedMG =
-                element.dataset.value;
-
-            break;
-
-
-        case "milkType":
-
-            selectedMilkType =
-                element.dataset.value;
-
-            break;
-
-
-        case "milkFat":
-
-            selectedMilkFat =
-                element.dataset.value;
-
-            break;
-
-    }
-
-
-    updateProgress();
-
-}
-
 
 /* =========================================================
    TEMPERATURE
 ========================================================= */
 
-function checkTemperature(){
+function checkTemperature(target = null){
+    const inputs = target
+        ? [target]
+        : Array.from(document.querySelectorAll(".item-temperature"));
 
-    const input =
-        document.getElementById(
-            "temperature"
-        );
+    inputs.forEach(input => {
+        const item = input?.closest(".line-item");
+        const status = item?.querySelector(".item-temp-status");
+        if(!input || !status) return;
 
+        const value = parseNumberInput(input.value);
+        const max = Number(appConfig.tempMax);
 
-    const status =
-        document.getElementById(
-            "tempStatus"
-        );
+        if(!Number.isFinite(value)){
+            status.className = "item-temp-status";
+            status.innerHTML = `
+                <strong>En attente</strong>
+                <small>Seuil maximum : ${escapeHTML(max)} °C</small>
+            `;
+            return;
+        }
 
-
-    if(
-        !input ||
-        !status
-    ){
-
-        return;
-
-    }
-
-
-    const value =
-        parseFloat(
-            input.value
-        );
-
-
-    const max =
-        Number(
-            appConfig.tempMax
-        );
-
-
-    if(
-        input.value === "" ||
-        Number.isNaN(value)
-    ){
-
-        status.className =
-            "temp-status";
-
-
-        status.innerHTML = `
-
-            <strong>
-                En attente
-            </strong>
-
-            <small id="temperatureThreshold">
-                Seuil maximum : ${max} °C
-            </small>
-
-        `;
-
-        syncMilkTemperatureCheck();
-
-        return;
-
-    }
-
-
-    if(value <= max){
-
-        status.className =
-            "temp-status ok";
-
-
-        status.innerHTML = `
-
-            <strong>
-                ✓ Température conforme
-            </strong>
-
-            <small id="temperatureThreshold">
-                Seuil respecté · ≤ ${max} °C
-            </small>
-
-        `;
-
-    }
-
-    else{
-
-        status.className =
-            "temp-status bad";
-
-
-        status.innerHTML = `
-
-            <strong>
-                ⚠ Température non conforme
-            </strong>
-
-            <small id="temperatureThreshold">
-                Le seuil de ${max} °C est dépassé
-            </small>
-
-        `;
-
-    }
-
-
-    syncMilkTemperatureCheck();
-
+        if(value <= max){
+            status.className = "item-temp-status ok";
+            status.innerHTML = `
+                <strong>✓ Température conforme</strong>
+                <small>Seuil respecté · ≤ ${escapeHTML(max)} °C</small>
+            `;
+        }
+        else{
+            status.className = "item-temp-status bad";
+            status.innerHTML = `
+                <strong>⚠ Température non conforme</strong>
+                <small>Seuil de ${escapeHTML(max)} °C dépassé</small>
+            `;
+        }
+    });
 }
 
 
@@ -5894,510 +5092,89 @@ function checkTemperature(){
    CHECK TEMPERATURE LAIT
 ========================================================= */
 
-function syncMilkTemperatureCheck(){
-
-    const check =
-        document.getElementById(
-            "milkTemperatureCheck"
-        );
-
-
-    if(!check){
-
-        return;
-
-    }
-
-
-    const temperature =
-        parseFloat(
-            document
-                .getElementById(
-                    "temperature"
-                )
-                ?.value
-        );
-
-
-    check.checked =
-
-        selectedControlType === "Lait" &&
-
-        Number.isFinite(
-            temperature
-        ) &&
-
-        temperature <=
-            Number(
-                appConfig.tempMax
-            );
-
-}
-
-
 /* =========================================================
    CHECKS
 ========================================================= */
-
-function collectChecks(){
-
-    const checks = {
-
-        etiquetage:false,
-
-        conditionnement:false,
-
-        emballage:false,
-
-        quantite:false,
-
-        aspect:false,
-
-        etiquette:false,
-
-        dlcConforme:false,
-
-        temperatureConforme:false,
-
-        scelle:false,
-
-        typeLait:false
-
-    };
-
-
-    document
-        .querySelectorAll(
-            ".controlCheck"
-        )
-        .forEach(
-            check => {
-
-                const key =
-                    check.dataset.check;
-
-
-                if(
-                    key &&
-                    Object.prototype.hasOwnProperty.call(
-                        checks,
-                        key
-                    )
-                ){
-
-                    checks[key] =
-                        check.checked;
-
-                }
-
-            }
-        );
-
-
-    return checks;
-
-}
-
 
 /* =========================================================
    VALIDATION
 ========================================================= */
 
 async function validateControl(){
-
-    if(isLoading){
-
-        return;
-
-    }
-
-
-    const client =
-        document.getElementById(
-            "client"
-        );
-
-
-    const lotInput =
-        document.getElementById(
-            "lot"
-        );
-
-
-    const temperatureInput =
-        document.getElementById(
-            "temperature"
-        );
-
-
-    const comment =
-        document.getElementById(
-            "comment"
-        );
-
-
-    const clientValue =
-        client?.value.trim() ||
-        "";
-
-
-    const lot =
-        lotInput?.value.trim() ||
-        "";
-
-
-    const temperature =
-        parseFloat(
-            temperatureInput?.value
-        );
-
-
-    let valid =
-        true;
-
-
-    /* CLIENT */
-
-    if(!clientValue){
-
-        client.classList.add(
-            "field-error"
-        );
-
-        valid =
-            false;
-
-    }
-    else{
-
-        client.classList.remove(
-            "field-error"
-        );
-
-    }
-
-
-    /* TYPE */
-
-    if(!selectedControlType){
-
-        valid =
-            false;
-
-    }
-
-
-    /* CREME */
-
-    if(
-        selectedControlType === "Crème"
-    ){
-
-        if(!selectedCreamType){
-
-            valid =
-                false;
-
-        }
-
-
-        if(!selectedMG){
-
-            valid =
-                false;
-
-        }
-
-    }
-
-
-    /* LAIT */
-
-    if(
-        selectedControlType === "Lait"
-    ){
-
-        if(!selectedMilkType){
-
-            valid =
-                false;
-
-        }
-
-
-        if(!selectedMilkFat){
-
-            valid =
-                false;
-
-        }
-
-    }
-
-
-    /* LOT */
-
-    if(!lot){
-
-        lotInput.classList.add(
-            "field-error"
-        );
-
-        valid =
-            false;
-
-    }
-    else{
-
-        lotInput.classList.remove(
-            "field-error"
-        );
-
-    }
-
-
-    /* TEMPERATURE */
-
-    if(
-        Number.isNaN(
-            temperature
-        )
-    ){
-
-        valid =
-            false;
-
-    }
-
-
-    const checks =
-        collectChecks();
-
-
-    /* =====================================================
-       CREME
-    ===================================================== */
-
-    if(
-        selectedControlType === "Crème"
-    ){
-
-        const requiredCream = [
-
-            "etiquetage",
-            "conditionnement",
-            "emballage",
-            "quantite",
-            "aspect"
-
-        ];
-
-
-        requiredCream.forEach(
-            key => {
-
-                if(!checks[key]){
-
-                    valid =
-                        false;
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       LAIT
-    ===================================================== */
-
-    if(
-        selectedControlType === "Lait"
-    ){
-
-        const requiredMilk = [
-
-            "etiquette",
-            "dlcConforme",
-            "temperatureConforme",
-            "scelle",
-            "typeLait"
-
-        ];
-
-
-        requiredMilk.forEach(
-            key => {
-
-                if(!checks[key]){
-
-                    valid =
-                        false;
-
-                }
-
-            }
-        );
-
-    }
-
-
-    if(!valid){
-
-        showToast(
-            "⚠ Complétez tous les éléments obligatoires."
-        );
-
-        return;
-
-    }
-
-
-    /* =====================================================
-       RESULTAT
-    ===================================================== */
-
-    const result =
-        temperature <=
-        Number(
-            appConfig.tempMax
-        )
-
-            ? "CONFORME"
-
-            : "NON CONFORME";
-
-
-    /* =====================================================
-       CONTROLE
-    ===================================================== */
-
-    const control = {
-
-        dateISO:
-            new Date().toISOString(),
-
-        profil:
-            currentProfile,
-
-        client:
-            clientValue,
-
-        typeControle:
-            selectedControlType,
-
-        produit:
-            selectedControlType === "Crème"
-
-                ? selectedCreamType
-
-                : "Lait",
-
-        variante:
-            selectedControlType === "Lait"
-
-                ? selectedMilkType
-
-                : "",
-
-        mg:
-            selectedControlType === "Crème"
-
-                ? selectedMG
-
-                : selectedMilkFat,
-
-        lot:
-            lot,
-
-        /*
-         * Pas de champ DLC dans le formulaire actuel.
-         * Pour le lait, la case DLC conforme est enregistrée.
-         */
-
-        temperature:
-            temperature,
-
-        resultat:
-            result,
-
-        commentaire:
-            comment.value.trim(),
-
-        checks:
-            checks
-
-    };
-
-
-    setLoading(
-        true
+    if(isLoading) return;
+
+    const clientField = document.getElementById("client");
+    const manualClientField = document.getElementById("manualClient");
+    const commentField = document.getElementById("comment");
+    const client = getClientValue();
+    const manualMode = clientField?.value === "__MANUAL__";
+
+    clientField?.classList.toggle(
+        "field-error",
+        !client && !manualMode
     );
 
+    manualClientField?.classList.toggle(
+        "field-error",
+        !client && manualMode
+    );
+
+    if(!currentProfile){
+        showToast("⚠ Sélectionnez votre profil.");
+        return;
+    }
+
+    const collected = collectItems(true);
+
+    if(!client || !collected.valid || !collected.items.length){
+        showToast("⚠ Complétez les champs obligatoires de chaque ligne.");
+        return;
+    }
+
+    const control = {
+        profil:currentProfile,
+        client:client,
+        commentaire:commentField?.value?.trim() || "",
+        items:collected.items.map(item => ({
+            typeControle:item.typeControle,
+            produit:item.produit,
+            variante:item.variante,
+            mg:item.mg,
+            lot:item.lot,
+            dlc:item.dlc,
+            temperature:item.temperature,
+            checks:item.checks
+        }))
+    };
+
+    setLoading(true);
 
     try{
+        showToast("⟳ Enregistrement de " + control.items.length + " ligne(s)...");
+
+        const data = await apiPost({
+            action:"saveControl",
+            control:control
+        });
 
         showToast(
-            "⟳ Enregistrement du contrôle..."
-        );
-
-
-        const data =
-            await apiPost({
-
-                action:
-                    "saveControl",
-
-                control:
-                    control
-
-            });
-
-
-        showToast(
-
             "✓ " +
-            (
-                data.control?.numero ||
-                "Contrôle"
-            ) +
-            " · Contrôle enregistré."
-
+            (data.control?.numero || "Contrôle") +
+            " · " +
+            control.items.length +
+            " ligne(s) enregistrée(s)."
         );
-
 
         resetForm();
-
-
         await loadControls();
-
     }
-
     catch(error){
-
-        console.error(
-            "validateControl:",
-            error
-        );
-
-
-        showToast(
-            "⚠ Échec de l'enregistrement : " +
-            error.message
-        );
-
+        console.error("validateControl:", error);
+        showToast("⚠ Échec de l'enregistrement : " + error.message);
     }
-
     finally{
-
-        setLoading(
-            false
-        );
-
+        setLoading(false);
     }
-
 }
 
 
@@ -6445,128 +5222,37 @@ function setLoading(
 ========================================================= */
 
 function resetForm(){
+    const client = document.getElementById("client");
+    const manualClient = document.getElementById("manualClient");
+    const manualClientWrap = document.getElementById("manualClientWrap");
+    const comment = document.getElementById("comment");
+    const container = document.getElementById("itemsContainer");
 
-    [
-        "client",
-        "lot",
-        "temperature",
-        "comment"
-    ]
-        .forEach(
-            id => {
+    if(client){
+        client.value = "";
+        client.classList.remove("field-error");
+    }
 
-                const field =
-                    document.getElementById(
-                        id
-                    );
+    if(manualClient){
+        manualClient.value = "";
+        manualClient.classList.remove("field-error");
+    }
 
+    if(manualClientWrap){
+        manualClientWrap.style.display = "none";
+    }
 
-                if(field){
+    if(comment) comment.value = "";
 
-                    field.value =
-                        "";
+    if(container) container.innerHTML = "";
+    itemSequence = 0;
+    addControlItem();
 
-                    field.classList.remove(
-                        "field-error"
-                    );
-
-                }
-
-            }
-        );
-
-
-    document
-        .querySelectorAll(
-            ".choice"
-        )
-        .forEach(
-            item =>
-                item.classList.remove(
-                    "selected"
-                )
-        );
-
-
-    document
-        .querySelectorAll(
-            ".controlCheck"
-        )
-        .forEach(
-            item =>
-                item.checked =
-                    false
-        );
-
-
-    selectedControlType =
-        "";
-
-    selectedCreamType =
-        "";
-
-    selectedMG =
-        "";
-
-    selectedMilkType =
-        "";
-
-    selectedMilkFat =
-        "";
-
-
-    document
-        .getElementById(
-            "creamOptions"
-        )
-        .style.display =
-            "none";
-
-
-    document
-        .getElementById(
-            "milkOptions"
-        )
-        .style.display =
-            "none";
-
-
-    document
-        .getElementById(
-            "creamChecks"
-        )
-        .style.display =
-            "none";
-
-
-    document
-        .getElementById(
-            "milkChecks"
-        )
-        .style.display =
-            "none";
-
-
-    document
-        .getElementById(
-            "checksPlaceholder"
-        )
-        .style.display =
-            "block";
-
-
-    document
-        .getElementById(
-            "summarySection"
-        )
-        .style.display =
-            "none";
-
+    const summary = document.getElementById("summarySection");
+    if(summary) summary.style.display = "none";
 
     updateProgress();
-
     checkTemperature();
-
 }
 
 
@@ -6575,437 +5261,91 @@ function resetForm(){
 ========================================================= */
 
 function renderHistory(){
+    const body = document.getElementById("historyBody");
+    const mobile = document.getElementById("mobileHistory");
+    const empty = document.getElementById("emptyHistory");
 
-    const body =
-        document.getElementById(
-            "historyBody"
-        );
+    if(!body || !mobile || !empty) return;
 
-
-    const mobile =
-        document.getElementById(
-            "mobileHistory"
-        );
-
-
-    const empty =
-        document.getElementById(
-            "emptyHistory"
-        );
-
-
-    if(
-        !body ||
-        !mobile ||
-        !empty
-    ){
-
-        return;
-
-    }
-
-
-    body.innerHTML =
-        "";
-
-    mobile.innerHTML =
-        "";
-
+    body.innerHTML = "";
+    mobile.innerHTML = "";
 
     if(!controls.length){
-
-        empty.style.display =
-            "block";
-
+        empty.style.display = "block";
         return;
-
     }
 
+    empty.style.display = "none";
 
-    empty.style.display =
-        "none";
+    controls.forEach(control => {
+        const items = Array.isArray(control.items) && control.items.length
+            ? control.items
+            : [control];
 
+        const detail = items.map((item, index) => `
+            <div class="history-line">
+                <strong>${index + 1}. ${escapeHTML(item.typeControle || "")}</strong>
+                · ${escapeHTML(item.typeControle === "Crème" ? (item.produit || "") : (item.variante || "Lait"))}
+                ${item.mg ? " · " + escapeHTML(item.mg) : ""}
+                ${item.lot ? " · Lot " + escapeHTML(item.lot) : ""}
+                ${item.dlc ? " · DLC " + escapeHTML(item.dlc) : ""}
+                ${item.temperature !== "" && item.temperature !== undefined ? " · " + escapeHTML(item.temperature) + " °C" : ""}
+                · <strong>${escapeHTML(item.resultat || "")}</strong>
+            </div>
+        `).join("");
 
-    controls.forEach(
-        control => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td><strong>${escapeHTML(control.numero)}</strong></td>
+            <td>${escapeHTML(control.date)} · ${escapeHTML(control.heure)}</td>
+            <td>${escapeHTML(control.profil)}</td>
+            <td>${escapeHTML(control.client)}</td>
+            <td>${items.length}</td>
+            <td><div class="history-lines">${detail}</div></td>
+            <td>
+                <span class="status ${control.resultat === "CONFORME" ? "ok" : "bad"}">
+                    ${control.resultat === "CONFORME" ? "✓ " : "⚠ "}${escapeHTML(control.resultat)}
+                </span>
+            </td>
+        `;
+        body.appendChild(row);
 
-            const row =
-                document.createElement(
-                    "tr"
-                );
-
-
-            row.innerHTML = `
-
-                <td>
-                    <strong>
-                        ${escapeHTML(
-                            control.numero
-                        )}
-                    </strong>
-                </td>
-
-                <td>
-
-                    ${escapeHTML(
-                        control.date
-                    )}
-
-                    ·
-
-                    ${escapeHTML(
-                        control.heure
-                    )}
-
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        control.profil
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        control.client
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        control.typeControle
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        control.produit
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        control.variante
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        control.mg
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        control.lot
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        control.temperature
-                    )}
-                    °C
-                </td>
-
-                <td>
-
-                    <span
-                        class="status ${
-                            control.resultat ===
-                            "CONFORME"
-                                ? "ok"
-                                : "bad"
-                        }"
-                    >
-
-                        ${
-                            control.resultat ===
-                            "CONFORME"
-                                ? "✓ "
-                                : "⚠ "
-                        }
-
-                        ${escapeHTML(
-                            control.resultat
-                        )}
-
-                    </span>
-
-                </td>
-
-            `;
-
-
-            body.appendChild(
-                row
-            );
-
-
-            const card =
-                document.createElement(
-                    "article"
-                );
-
-
-            card.className =
-                "history-card";
-
-
-            card.innerHTML = `
-
-                <div
-                    class="history-card-top"
-                >
-
-                    <div>
-
-                        <div
-                            class="history-card-number"
-                        >
-
-                            ${escapeHTML(
-                                control.numero
-                            )}
-
-                        </div>
-
-
-                        <div
-                            class="history-card-date"
-                        >
-
-                            ${escapeHTML(
-                                control.date
-                            )}
-
-                            ·
-
-                            ${escapeHTML(
-                                control.heure
-                            )}
-
-                        </div>
-
-                    </div>
-
-
-                    <span
-                        class="status ${
-                            control.resultat ===
-                            "CONFORME"
-                                ? "ok"
-                                : "bad"
-                        }"
-                    >
-
-                        ${
-                            control.resultat ===
-                            "CONFORME"
-                                ? "✓ "
-                                : "⚠ "
-                        }
-
-                        ${escapeHTML(
-                            control.resultat
-                        )}
-
-                    </span>
-
+        const card = document.createElement("article");
+        card.className = "history-card";
+        card.innerHTML = `
+            <div class="history-card-top">
+                <div>
+                    <div class="history-card-number">${escapeHTML(control.numero)}</div>
+                    <div class="history-card-date">${escapeHTML(control.date)} · ${escapeHTML(control.heure)}</div>
                 </div>
-
-
-                <div class="history-card-grid">
-
-
-                    <div class="history-item">
-
-                        <div class="history-item-label">
-                            Contrôleur
-                        </div>
-
-                        <div class="history-item-value">
-
-                            ${escapeHTML(
-                                control.profil
-                            )}
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="history-item">
-
-                        <div class="history-item-label">
-                            Client
-                        </div>
-
-                        <div class="history-item-value">
-
-                            ${escapeHTML(
-                                control.client
-                            )}
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="history-item">
-
-                        <div class="history-item-label">
-                            Type
-                        </div>
-
-                        <div class="history-item-value">
-
-                            ${escapeHTML(
-                                control.typeControle
-                            )}
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="history-item">
-
-                        <div class="history-item-label">
-                            Produit
-                        </div>
-
-                        <div class="history-item-value">
-
-                            ${escapeHTML(
-                                control.produit
-                            )}
-
-                        </div>
-
-                    </div>
-
-
-                    ${
-                        control.variante
-
-                            ? `
-
-                                <div class="history-item">
-
-                                    <div class="history-item-label">
-                                        Variante
-                                    </div>
-
-                                    <div class="history-item-value">
-
-                                        ${escapeHTML(
-                                            control.variante
-                                        )}
-
-                                    </div>
-
-                                </div>
-
-                            `
-
-                            : ""
-                    }
-
-
-                    <div class="history-item">
-
-                        <div class="history-item-label">
-                            MG
-                        </div>
-
-                        <div class="history-item-value">
-
-                            ${escapeHTML(
-                                control.mg
-                            )}
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="history-item">
-
-                        <div class="history-item-label">
-                            Lot
-                        </div>
-
-                        <div class="history-item-value">
-
-                            ${escapeHTML(
-                                control.lot
-                            )}
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="history-item">
-
-                        <div class="history-item-label">
-                            Température
-                        </div>
-
-                        <div class="history-item-value">
-
-                            ${escapeHTML(
-                                control.temperature
-                            )}
-
-                            °C
-
-                        </div>
-
-                    </div>
-
-
-                    ${
-                        control.commentaire
-
-                            ? `
-
-                                <div
-                                    class="history-item full"
-                                >
-
-                                    <div class="history-item-label">
-                                        Observation
-                                    </div>
-
-                                    <div class="history-item-value">
-
-                                        ${escapeHTML(
-                                            control.commentaire
-                                        )}
-
-                                    </div>
-
-                                </div>
-
-                            `
-
-                            : ""
-                    }
-
+                <span class="status ${control.resultat === "CONFORME" ? "ok" : "bad"}">
+                    ${control.resultat === "CONFORME" ? "✓ " : "⚠ "}${escapeHTML(control.resultat)}
+                </span>
+            </div>
+
+            <div class="history-card-grid">
+                <div class="history-item">
+                    <div class="history-item-label">Contrôleur</div>
+                    <div class="history-item-value">${escapeHTML(control.profil)}</div>
                 </div>
-
-            `;
-
-
-            mobile.appendChild(
-                card
-            );
-
-        }
-    );
-
+                <div class="history-item">
+                    <div class="history-item-label">Client</div>
+                    <div class="history-item-value">${escapeHTML(control.client)}</div>
+                </div>
+                <div class="history-item full" style="grid-column:1/-1;">
+                    <div class="history-item-label">${items.length} ligne${items.length > 1 ? "s" : ""}</div>
+                    <div class="history-lines">${detail}</div>
+                </div>
+                ${control.commentaire ? `
+                    <div class="history-item full" style="grid-column:1/-1;">
+                        <div class="history-item-label">Observation</div>
+                        <div class="history-item-value">${escapeHTML(control.commentaire)}</div>
+                    </div>
+                ` : ""}
+            </div>
+        `;
+        mobile.appendChild(card);
+    });
 }
 
 
@@ -7014,111 +5354,58 @@ function renderHistory(){
 ========================================================= */
 
 function exportExcel(){
-
     if(!controls.length){
-
-        showToast(
-            "Aucun contrôle à exporter."
-        );
-
+        showToast("Aucun contrôle à exporter.");
         return;
-
     }
 
+    const boolLabel = value => value === true ? "Conforme" : "Non conforme";
+    const rows = [];
 
-    const rows =
-        controls.map(
-            control => ({
+    controls.forEach(control => {
+        const items = Array.isArray(control.items) && control.items.length
+            ? control.items
+            : [control];
 
-                "N° contrôle":
-                    control.numero,
+        items.forEach((item, index) => {
+            rows.push({
+                "N° contrôle":control.numero,
+                "Ligne":item.ligne || (index + 1),
+                "Date":control.date,
+                "Heure":control.heure,
+                "Contrôleur":control.profil,
+                "Client":control.client,
+                "Type de contrôle":item.typeControle || "",
+                "Produit":item.produit || "",
+                "Variante":item.variante || "",
+                "MG":item.mg || "",
+                "Lot":item.lot || "",
+                "DLC":item.dlc || "",
+                "Température °C":item.temperature ?? "",
+                "Étiquetage":item.typeControle === "Crème" ? boolLabel(item.checks?.etiquetage) : "",
+                "DLC conforme":item.typeControle === "Lait" ? boolLabel(item.checks?.dlcConforme) : "",
+                "Conditionnement":item.typeControle === "Crème" ? boolLabel(item.checks?.conditionnement) : "",
+                "Emballage":item.typeControle === "Crème" ? boolLabel(item.checks?.emballage) : "",
+                "Quantité":item.typeControle === "Crème" ? boolLabel(item.checks?.quantite) : "",
+                "Aspect":item.typeControle === "Crème" ? boolLabel(item.checks?.aspect) : "",
+                "Étiquette":item.typeControle === "Lait" ? boolLabel(item.checks?.etiquette) : "",
+                "Température conforme":boolLabel(item.checks?.temperatureConforme),
+                "Scellé":item.typeControle === "Lait" ? boolLabel(item.checks?.scelle) : "",
+                "Type de lait":item.typeControle === "Lait" ? boolLabel(item.checks?.typeLait) : "",
+                "Résultat ligne":item.resultat || "",
+                "Résultat contrôle":control.resultat || "",
+                "Observations":control.commentaire || ""
+            });
+        });
+    });
 
-                "Date":
-                    control.date,
+    const worksheet = XLSX.utils.json_to_sheet(rows);
+    worksheet["!cols"] = Array(26).fill({wch:18});
 
-                "Heure":
-                    control.heure,
-
-                "Contrôleur":
-                    control.profil,
-
-                "Client":
-                    control.client,
-
-                "Type de contrôle":
-                    control.typeControle,
-
-                "Produit":
-                    control.produit,
-
-                "Variante":
-                    control.variante,
-
-                "MG":
-                    control.mg,
-
-                "Lot":
-                    control.lot,
-
-                "Température °C":
-                    control.temperature,
-
-                "Résultat":
-                    control.resultat,
-
-                "Observations":
-                    control.commentaire
-
-            })
-        );
-
-
-    const worksheet =
-        XLSX.utils.json_to_sheet(
-            rows
-        );
-
-
-    worksheet["!cols"] = [
-
-        {wch:15},
-        {wch:13},
-        {wch:10},
-        {wch:25},
-        {wch:25},
-        {wch:20},
-        {wch:25},
-        {wch:25},
-        {wch:14},
-        {wch:14},
-        {wch:18},
-        {wch:18},
-        {wch:45}
-
-    ];
-
-
-    const workbook =
-        XLSX.utils.book_new();
-
-
-    XLSX.utils.book_append_sheet(
-        workbook,
-        worksheet,
-        "Contrôles"
-    );
-
-
-    XLSX.writeFile(
-        workbook,
-        "LDK_Controle_Expedition.xlsx"
-    );
-
-
-    showToast(
-        "✓ Export Excel généré."
-    );
-
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Contrôles");
+    XLSX.writeFile(workbook, "LDK_Controle_Expedition.xlsx");
+    showToast("✓ Export Excel généré.");
 }
 
 
@@ -7323,6 +5610,7 @@ if(savedProfile){
    INITIALISATION
 ========================================================= */
 
+addControlItem();
 initializeLDK();
 
 </script>

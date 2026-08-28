@@ -4720,7 +4720,7 @@ function renderItemFields(item, prefill = null){
 
             <div class="quality-title">Check-ups</div>
             <div class="quality-grid">
-                ${qualityCheck("etiquetage", "Étiquetage")}
+                ${qualityCheck("etiquette", "Étiquette")}
                 ${qualityCheck("conditionnement", "Conditionnement")}
                 ${qualityCheck("emballage", "Emballage")}
                 ${qualityCheck("quantite", "Quantité")}
@@ -4751,6 +4751,17 @@ function renderItemFields(item, prefill = null){
                     </select>
                 </div>
 
+                <div class="item-field">
+                    <label>N° de cuve</label>
+                    <input
+                        class="item-tank-number"
+                        type="text"
+                        autocomplete="off"
+                        placeholder="Ex. 12, C-07..."
+                        oninput="updateProgress()"
+                    >
+                </div>
+
                 ${commonTail}
             </div>
 
@@ -4773,6 +4784,7 @@ function renderItemFields(item, prefill = null){
         setValue(".item-product", prefill.produit);
         setValue(".item-milk-type", prefill.variante);
         setValue(".item-detail-type", prefill.type);
+        setValue(".item-tank-number", prefill.numeroCuve);
         setValue(".item-dlc", prefill.dlc);
         setValue(".item-temperature", prefill.temperature);
 
@@ -4814,6 +4826,7 @@ function requiredSelectorsForItem(type){
         return [
             ".item-milk-type",
             ".item-detail-type",
+            ".item-tank-number",
             ".item-dlc",
             ".item-temperature"
         ];
@@ -4867,6 +4880,7 @@ function collectItems(validate = false){
             produit:type === "Crème" ? (element.querySelector(".item-product")?.value || "") : "Lait",
             variante:type === "Lait" ? (element.querySelector(".item-milk-type")?.value || "") : "",
             type:element.querySelector(".item-detail-type")?.value || "",
+            numeroCuve:type === "Lait" ? (element.querySelector(".item-tank-number")?.value?.trim() || "") : "",
             dlc:element.querySelector(".item-dlc")?.value || "",
             temperature:temperature,
             checks:checks,
@@ -5000,7 +5014,8 @@ function updateSummary(percentage){
                     <strong>Ligne ${index + 1} · ${escapeHTML(item.typeControle)}</strong><br>
                     ${escapeHTML(item.typeControle === "Crème" ? item.produit : item.variante || "Lait")}
                     ${item.type ? " · " + escapeHTML(item.type) : ""}
-                                        ${Number.isFinite(item.temperature) ? " · " + escapeHTML(item.temperature) + " °C" : ""}
+                    ${item.typeControle === "Lait" && item.numeroCuve ? " · Cuve " + escapeHTML(item.numeroCuve) : ""}
+                    ${Number.isFinite(item.temperature) ? " · " + escapeHTML(item.temperature) + " °C" : ""}
                 </div>
             `).join("")}
         </div>
@@ -5554,6 +5569,7 @@ async function validateControl(){
             produit:item.produit,
             variante:item.variante,
             type:item.type,
+            numeroCuve:item.numeroCuve,
             dlc:item.dlc,
             temperature:item.temperature,
             checks:item.checks
@@ -5701,7 +5717,8 @@ function renderHistory(){
                 <strong>${index + 1}. ${escapeHTML(item.typeControle || "")}</strong>
                 · ${escapeHTML(item.typeControle === "Crème" ? (item.produit || "") : (item.variante || "Lait"))}
                 ${item.type ? " · " + escapeHTML(item.type) : ""}
-                                ${item.dlc ? " · DLC " + escapeHTML(item.dlc) : ""}
+                ${item.typeControle === "Lait" && item.numeroCuve ? " · Cuve " + escapeHTML(item.numeroCuve) : ""}
+                ${item.dlc ? " · DLC " + escapeHTML(item.dlc) : ""}
                 ${item.temperature !== "" && item.temperature !== undefined ? " · " + escapeHTML(item.temperature) + " °C" : ""}
                 · <strong>${escapeHTML(item.resultat || "")}</strong>
             </div>
@@ -5795,15 +5812,15 @@ function exportExcel(){
                 "Produit":item.produit || "",
                 "Variante":item.variante || "",
                 "Type":item.type || "",
+                "N° de cuve":item.numeroCuve || "",
                 "DLC":item.dlc || "",
                 "Température °C":item.temperature ?? "",
-                "Étiquetage":checkLabel(item.checks?.etiquetage),
+                "Étiquette":checkLabel(item.checks?.etiquette),
                 "DLC conforme":checkLabel(item.checks?.dlcConforme),
                 "Conditionnement":checkLabel(item.checks?.conditionnement),
                 "Emballage":checkLabel(item.checks?.emballage),
                 "Quantité":checkLabel(item.checks?.quantite),
                 "Aspect":checkLabel(item.checks?.aspect),
-                "Étiquette":checkLabel(item.checks?.etiquette),
                 "Température conforme":checkLabel(item.checks?.temperatureConforme),
                 "Scellé":checkLabel(item.checks?.scelle),
                 "Type de lait":checkLabel(item.checks?.typeLait),

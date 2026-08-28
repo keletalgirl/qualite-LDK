@@ -4780,11 +4780,17 @@ function renderItemFields(item, prefill = null){
             const hidden = item.querySelector(`.item-check[data-check="${key}"]`);
             if(!hidden) return;
 
-            hidden.value = value ? "true" : "false";
+            // null = Non concerné : aucune sélection à afficher.
+            if(value === null || value === undefined || value === "") {
+                hidden.value = "";
+                return;
+            }
+
+            hidden.value = value === true ? "true" : "false";
 
             const field = hidden.closest(".quality-field");
             const button = field?.querySelector(
-                `.quality-choice[data-value="${value ? "true" : "false"}"]`
+                `.quality-choice[data-value="${value === true ? "true" : "false"}"]`
             );
 
             button?.classList.add("selected");
@@ -5766,7 +5772,10 @@ function exportExcel(){
         return;
     }
 
-    const boolLabel = value => value === true ? "Conforme" : "Non conforme";
+    const checkLabel = value => {
+        if(value === null || value === undefined || value === "") return "Non concerné";
+        return value === true ? "Conforme" : "Non conforme";
+    };
     const rows = [];
 
     controls.forEach(control => {
@@ -5788,16 +5797,16 @@ function exportExcel(){
                 "Type":item.type || "",
                 "DLC":item.dlc || "",
                 "Température °C":item.temperature ?? "",
-                "Étiquetage":item.typeControle === "Crème" ? boolLabel(item.checks?.etiquetage) : "",
-                "DLC conforme":item.typeControle === "Lait" ? boolLabel(item.checks?.dlcConforme) : "",
-                "Conditionnement":item.typeControle === "Crème" ? boolLabel(item.checks?.conditionnement) : "",
-                "Emballage":item.typeControle === "Crème" ? boolLabel(item.checks?.emballage) : "",
-                "Quantité":item.typeControle === "Crème" ? boolLabel(item.checks?.quantite) : "",
-                "Aspect":item.typeControle === "Crème" ? boolLabel(item.checks?.aspect) : "",
-                "Étiquette":item.typeControle === "Lait" ? boolLabel(item.checks?.etiquette) : "",
-                "Température conforme":boolLabel(item.checks?.temperatureConforme),
-                "Scellé":item.typeControle === "Lait" ? boolLabel(item.checks?.scelle) : "",
-                "Type de lait":item.typeControle === "Lait" ? boolLabel(item.checks?.typeLait) : "",
+                "Étiquetage":checkLabel(item.checks?.etiquetage),
+                "DLC conforme":checkLabel(item.checks?.dlcConforme),
+                "Conditionnement":checkLabel(item.checks?.conditionnement),
+                "Emballage":checkLabel(item.checks?.emballage),
+                "Quantité":checkLabel(item.checks?.quantite),
+                "Aspect":checkLabel(item.checks?.aspect),
+                "Étiquette":checkLabel(item.checks?.etiquette),
+                "Température conforme":checkLabel(item.checks?.temperatureConforme),
+                "Scellé":checkLabel(item.checks?.scelle),
+                "Type de lait":checkLabel(item.checks?.typeLait),
                 "Résultat ligne":item.resultat || "",
                 "Résultat contrôle":control.resultat || "",
                 "Observations":control.commentaire || ""

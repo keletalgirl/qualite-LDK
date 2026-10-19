@@ -17,7 +17,6 @@
 
 <title>LDK — Contrôle Expédition</title>
 
-<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
 <style>
 
@@ -136,8 +135,8 @@ button{
         );
 
     transition:
-        opacity .7s ease,
-        visibility .7s ease;
+        opacity .22s ease,
+        visibility .22s ease;
 }
 
 #intro.hide{
@@ -152,7 +151,7 @@ button{
 
     text-align:center;
 
-    animation:introIn .8s ease both;
+    animation:introIn .35s ease both;
 }
 
 @keyframes introIn{
@@ -357,7 +356,7 @@ button{
 
     pointer-events:none;
 
-    transition:.7s ease;
+    transition:.25s ease;
 
     overflow:hidden;
 }
@@ -773,7 +772,7 @@ button{
 
     display:block;
 
-    animation:appIn .6s ease both;
+    animation:appIn .28s ease both;
 }
 
 @keyframes appIn{
@@ -4282,6 +4281,10 @@ let currentProfile = "";
 
 let profiles = [];
 
+let profilesLoaded = false;
+
+let profileLoadError = false;
+
 let controls = [];
 
 let appConfig = {
@@ -4449,6 +4452,15 @@ async function loadAppData(){
         )
             ? data.profiles
             : [];
+
+    profilesLoaded = true;
+    profileLoadError = false;
+    try{
+        localStorage.setItem("LDK_PROFILES_CACHE", JSON.stringify(profiles));
+    }
+    catch(cacheError){
+        console.warn("Impossible de mémoriser les profils :", cacheError);
+    }
 
 
     controls =
@@ -5029,158 +5041,71 @@ function updateSummary(percentage){
 
 async function initializeLDK(){
 
-    const progress =
-        document.getElementById(
-            "introProgress"
-        );
+    const progress = document.getElementById("introProgress");
+    const statusText = document.getElementById("introStatusText");
+    const intro = document.getElementById("intro");
+    const portal = document.getElementById("portal");
 
-
-    const statusText =
-        document.getElementById(
-            "introStatusText"
-        );
-
-
-    let value =
-        0;
-
-
-    const timer =
-        setInterval(
-            () => {
-
-                if(value < 70){
-
-                    value +=
-                        Math.random() * 8 + 3;
-
-                }
-                else if(value < 90){
-
-                    value +=
-                        Math.random() * 3 + 1;
-
-                }
-
-
-                value =
-                    Math.min(
-                        value,
-                        94
-                    );
-
-
-                if(progress){
-
-                    progress.style.width =
-                        value + "%";
-
-                }
-
-            },
-            160
-        );
-
+    profilesLoaded = false;
+    profileLoadError = false;
 
     try{
-
-        if(statusText){
-
-            statusText.textContent =
-                "Connexion à la base qualité · Sécurisation...";
-
+        const cachedProfiles = localStorage.getItem("LDK_PROFILES_CACHE");
+        if(cachedProfiles){
+            const parsedProfiles = JSON.parse(cachedProfiles);
+            if(Array.isArray(parsedProfiles)){
+                profiles = parsedProfiles;
+                profilesLoaded = profiles.length > 0;
+            }
         }
+    }
+    catch(cacheError){
+        console.warn("Cache des profils ignoré :", cacheError);
+    }
 
+    renderProfiles();
 
+    if(statusText){
+        statusText.textContent = "Connexion à la base qualité...";
+    }
+    if(progress){
+        progress.style.width = "30%";
+    }
+
+    // N'attend plus la réponse de Google Sheets pour afficher le portail.
+    window.setTimeout(() => {
+        intro?.classList.add("hide");
+        portal?.classList.add("show");
+    }, 100);
+
+    try{
         await loadAppData();
-
+        profilesLoaded = true;
+        profileLoadError = false;
+        renderProfiles();
 
         if(statusText){
-
-            statusText.textContent =
-                "Base qualité synchronisée · Accès sécurisé";
-
+            statusText.textContent = "Base qualité synchronisée · Accès sécurisé";
         }
-
-
-        clearInterval(timer);
-
-
         if(progress){
-
-            progress.style.width =
-                "100%";
-
+            progress.style.width = "100%";
         }
-
     }
-
     catch(error){
-
-        clearInterval(timer);
-
-
-        console.error(
-            "LDK initialization:",
-            error
-        );
-
-
-        if(progress){
-
-            progress.style.width =
-                "100%";
-
-        }
-
+        console.error("LDK initialization:", error);
+        profilesLoaded = true;
+        profileLoadError = true;
+        renderProfiles();
 
         if(statusText){
-
-            statusText.textContent =
-                "Portail qualité · Accès sécurisé";
-
+            statusText.textContent = "Connexion indisponible · Réessayez dans un instant";
         }
-
+        if(progress){
+            progress.style.width = "100%";
+        }
+        showToast("⚠ Impossible de charger les données. Vérifiez la connexion puis actualisez la page.");
     }
-
-
-    setTimeout(
-        () => {
-
-            const intro =
-                document.getElementById(
-                    "intro"
-                );
-
-
-            const portal =
-                document.getElementById(
-                    "portal"
-                );
-
-
-            intro?.classList.add(
-                "hide"
-            );
-
-
-            setTimeout(
-                () => {
-
-                    portal?.classList.add(
-                        "show"
-                    );
-
-                },
-                300
-            );
-
-        },
-        400
-    );
-
 }
-
 
 /* =========================================================
    PROFILS
@@ -5207,6 +5132,12 @@ function renderProfiles(){
 
     if(!profiles.length){
 
+        const message = !profilesLoaded
+            ? "Chargement des profils..."
+            : profileLoadError
+                ? "Impossible de charger les profils. Vérifiez la connexion puis actualisez la page."
+                : "Aucun profil actif.";
+
         container.innerHTML = `
 
             <div
@@ -5220,9 +5151,11 @@ function renderProfiles(){
                     color:var(--grey);
                     font-weight:800;
                 "
+                role="status"
+                aria-live="polite"
             >
 
-                Aucun profil actif.
+                ${escapeHTML(message)}
 
             </div>
 
@@ -5412,10 +5345,11 @@ function selectProfile(
             });
 
 
-            await loadControls();
+            // L'historique est chargé dès l'ouverture de la page en arrière-plan.
+            // Évite un second appel réseau au moment de sélectionner le profil.
 
         },
-        450
+        220
     );
 
 }
@@ -5783,62 +5717,92 @@ function renderHistory(){
    EXPORT
 ========================================================= */
 
-function exportExcel(){
+async function ensureXlsxLoaded(){
+    if(window.XLSX) return;
+
+    if(!window.__ldkXlsxPromise){
+        window.__ldkXlsxPromise = new Promise((resolve, reject) => {
+            const script = document.createElement("script");
+            script.src = "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js";
+            script.async = true;
+            script.onload = resolve;
+            script.onerror = () => {
+                window.__ldkXlsxPromise = null;
+                reject(new Error("La bibliothèque Excel n'a pas pu être chargée."));
+            };
+            document.head.appendChild(script);
+        });
+    }
+
+    await window.__ldkXlsxPromise;
+}
+
+async function exportExcel(){
     if(!controls.length){
         showToast("Aucun contrôle à exporter.");
         return;
     }
 
-    const checkLabel = value => {
-        if(value === null || value === undefined || value === "") return "Non concerné";
-        return value === true ? "Conforme" : "Non conforme";
-    };
-    const rows = [];
+    try{
+        if(!window.XLSX){
+            showToast("Chargement du module Excel...");
+            await ensureXlsxLoaded();
+        }
 
-    controls.forEach(control => {
-        const items = Array.isArray(control.items) && control.items.length
-            ? control.items
-            : [control];
+        const checkLabel = value => {
+            if(value === null || value === undefined || value === "") return "Non concerné";
+            return value === true ? "Conforme" : "Non conforme";
+        };
+        const rows = [];
 
-        items.forEach((item, index) => {
-            rows.push({
-                "N° contrôle":control.numero,
-                "Ligne":item.ligne || (index + 1),
-                "Date":control.date,
-                "Heure":control.heure,
-                "Contrôleur":control.profil,
-                "Client":control.client,
-                "Type de contrôle":item.typeControle || "",
-                "Produit":item.produit || "",
-                "Variante":item.variante || "",
-                "Type":item.type || "",
-                "N° de cuve":item.numeroCuve || "",
-                "DLC":item.dlc || "",
-                "Température °C":item.temperature ?? "",
-                "Étiquette":checkLabel(item.checks?.etiquette),
-                "DLC conforme":checkLabel(item.checks?.dlcConforme),
-                "Conditionnement":checkLabel(item.checks?.conditionnement),
-                "Emballage":checkLabel(item.checks?.emballage),
-                "Quantité":checkLabel(item.checks?.quantite),
-                "Aspect":checkLabel(item.checks?.aspect),
-                "Scellé":checkLabel(item.checks?.scelle),
-                "Type de lait":checkLabel(item.checks?.typeLait),
-                "Résultat ligne":item.resultat || "",
-                "Résultat contrôle":control.resultat || "",
-                "Observations":control.commentaire || ""
+        controls.forEach(control => {
+            const items = Array.isArray(control.items) && control.items.length
+                ? control.items
+                : [control];
+
+            items.forEach((item, index) => {
+                rows.push({
+                    "N° contrôle":control.numero,
+                    "Ligne":item.ligne || (index + 1),
+                    "Date":control.date,
+                    "Heure":control.heure,
+                    "Contrôleur":control.profil,
+                    "Client":control.client,
+                    "Type de contrôle":item.typeControle || "",
+                    "Produit":item.produit || "",
+                    "Variante":item.variante || "",
+                    "Type":item.type || "",
+                    "N° de cuve":item.numeroCuve || "",
+                    "DLC":item.dlc || "",
+                    "Température °C":item.temperature ?? "",
+                    "Étiquette":checkLabel(item.checks?.etiquette),
+                    "DLC conforme":checkLabel(item.checks?.dlcConforme),
+                    "Conditionnement":checkLabel(item.checks?.conditionnement),
+                    "Emballage":checkLabel(item.checks?.emballage),
+                    "Quantité":checkLabel(item.checks?.quantite),
+                    "Aspect":checkLabel(item.checks?.aspect),
+                    "Scellé":checkLabel(item.checks?.scelle),
+                    "Type de lait":checkLabel(item.checks?.typeLait),
+                    "Résultat ligne":item.resultat || "",
+                    "Résultat contrôle":control.resultat || "",
+                    "Observations":control.commentaire || ""
+                });
             });
         });
-    });
 
-    const worksheet = XLSX.utils.json_to_sheet(rows);
-    worksheet["!cols"] = Array(Object.keys(rows[0] || {}).length).fill({wch:18});
+        const worksheet = XLSX.utils.json_to_sheet(rows);
+        worksheet["!cols"] = Array(Object.keys(rows[0] || {}).length).fill({wch:18});
 
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Contrôles");
-    XLSX.writeFile(workbook, "LDK_Controle_Expedition.xlsx");
-    showToast("✓ Export Excel généré.");
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Contrôles");
+        XLSX.writeFile(workbook, "LDK_Controle_Expedition.xlsx");
+        showToast("✓ Export Excel généré.");
+    }
+    catch(error){
+        console.error("Export Excel:", error);
+        showToast("⚠ Export impossible : vérifiez votre connexion puis réessayez.");
+    }
 }
-
 
 /* =========================================================
    TOAST

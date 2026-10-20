@@ -4695,7 +4695,7 @@ function renderItemFields(item, prefill = null){
 
         <div class="item-field">
             <label>Température °C</label>
-            <input class="item-temperature" type="number" inputmode="decimal" step="0.1" placeholder="0.0" oninput="checkTemperature(this); updateProgress();">
+            <input class="item-temperature" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" placeholder="Ex. 4,5" aria-label="Température en degrés Celsius" oninput="checkTemperature(this); updateProgress();">
         </div>
 
         <div class="item-field full">
@@ -5072,11 +5072,12 @@ async function initializeLDK(){
         progress.style.width = "30%";
     }
 
-    // N'attend plus la réponse de Google Sheets pour afficher le portail.
+    // Laisse l'écran d'accueil visible 3 secondes, pendant que les profils
+    // se chargent en arrière-plan, puis affiche directement le portail.
     window.setTimeout(() => {
         intro?.classList.add("hide");
         portal?.classList.add("show");
-    }, 100);
+    }, 3000);
 
     try{
         await loadAppData();
@@ -5132,11 +5133,9 @@ function renderProfiles(){
 
     if(!profiles.length){
 
-        const message = !profilesLoaded
-            ? "Chargement des profils..."
-            : profileLoadError
-                ? "Impossible de charger les profils. Vérifiez la connexion puis actualisez la page."
-                : "Aucun profil actif.";
+        const message = profileLoadError
+            ? "Impossible de charger les profils. Vérifiez la connexion puis actualisez la page."
+            : "Aucun profil actif.";
 
         container.innerHTML = `
 
